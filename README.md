@@ -1,4 +1,4 @@
-# team_MovieProject
+# 방구석 토론장
 
 ## 🖥️ 프로젝트 소개
 
