@@ -5,10 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { logout, signupSuccess } from "../redux/modules/signup";
+import { FaHome } from "react-icons/fa";
+import { useParams } from "react-router-dom";
 
 const Layout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { id } = useParams();
 
   // 회원가입 정보 가져오기
   const isSignupSuccess = useSelector((state) => state.signup.isSignupSuccess);
@@ -55,7 +58,12 @@ const Layout = () => {
         <S.HeaderButtonBox>
           {isSignupSuccess ? (
             <S.CenteredContainer>
-              <S.displayName>{displayName}</S.displayName>
+              <S.Nickname>
+                <S.displayName onClick={() => navigate(`/mypage/${id}`)}>
+                  <FaHome />
+                  {displayName}
+                </S.displayName>
+              </S.Nickname>
               <S.LogoutButton onClick={handleLogout}>로그아웃</S.LogoutButton>
             </S.CenteredContainer>
           ) : (

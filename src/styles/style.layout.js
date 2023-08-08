@@ -64,22 +64,32 @@ export const CenteredContainer = styled.div`
 `;
 
 // 닉네임
-export const displayName = styled.div`
+export const displayName = styled.button`
   font-weight: bolder;
-  font-size: larger;
+  font-size: xx-large;
   margin-bottom: 20px;
   margin-right: 40px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 `;
 
 // 로그인 되었을 때 나오는 로그아웃 버튼
 export const LogoutButton = styled.button`
   border: none;
-  margin-right: 30px;
+  margin-right: -34px;
   padding: 10px;
   border-radius: 6px;
-  background-color: #fccae7;
+  background-color: #eeeeee;
   color: black;
   cursor: pointer;
   // #fccae7
   // #cafcf7
+`;
+
+export const Nickname = styled.div`
+  display: flex;
+  text-align: row;
+  justify-content: space-between;
+  margin-left: 50px;
 `;
