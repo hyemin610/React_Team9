@@ -4,7 +4,7 @@ import { nanoid } from "@reduxjs/toolkit";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { validateInputAndAlert } from "../redux/validationUtils";
+import { validateInputAndAlert } from "../redux/modules/validationUtils";
 import * as S from "../styles/style.create";
 
 function Create() {

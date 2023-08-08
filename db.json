@@ -7,7 +7,6 @@
       "choice2": "미친 거 아니야?",
       "content": "깻잎논쟁 내용입니다."
     },
-
     {
       "id": 2,
       "title": "깻잎논쟁에 대하여",
@@ -21,6 +20,13 @@
       "choice1": "뭐 어때 오케이",
       "choice2": "미친 거 아니야?",
       "content": "깻잎논쟁 내용입니다."
+    },
+    {
+      "id": "QKYTJut2Br20PsjICyysf",
+      "title": "아",
+      "choice1": "겨울",
+      "choice2": "여름",
+      "content": "ㅁㅁㅁㅁㄴㅇㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ"
     }
   ],
   "comments": [
