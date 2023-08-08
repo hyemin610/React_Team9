@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import axios from "axios";
-import { validateInputAndAlert } from "../redux/validationUtils";
+import { validateInputAndAlert } from "../redux/modules/validationUtils";
 import * as S from "../styles/style.edit";
 
 function Edit() {
@@ -67,15 +67,31 @@ function Edit() {
     <S.FormContainer onSubmit={handleEditSubmit}>
       <h1 style={{ fontSize: "24px", marginBottom: "20px" }}>토론 만들기</h1>
 
-      <S.TitleInput name="title" defaultValue={balance.title} placeholder="제목을 입력하세요" />
+      <S.TitleInput
+        name="title"
+        defaultValue={balance.title}
+        placeholder="제목을 입력하세요"
+      />
 
       <S.ChoiceContainer>
-        <S.ChoiceInput name="choice1" defaultValue={balance.choice1} placeholder="겨울" />
+        <S.ChoiceInput
+          name="choice1"
+          defaultValue={balance.choice1}
+          placeholder="겨울"
+        />
         <S.BoldSpan>vs</S.BoldSpan>
-        <S.ChoiceInput name="choice2" defaultValue={balance.choice2} placeholder="여름" />
+        <S.ChoiceInput
+          name="choice2"
+          defaultValue={balance.choice2}
+          placeholder="여름"
+        />
       </S.ChoiceContainer>
 
-      <S.ContentTextarea name="content" defaultValue={balance.content} placeholder="내용을 입력하세요" />
+      <S.ContentTextarea
+        name="content"
+        defaultValue={balance.content}
+        placeholder="내용을 입력하세요"
+      />
 
       <S.ButtonContainer>
         <S.EditButton type="submit">수정하기</S.EditButton>
