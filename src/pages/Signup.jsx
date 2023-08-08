@@ -68,7 +68,7 @@ function Signup() {
         displayName: signupDatas.nickname,
       });
 
-      // 회원가입 성공 시 사용자 이메일을 redux 상태에 저장
+      // 회원가입 성공 시 사용자 닉네임을 redux 상태에 저장
       dispatch(signupSuccess(signupDatas.nickname));
 
       alert("회원가입에 성공했습니다.");
