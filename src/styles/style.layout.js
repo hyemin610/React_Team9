@@ -59,18 +59,22 @@ export const Footer = styled.footer`
   color: black;
 `;
 
+export const CenteredContainer = styled.div`
+  text-align: center;
+`;
+
 // 닉네임
 export const displayName = styled.div`
   font-weight: bolder;
   font-size: larger;
   margin-bottom: 20px;
-  margin-right: 30px;
+  margin-right: 40px;
 `;
 
 // 로그인 되었을 때 나오는 로그아웃 버튼
 export const LogoutButton = styled.button`
   border: none;
-  margin-left: 35px;
+  margin-right: 30px;
   padding: 10px;
   border-radius: 6px;
   background-color: #fccae7;
