@@ -23,7 +23,7 @@ function Home() {
   return (
     <>
       <BestBalanceTitle>
-        <BestBalanceTitleSpan Color="F47070">HOT</BestBalanceTitleSpan>
+        <BestBalanceTitleSpan color="F47070">HOT</BestBalanceTitleSpan>
         <BestBalanceTitleSpan>게시글</BestBalanceTitleSpan>
       </BestBalanceTitle>
       <WriteButtonBox>
@@ -83,7 +83,7 @@ const BestBalanceTitle = styled.h2`
 `;
 
 const BestBalanceTitleSpan = styled.span`
-  color: ${(props) => (props.Color === "F47070" ? "#ff0000" : "#7095F4")};
+  color: ${(props) => (props.color === "F47070" ? "#ff0000" : "#7095F4")};
   margin-right: 5px;
 `;
 
