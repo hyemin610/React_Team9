@@ -10,8 +10,6 @@ function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // const userNickname = useSelector((state) => state.signup.userNickname);
-
   // 회원가입 정보
   const [signupDatas, setSignupDatas] = useState({
     email: "",
@@ -57,10 +55,6 @@ function Signup() {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
-    // if (signupDatas.nickname === userNickname) {
-    //   alert("이미 사용 중인 닉네임입니다. 다른 닉네임을 입력해주세요.");
-    //   return;
-    // }
 
     try {
       const userCredential = await createUserWithEmailAndPassword(
