@@ -50,6 +50,11 @@ function Edit() {
     updateMutation.mutate(updatedBalance);
   };
 
+  const handleCancel = () => {
+    window.alert("취소되었습니다.");
+    navigate(`/detail/${id}`);
+  };
+
   if (!balance) {
     return (
       <Fragment>
@@ -74,7 +79,7 @@ function Edit() {
 
       <S.ButtonContainer>
         <S.EditButton type="submit">수정하기</S.EditButton>
-        <S.CancelButton type="submit">취소하기</S.CancelButton>
+        <S.CancelButton onClick={handleCancel}>취소하기</S.CancelButton>
       </S.ButtonContainer>
     </S.FormContainer>
   );
