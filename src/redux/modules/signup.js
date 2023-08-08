@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isSignupSuccess: false,
   userEmail: "",
+  displayName: "",
 };
 
 const signup = createSlice({
@@ -12,6 +13,7 @@ const signup = createSlice({
     signupSuccess: (state, action) => {
       state.isSignupSuccess = true;
       state.userEmail = action.payload;
+      state.displayName = action.payload;
     },
     logout: (state) => {
       state.isSignupSuccess = false;

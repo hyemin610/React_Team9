@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as S from "../styles/style.signup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase";
 import { signupSuccess } from "../redux/modules/signup";
 
@@ -72,8 +72,12 @@ function Signup() {
       );
       console.log("user", userCredential.user);
 
+      await updateProfile(userCredential.user, {
+        displayName: signupDatas.nickname,
+      });
+
       // 회원가입 성공 시 사용자 이메일을 redux 상태에 저장
-      dispatch(signupSuccess(signupDatas.email));
+      dispatch(signupSuccess(signupDatas.nickname));
 
       alert("회원가입에 성공했습니다.");
       navigate("/");
