@@ -31,12 +31,12 @@ function Home() {
   return (
     <>
       <BestBalanceTitle>
-        <BestBalanceTitleSpan Color="F47070">HOT</BestBalanceTitleSpan>
+        <BestBalanceTitleSpan color="F47070">HOT</BestBalanceTitleSpan>
         <BestBalanceTitleSpan>게시글</BestBalanceTitleSpan>
       </BestBalanceTitle>
       <WriteButtonBox>
-        <ButtonStyles onClick={handleWriteClick} textColor="7095F4">
-          작성하기
+        <ButtonStyles onClick={handleWriteClick} textcolor="7095F4">
+          작성
         </ButtonStyles>
       </WriteButtonBox>
       <div>
