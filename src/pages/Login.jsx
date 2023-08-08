@@ -86,13 +86,6 @@ function Login() {
                 onChange={handleChange}
               />
             </S.Space>
-            {/* <S.Space>
-              <S.Nickname
-                placeholder="닉네임"
-                name="nickname"
-                // onChange={handleChange}
-              />
-            </S.Space> */}
             <S.Space>
               <S.Password
                 placeholder="비밀번호"
@@ -101,14 +94,6 @@ function Login() {
                 onChange={handleChange}
               />
             </S.Space>
-            {/* <S.Space>
-              <S.PassWordConfirm
-                placeholder="비밀번호 확인"
-                name="passwordConfirm"
-                type="password"
-                // onChange={handleChange}
-              />
-            </S.Space> */}
             <S.Space>
               <S.LoginButton onClick={handleLogin}>로그인</S.LoginButton>
             </S.Space>
