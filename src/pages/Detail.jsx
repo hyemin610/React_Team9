@@ -12,6 +12,7 @@ function Detail() {
     async () => {
       const response = await axios.get(`http://localhost:4000/balances/${id}`);
       return response.data;
+      console.log("balance");
     }
   );
 
@@ -22,7 +23,7 @@ function Detail() {
     {
       onSuccess: () => {
         queryClient.invalidateQueries("balances");
-        navigate("/balances"); // Redirect after successful deletion
+        navigate("/");
       },
     }
   );
@@ -40,12 +41,17 @@ function Detail() {
   }
 
   const handleEditClick = () => {
-    // Define the logic for edit button click
-    // For example, navigate to the edit page with the current data
+    // if (post.author !== userEmail) {
+    //   alert("게시글 작성자만 수정 가능합니다.");
+    //   return;
+    // }
+    navigate(`/edit/${data.id}`);
   };
 
   const handleDeleteClick = () => {
-    deleteBalance.mutate(data); // Trigger the delete mutation
+    if (window.confirm("삭제하시겠습니까?")) {
+      deleteBalance.mutate(data);
+    }
   };
 
   return (
@@ -53,7 +59,18 @@ function Detail() {
       <detailHeader style={{ display: "flex" }}>
         <p>{data?.id}님의 논쟁입니다.</p>
         <button onClick={handleEditClick}>수정</button>
-        <button onClick={handleDeleteClick}>삭제</button>
+        <button
+          onClick={handleDeleteClick}
+          // onClick={() => {
+          //   // if (post.author !== userEmail) {
+          //   //   alert("게시글 작성자만 수정 가능합니다.");
+          //   //   return;
+          //   // }
+          //   handleDeleteClick;
+          // }}
+        >
+          삭제
+        </button>
       </detailHeader>
       <div
         style={{
@@ -61,10 +78,12 @@ function Detail() {
         }}
       >
         <div>{data?.title}</div>
+        <div>상황:{data?.content}</div>
         <button>{data?.choice1}</button>
         <div>VS</div>
         <button>{data?.choice2}</button>
       </div>
+      <button>다음 논쟁</button>
     </>
   );
 }
