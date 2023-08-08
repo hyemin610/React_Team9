@@ -54,10 +54,10 @@ const Layout = () => {
         {/* 로그인 및 회원가입 버튼 */}
         <S.HeaderButtonBox>
           {isSignupSuccess ? (
-            <div>
+            <S.CenteredContainer>
               <S.displayName>{displayName}</S.displayName>
               <S.LogoutButton onClick={handleLogout}>로그아웃</S.LogoutButton>
-            </div>
+            </S.CenteredContainer>
           ) : (
             <div>
               <S.ButtonStyles onClick={goLogin} textColor="7095F4">

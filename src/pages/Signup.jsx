@@ -10,8 +10,6 @@ function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // const userNickname = useSelector((state) => state.signup.userNickname);
-
   // 회원가입 정보
   const [signupDatas, setSignupDatas] = useState({
     email: "",
@@ -57,10 +55,6 @@ function Signup() {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
-    // if (signupDatas.nickname === userNickname) {
-    //   alert("이미 사용 중인 닉네임입니다. 다른 닉네임을 입력해주세요.");
-    //   return;
-    // }
 
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -74,7 +68,7 @@ function Signup() {
         displayName: signupDatas.nickname,
       });
 
-      // 회원가입 성공 시 사용자 이메일을 redux 상태에 저장
+      // 회원가입 성공 시 사용자 닉네임을 redux 상태에 저장
       dispatch(signupSuccess(signupDatas.nickname));
 
       alert("회원가입에 성공했습니다.");
