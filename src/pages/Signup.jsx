@@ -20,8 +20,6 @@ function Signup() {
     passwordConfirm: "",
   });
 
-  console.log(signupDatas);
-
   // email, nickname, password, passwordConfirm
   const handleChange = (e) => {
     e.preventDefault();
