@@ -1,9 +1,38 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useEffect } from "react";
+import * as S from "../styles/style.layout";
 import { Outlet, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../firebase";
+import { logout, signupSuccess } from "../redux/modules/signup";
 
 const Layout = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // 회원가입 정보 가져오기
+  const isSignupSuccess = useSelector((state) => state.signup.isSignupSuccess);
+  const displayName = useSelector((state) => state.signup.displayName);
+
+  // 사용자 인증 정보 변화 감지
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(signupSuccess(user.displayName));
+      }
+    });
+    return () => unsubscribe();
+    // 컴포넌트가 언마운트될 때 observer를 해제
+  }, [dispatch]);
+
+  // 로그아웃 버튼 핸들러
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    console.log("logout");
+
+    await signOut(auth);
+    dispatch(logout());
+  };
 
   // 로그인, 회원가입 선택 페이지로 이동하는 함수
   const goLogin = () => {
@@ -19,89 +48,39 @@ const Layout = () => {
   return (
     <>
       {/* 헤더 영역 */}
-      <HeaderBox>
+      <S.HeaderBox>
         {/* 로고 및 토론 홈 링크 */}
-        <HeaderLink onClick={goHome}>방구석 토론</HeaderLink>
+        <S.HeaderLink onClick={goHome}>방구석 토론</S.HeaderLink>
         {/* 로그인 및 회원가입 버튼 */}
-        <HeaderButtonBox>
-          <ButtonStyles onClick={goLogin} textColor="7095F4">
-            로그인
-          </ButtonStyles>
-          <ButtonStyles onClick={goSingup} textColor="7095F4">
-            회원가입
-          </ButtonStyles>
-        </HeaderButtonBox>
-      </HeaderBox>
+        <S.HeaderButtonBox>
+          {isSignupSuccess ? (
+            <div>
+              <S.displayName>{displayName}</S.displayName>
+              <S.LogoutButton onClick={handleLogout}>로그아웃</S.LogoutButton>
+            </div>
+          ) : (
+            <div>
+              <S.ButtonStyles onClick={goLogin} textColor="7095F4">
+                로그인
+              </S.ButtonStyles>
+              <S.ButtonStyles onClick={goSingup} textColor="7095F4">
+                회원가입
+              </S.ButtonStyles>
+            </div>
+          )}
+        </S.HeaderButtonBox>
+      </S.HeaderBox>
 
       {/* 페이지 컨텐츠 */}
       <Outlet />
 
       {/* 푸터 영역 */}
-      <Footer>
+      <S.Footer>
         <div>구쪽이들</div>
         <div>SNS 채널들</div>
-      </Footer>
+      </S.Footer>
     </>
   );
 };
-
-// 스타일 컴포넌트를 이용하여 헤더 영역을 스타일링
-const HeaderBox = styled.header`
-  width: 100%;
-  padding: 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-sizing: border-box;
-  border-bottom: 1px solid #cccccc;
-`;
-
-// 로고 및 토론 홈 링크를 스타일링
-const HeaderLink = styled.div`
-  width: 33.333%;
-  text-align: left;
-  text-decoration: none;
-  color: #000;
-  cursor: pointer;
-  font-size: 3rem;
-  font-weight: bold;
-  transition: 0.3s ease-in-out;
-`;
-
-// 로그인 및 회원가입 버튼을 담을 컨테이너를 스타일링
-const HeaderButtonBox = styled.div`
-  width: 33.333%;
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-`;
-
-// 버튼 스타일 컴포넌트를 정의하여 스타일링
-const ButtonStyles = styled.button`
-  cursor: pointer;
-  background-color: transparent;
-  padding: 8px 20px;
-  margin: 0;
-  box-sizing: border-box;
-  border: 1px solid #000;
-  transition: 0.3s ease-in-out;
-  font-size: 1rem;
-  @media (hover: hover) {
-    &:hover {
-      color: #${(props) => props.textColor};
-      box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    }
-  }
-`;
-
-// 스타일 컴포넌트를 이용하여 푸터 영역을 스타일링
-const Footer = styled.footer`
-  margin-top: 24px;
-  display: flex;
-  justify-content: space-between;
-  padding: 24px;
-  background-color: #eeeeee;
-  color: black;
-`;
 
 export default Layout;
