@@ -6,21 +6,12 @@ import { useSelector } from "react-redux";
 import * as S from "../styles/style.create";
 import { nanoid } from "@reduxjs/toolkit";
 
-
 function Detail() {
   const navigate = useNavigate();
   const { id } = useParams();
   const queryClient = useQueryClient();
 
   const displayName = useSelector((state) => state.signup.displayName);
-
-  const { data, isLoading, isError, error } = useQuery(
-    ["balances", id],
-    async () => {
-      const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/balances/${id}`
-      );
-      return response.data;
 
   const {
     data: commentsData,
@@ -45,7 +36,6 @@ function Detail() {
       },
     }
   );
-  console.log("data", data);
 
   const { data, isLoading, isError } = useQuery(["balances", id], async () => {
     const response = await axios.get(
@@ -77,11 +67,9 @@ function Detail() {
     (newData) => newData?.postId === data?.id
   );
   const deleteBalance = useMutation(
-
     async (balanceId) => {
       await axios.delete(
         `${process.env.REACT_APP_SERVER_URL}/balances/${balanceId}`
-    
       );
     },
     {
@@ -132,7 +120,6 @@ function Detail() {
           <p>{data?.author}님의 논쟁입니다.</p>
         )}
       </detailHeader>
-
       <div
         style={{
           textAlign: "center",
@@ -143,6 +130,7 @@ function Detail() {
         <button>{data.choice1}</button>
         <div>VS</div>
         <button>{data.choice2}</button>
+        <div>{data.content}</div>
       </div>
       <button>다음 논쟁</button>
       <div>
@@ -150,9 +138,13 @@ function Detail() {
         <form onSubmit={handleSubmit}>
           <S.TitleInput name="comment" placeholder="댓글을 작성해주세요." />
           <button type="submit">작성</button>
-          {findId.map((comment) => (
-            <div key={comment.commentId}>{comment.comment}</div>
-          ))}
+          {findId && findId.length > 0 ? (
+            findId.map((comment) => (
+              <div key={comment.commentId}>{comment.comment}</div>
+            ))
+          ) : (
+            <div>아직 댓글이 없어요.작성해볼까요?</div>
+          )}
         </form>
       </div>
     </>
