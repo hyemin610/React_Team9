@@ -63,6 +63,7 @@ function Detail() {
       <detailHeader style={{ display: "flex" }}>
         {displayName === data.author ? (
           <div>
+            <p>{data?.author}님의 논쟁입니다.</p>
             <button onClick={handleEditClick}>수정</button>
             <button onClick={handleDeleteClick}>삭제</button>
           </div>
