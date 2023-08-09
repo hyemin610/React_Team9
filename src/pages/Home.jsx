@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
@@ -6,9 +6,27 @@ import axios from "axios";
 
 function Home() {
   const navigate = useNavigate();
+  const [isTopVisible, setIsTopVisible] = useState(false); // "Top" 버튼 표시 여부 상태
 
   const handleWriteClick = () => {
     navigate("/create");
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleScroll = () => {
+    if (window.scrollY > 300) {
+      setIsTopVisible(true);
+    } else {
+      setIsTopVisible(false);
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const {
@@ -16,9 +34,7 @@ function Home() {
     error,
     isLoading,
   } = useQuery("balances", async () => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/balances`
-    );
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/balances`);
     console.log(response);
     return response.data;
   });
@@ -50,17 +66,14 @@ function Home() {
         <BalanceContainer>
           {balances.map((balance) => (
             <BalanceBox key={balance.id} onClick={() => goQuestion(balance.id)}>
-              <BalanceTextBox textColor="ffd700">
-                {balance.choice1}
-              </BalanceTextBox>
+              <BalanceTextBox textColor="ffd700">{balance.choice1}</BalanceTextBox>
               <BalanceTextBox>VS</BalanceTextBox>
-              <BalanceTextBox textColor="008080">
-                {balance.choice2}
-              </BalanceTextBox>
+              <BalanceTextBox textColor="008080">{balance.choice2}</BalanceTextBox>
             </BalanceBox>
           ))}
         </BalanceContainer>
       </div>
+      {isTopVisible && <TopButton onClick={scrollToTop}>Top</TopButton>}
     </>
   );
 }
@@ -133,4 +146,17 @@ const BalanceContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
+`;
+
+const TopButton = styled.button`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #7095f4;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 1000;
 `;
