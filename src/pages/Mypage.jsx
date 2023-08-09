@@ -1,8 +1,9 @@
-import * as S from "../styles/style.mypage";
+import * as S from "../styles/style.home";
+import * as St from "../styles/style.mypage";
+
 import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
 import axios from "axios";
-import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 export default function Mypage() {
@@ -25,9 +26,9 @@ export default function Mypage() {
   const goQuestion = (id) => {
     navigate(`/detail/${id}`);
   };
-
+  //로그인한 작성자의 게시글 불러오기
   const findId = balances?.filter((newData) => newData?.author === displayName);
-  console.log(findId);
+  // console.log(findId);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -39,60 +40,32 @@ export default function Mypage() {
 
   return (
     <>
-      <S.Allpage>
+      <St.Allpage>
         <div>
-          <S.Profile>프로필사진</S.Profile>
-          <S.Nickname>{displayName}</S.Nickname>
+          <St.Profile>프로필사진</St.Profile>
+          <St.Nickname>{displayName}</St.Nickname>
         </div>
         <div>
-          {/* <S.Content>내용 불러오기</S.Content> */}
-          {/* if({displayName}=== {balances.author}) */}
           {findId && findId.length > 0 ? (
             findId.map((balance) => (
-              <BalanceBox
+              <S.BalanceBox
                 key={balance.id}
                 onClick={() => goQuestion(balance.id)}
               >
-                <BalanceTextBox textColor="ffd700">
+                <S.BalanceTextBox textColor="ffd700">
                   {balance.choice1}
-                </BalanceTextBox>
-                <BalanceTextBox>VS</BalanceTextBox>
-                <BalanceTextBox textColor="008080">
+                </S.BalanceTextBox>
+                <S.BalanceTextBox>VS</S.BalanceTextBox>
+                <S.BalanceTextBox textColor="008080">
                   {balance.choice2}
-                </BalanceTextBox>
-              </BalanceBox>
+                </S.BalanceTextBox>
+              </S.BalanceBox>
             ))
           ) : (
             <div>아직 작성한 게시물이 없어용~작성해볼까요??</div>
           )}
         </div>
-      </S.Allpage>
+      </St.Allpage>
     </>
   );
 }
-
-const BalanceTextBox = styled.div`
-  margin: 15px 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #${(props) => props.textColor};
-`;
-const BalanceBox = styled.div`
-  width: 370px;
-  height: 370px;
-  margin: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
-  transition: 0.3s ease-in-out;
-  border: 1px solid #000;
-
-  @media (hover: hover) {
-    &:hover {
-      cursor: pointer;
-      transform: translateY(-10px);
-    }
-  }
-`;
