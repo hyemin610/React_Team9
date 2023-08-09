@@ -6,21 +6,12 @@ import { useSelector } from "react-redux";
 import * as S from "../styles/style.create";
 import { nanoid } from "@reduxjs/toolkit";
 
-
 function Detail() {
   const navigate = useNavigate();
   const { id } = useParams();
   const queryClient = useQueryClient();
 
   const displayName = useSelector((state) => state.signup.displayName);
-
-  const { data, isLoading, isError, error } = useQuery(
-    ["balances", id],
-    async () => {
-      const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/balances/${id}`
-      );
-      return response.data;
 
   const {
     data: commentsData,
@@ -45,7 +36,6 @@ function Detail() {
       },
     }
   );
-  console.log("data", data);
 
   const { data, isLoading, isError } = useQuery(["balances", id], async () => {
     const response = await axios.get(
@@ -77,11 +67,9 @@ function Detail() {
     (newData) => newData?.postId === data?.id
   );
   const deleteBalance = useMutation(
-
     async (balanceId) => {
       await axios.delete(
         `${process.env.REACT_APP_SERVER_URL}/balances/${balanceId}`
-    
       );
     },
     {
@@ -132,7 +120,6 @@ function Detail() {
           <p>{data?.author}님의 논쟁입니다.</p>
         )}
       </detailHeader>
-
       <div
         style={{
           textAlign: "center",
