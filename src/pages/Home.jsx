@@ -1,32 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
 import axios from "axios";
 
 function Home() {
-  const [balances, setBalances] = React.useState([]);
+  const navigate = useNavigate();
+  const [isTopVisible, setIsTopVisible] = useState(false); // "Top" 버튼 표시 여부 상태
 
-  React.useEffect(() => {
-    async function fetchBalances() {
-      try {
-        const response = await axios.get("http://localhost:4000/balances");
-        setBalances(response.data);
-      } catch (error) {
-        console.error("Error fetching balances:", error);
-      }
-    }
-    fetchBalances();
+  const handleWriteClick = () => {
+    navigate("/create");
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navigate = useNavigate();
+  const handleScroll = () => {
+    if (window.scrollY > 300) {
+      setIsTopVisible(true);
+    } else {
+      setIsTopVisible(false);
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const {
+    data: balances,
+    error,
+    isLoading,
+  } = useQuery("balances", async () => {
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/balances`);
+    console.log(response);
+    return response.data;
+  });
 
   const goQuestion = (id) => {
     navigate(`/detail/${id}`);
   };
 
-  const handleWriteClick = () => {
-    navigate("/create");
-  };
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error fetching balances: {error.message}</div>;
+  }
 
   return (
     <>
@@ -42,27 +65,20 @@ function Home() {
       <div>
         <BalanceContainer>
           {balances.map((balance) => (
-            <BalanceBox
-              key={balance.id}
-              onClick={() => goQuestion(balance.id)} // 수정된 부분
-            >
-              <BalanceTextBox textColor="ffd700">
-                {balance.choice1}
-              </BalanceTextBox>
+            <BalanceBox key={balance.id} onClick={() => goQuestion(balance.id)}>
+              <BalanceTextBox textColor="ffd700">{balance.choice1}</BalanceTextBox>
               <BalanceTextBox>VS</BalanceTextBox>
-              <BalanceTextBox textColor="008080">
-                {balance.choice2}
-              </BalanceTextBox>
+              <BalanceTextBox textColor="008080">{balance.choice2}</BalanceTextBox>
             </BalanceBox>
           ))}
         </BalanceContainer>
       </div>
+      {isTopVisible && <TopButton onClick={scrollToTop}>Top</TopButton>}
     </>
   );
 }
 
 export default Home;
-
 const BalanceBox = styled.div`
   width: 370px;
   height: 370px;
@@ -130,4 +146,17 @@ const BalanceContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
+`;
+
+const TopButton = styled.button`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #7095f4;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 1000;
 `;

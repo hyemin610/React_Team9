@@ -15,14 +15,19 @@ function Edit() {
 
   // 해당 id의 게시물을 가져오는 React Query 쿼리
   const { data: balance } = useQuery(["post", id], async () => {
-    const response = await axios.get(`http://localhost:4000/balances/${id}`);
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/balances/${id}`
+    );
     return response.data;
   });
 
   // 게시물 수정을 위한 Mutation
   const updateMutation = useMutation(
     async (updatedBalance) => {
-      await axios.put(`http://localhost:4000/balances/${id}`, updatedBalance);
+      await axios.put(
+        `${process.env.REACT_APP_SERVER_URL}/balances/${id}`,
+        updatedBalance
+      );
     },
     {
       onSuccess: () => {

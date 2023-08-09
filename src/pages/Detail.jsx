@@ -13,24 +13,34 @@ function Detail() {
   const userEmail = useSelector((state) => state.signup.userEmail);
   const displayName = useSelector((state) => state.signup.displayName);
 
-  const { data, isLoading, isError } = useQuery(["balances", id], async () => {
-    const response = await axios.get(`http://localhost:4000/balances/${id}`);
-    return response.data;
-  });
-
   const {
     data: commentsData,
     isLoading: isCommentsLoading,
     isError: isCommentsError,
   } = useQuery(["comments", id], async () => {
-    const response = await axios.get(`http://localhost:4000/comments`);
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/comments/${id}`
+    );
     return response.data;
   });
   console.log(commentsData);
 
+  const { data, isLoading, isError, error } = useQuery(
+    ["balances", id],
+    async () => {
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}/balances/${id}`
+      );
+      return response.data;
+      console.log("balance");
+    }
+  );
+
   const deleteBalance = useMutation(
     async (balance) => {
-      await axios.delete(`http://localhost:4000/balances/${balance.id}`);
+      await axios.delete(
+        `${process.env.REACT_APP_SERVER_URL}/balances/${balance.id}`
+      );
     },
     {
       onSuccess: () => {

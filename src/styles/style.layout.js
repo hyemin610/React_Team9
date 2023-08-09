@@ -1,13 +1,20 @@
 import { styled } from "styled-components";
 
+export const LayoutContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 최소 뷰포트 높이만큼 컨테이너를 확장 */
+`;
+
 // 스타일 컴포넌트를 이용하여 헤더 영역을 스타일링
 export const HeaderBox = styled.header`
   width: 100%;
-  padding: 30px;
+  padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
+  background-color: white;
   border-bottom: 1px solid #cccccc;
 `;
 
@@ -49,6 +56,10 @@ export const ButtonStyles = styled.button`
   }
 `;
 
+export const PageContent = styled.div`
+  flex-grow: 1; /* 페이지 컨텐츠 영역이 남은 높이를 모두 차지 */
+`;
+
 // 스타일 컴포넌트를 이용하여 푸터 영역을 스타일링
 export const Footer = styled.footer`
   margin-top: 24px;
@@ -64,24 +75,24 @@ export const CenteredContainer = styled.div`
 `;
 
 // 닉네임
-export const displayName = styled.button`
+export const DisplayName = styled.button`
   font-weight: bolder;
-  font-size: xx-large;
+  font-size: x-large;
   margin-bottom: 20px;
   margin-right: 40px;
   border: none;
   background-color: transparent;
-  cursor: pointer;
 `;
 
 // 로그인 되었을 때 나오는 로그아웃 버튼
 export const LogoutButton = styled.button`
   border: none;
-  margin-right: -34px;
+  margin-left: 30px;
   padding: 10px;
   border-radius: 6px;
   background-color: #eeeeee;
   color: black;
+  height: 40px;
   cursor: pointer;
   // #fccae7
   // #cafcf7
