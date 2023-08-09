@@ -3,10 +3,12 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
+import { auth } from "../firebase";
 
 function Home() {
   const navigate = useNavigate();
   const [isTopVisible, setIsTopVisible] = useState(false); // "Top" 버튼 표시 여부 상태
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리하는 상태
 
   const handleWriteClick = () => {
     navigate("/create");
@@ -15,6 +17,15 @@ function Home() {
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    // 사용자 인증 상태 변화를 감지하여 로그인 상태 업데이트
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setIsLoggedIn(!!user); // 사용자가 로그인 상태인 경우 true, 아닌 경우 false
+    });
+
+    return () => unsubscribe(); // 컴포넌트가 언마운트될 때 observer 해제
   }, []);
 
   const handleScroll = () => {
@@ -58,9 +69,11 @@ function Home() {
         <BestBalanceTitleSpan>게시글</BestBalanceTitleSpan>
       </BestBalanceTitle>
       <WriteButtonBox>
-        <ButtonStyles onClick={handleWriteClick} textcolor="7095F4">
-          작성
-        </ButtonStyles>
+        {isLoggedIn && (
+          <ButtonStyles onClick={handleWriteClick} textcolor="7095F4">
+            작성
+          </ButtonStyles>
+        )}
       </WriteButtonBox>
       <div>
         <BalanceContainer>
