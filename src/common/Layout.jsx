@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "../styles/style.layout";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { logout, signupSuccess } from "../redux/modules/signup";
-import { FaHome } from "react-icons/fa";
+// import { CgProfile } from "react-icons/cg";
 import { useParams } from "react-router-dom";
 
 const Layout = () => {
@@ -49,24 +49,25 @@ const Layout = () => {
   };
 
   return (
-    <>
+    <S.LayoutContainer>
       {/* 헤더 영역 */}
       <S.HeaderBox>
         {/* 로고 및 토론 홈 링크 */}
         <S.HeaderLink onClick={goHome}>방구석 토론</S.HeaderLink>
-        {/* 로그인 및 회원가입 버튼 */}
-        <S.HeaderButtonBox>
-          {isSignupSuccess ? (
-            <S.CenteredContainer>
-              <S.Nickname>
-                <S.displayName onClick={() => navigate(`/mypage/${id}`)}>
-                  <FaHome />
-                  {displayName}
-                </S.displayName>
-              </S.Nickname>
-              <S.LogoutButton onClick={handleLogout}>로그아웃</S.LogoutButton>
-            </S.CenteredContainer>
-          ) : (
+        {/* 프로필 아이콘, 닉네임, 로그아웃 버튼 옆으로 나란히 배치 */}
+        <S.CenteredContainer>
+          <S.Nickname>
+            {isSignupSuccess && (
+              <>
+                <S.DisplayName>
+                  환영합니다, {displayName} 님{/* <CgProfile /> */}
+                </S.DisplayName>
+                <S.LogoutButton onClick={() => navigate(`/mypage/${id}`)}>마이페이지</S.LogoutButton>
+                <S.LogoutButton onClick={handleLogout}>로그아웃</S.LogoutButton>
+              </>
+            )}
+          </S.Nickname>
+          {!isSignupSuccess && (
             <div>
               <S.ButtonStyles onClick={goLogin} textColor="7095F4">
                 로그인
@@ -76,18 +77,20 @@ const Layout = () => {
               </S.ButtonStyles>
             </div>
           )}
-        </S.HeaderButtonBox>
+        </S.CenteredContainer>
       </S.HeaderBox>
 
       {/* 페이지 컨텐츠 */}
-      <Outlet />
+      <S.PageContent>
+        <Outlet />
+      </S.PageContent>
 
       {/* 푸터 영역 */}
       <S.Footer>
         <div>구쪽이들</div>
         <div>SNS 채널들</div>
       </S.Footer>
-    </>
+    </S.LayoutContainer>
   );
 };
 

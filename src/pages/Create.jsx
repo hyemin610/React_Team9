@@ -57,6 +57,8 @@ function Create() {
     // addData.mutate를 사용하여 새로운 데이터 추가 요청 보내기
     try {
       addData.mutate(newData);
+      // 데이터 추가 후, "balances" 쿼리를 다시 불러오기 위해 invalidateQueries 호출
+      queryClient.invalidateQueries("balances");
       // 추가 후 메인 페이지로 이동
       navigate("/");
     } catch (error) {

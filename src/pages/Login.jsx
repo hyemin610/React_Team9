@@ -42,11 +42,7 @@ function Login() {
     }
 
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        signInDatas.email,
-        signInDatas.password
-      );
+      const userCredential = await signInWithEmailAndPassword(auth, signInDatas.email, signInDatas.password);
       console.log("user with login", userCredential.user);
 
       alert("로그인에 성공했습니다.");
@@ -80,26 +76,15 @@ function Login() {
         <S.SignupBoxLocation>
           <form>
             <S.Space>
-              <S.Email
-                placeholder="이메일"
-                name="email"
-                onChange={handleChange}
-              />
+              <S.Email placeholder="이메일" name="email" onChange={handleChange} />
             </S.Space>
             <S.Space>
-              <S.Password
-                placeholder="비밀번호"
-                name="password"
-                type="password"
-                onChange={handleChange}
-              />
+              <S.Password placeholder="비밀번호" name="password" type="password" onChange={handleChange} />
             </S.Space>
             <S.Space>
               <S.LoginButton onClick={handleLogin}>로그인</S.LoginButton>
             </S.Space>
-            <S.SignupButton onClick={() => navigate("/signup")}>
-              회원가입하러 가기
-            </S.SignupButton>
+            <S.SignupButton onClick={() => navigate("/signup")}>회원가입하러 가기</S.SignupButton>
           </form>
         </S.SignupBoxLocation>
       </S.Container>

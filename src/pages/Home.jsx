@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { auth } from "../firebase";
 
 function Home() {
   const [balances, setBalances] = React.useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리하는 상태
+  const [isTopVisible, setIsTopVisible] = useState(false); // "Top" 버튼 표시 여부 상태
 
   React.useEffect(() => {
     async function fetchBalances() {
@@ -16,6 +19,13 @@ function Home() {
       }
     }
     fetchBalances();
+
+    // 인증 상태 변화를 감지하여 로그인 상태 업데이트
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setIsLoggedIn(!!user); // 사용자가 로그인 상태인 경우 true, 아닌 경우 false
+    });
+
+    return () => unsubscribe(); // 컴포넌트가 언마운트될 때 observer 해제
   }, []);
 
   const navigate = useNavigate();
@@ -28,6 +38,23 @@ function Home() {
     navigate("/create");
   };
 
+  const handleScroll = () => {
+    if (window.scrollY > 300) {
+      setIsTopVisible(true);
+    } else {
+      setIsTopVisible(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <>
       <BestBalanceTitle>
@@ -35,9 +62,11 @@ function Home() {
         <BestBalanceTitleSpan>게시글</BestBalanceTitleSpan>
       </BestBalanceTitle>
       <WriteButtonBox>
-        <ButtonStyles onClick={handleWriteClick} textcolor="7095F4">
-          작성
-        </ButtonStyles>
+        {isLoggedIn && (
+          <ButtonStyles onClick={handleWriteClick} textcolor="7095F4">
+            작성
+          </ButtonStyles>
+        )}
       </WriteButtonBox>
       <div>
         <BalanceContainer>
@@ -46,17 +75,14 @@ function Home() {
               key={balance.id}
               onClick={() => goQuestion(balance.id)} // 수정된 부분
             >
-              <BalanceTextBox textColor="ffd700">
-                {balance.choice1}
-              </BalanceTextBox>
+              <BalanceTextBox textColor="ffd700">{balance.choice1}</BalanceTextBox>
               <BalanceTextBox>VS</BalanceTextBox>
-              <BalanceTextBox textColor="008080">
-                {balance.choice2}
-              </BalanceTextBox>
+              <BalanceTextBox textColor="008080">{balance.choice2}</BalanceTextBox>
             </BalanceBox>
           ))}
         </BalanceContainer>
       </div>
+      {isTopVisible && <TopButton onClick={scrollToTop}>Top</TopButton>}
     </>
   );
 }
@@ -130,4 +156,17 @@ const BalanceContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
+`;
+
+const TopButton = styled.button`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #7095f4;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 1000;
 `;
