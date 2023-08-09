@@ -34,7 +34,9 @@ function Home() {
     error,
     isLoading,
   } = useQuery("balances", async () => {
-    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/balances`);
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/balances`
+    );
     console.log(response);
     return response.data;
   });
@@ -66,9 +68,13 @@ function Home() {
         <BalanceContainer>
           {balances.map((balance) => (
             <BalanceBox key={balance.id} onClick={() => goQuestion(balance.id)}>
-              <BalanceTextBox textColor="ffd700">{balance.choice1}</BalanceTextBox>
+              <BalanceTextBox textColor="ffd700">
+                {balance.choice1}
+              </BalanceTextBox>
               <BalanceTextBox>VS</BalanceTextBox>
-              <BalanceTextBox textColor="008080">{balance.choice2}</BalanceTextBox>
+              <BalanceTextBox textColor="008080">
+                {balance.choice2}
+              </BalanceTextBox>
             </BalanceBox>
           ))}
         </BalanceContainer>
