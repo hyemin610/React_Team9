@@ -6,12 +6,21 @@ import { useSelector } from "react-redux";
 import * as S from "../styles/style.create";
 import { nanoid } from "@reduxjs/toolkit";
 
+
 function Detail() {
   const navigate = useNavigate();
   const { id } = useParams();
   const queryClient = useQueryClient();
-  const userEmail = useSelector((state) => state.signup.userEmail);
+
   const displayName = useSelector((state) => state.signup.displayName);
+
+  const { data, isLoading, isError, error } = useQuery(
+    ["balances", id],
+    async () => {
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}/balances/${id}`
+      );
+      return response.data;
 
   const {
     data: commentsData,
@@ -34,9 +43,9 @@ function Detail() {
         // 데이터 추가 성공 시, "balances" 쿼리를 다시 불러오기 위해 invalidateQueries 호출
         queryClient.invalidateQueries("comments");
       },
-
     }
   );
+  console.log("data", data);
 
   const { data, isLoading, isError } = useQuery(["balances", id], async () => {
     const response = await axios.get(
@@ -112,11 +121,18 @@ function Detail() {
 
   return (
     <>
-      <div style={{ display: "flex" }}>
-        <p>{displayName}님의 논쟁입니다.</p>
-        <button onClick={handleEditClick}>수정</button>
-        <button onClick={handleDeleteClick}>삭제</button>
-      </div>
+      <detailHeader style={{ display: "flex" }}>
+        {displayName === data.author ? (
+          <div>
+            <p>{data?.author}님의 논쟁입니다.</p>
+            <button onClick={handleEditClick}>수정</button>
+            <button onClick={handleDeleteClick}>삭제</button>
+          </div>
+        ) : (
+          <p>{data?.author}님의 논쟁입니다.</p>
+        )}
+      </detailHeader>
+
       <div
         style={{
           textAlign: "center",
