@@ -10,7 +10,6 @@ function Detail() {
   const navigate = useNavigate();
   const { id } = useParams();
   const queryClient = useQueryClient();
-
   const userEmail = useSelector((state) => state.signup.userEmail);
   const displayName = useSelector((state) => state.signup.displayName);
 
@@ -35,6 +34,7 @@ function Detail() {
         // 데이터 추가 성공 시, "balances" 쿼리를 다시 불러오기 위해 invalidateQueries 호출
         queryClient.invalidateQueries("comments");
       },
+
     }
   );
 
@@ -68,9 +68,11 @@ function Detail() {
     (newData) => newData?.postId === data?.id
   );
   const deleteBalance = useMutation(
+
     async (balanceId) => {
       await axios.delete(
         `${process.env.REACT_APP_SERVER_URL}/balances/${balanceId}`
+    
       );
     },
     {
