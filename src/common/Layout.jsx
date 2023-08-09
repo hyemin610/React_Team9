@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { logout, signupSuccess } from "../redux/modules/signup";
-import { FaHome } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ const Layout = () => {
             <S.CenteredContainer>
               <S.Nickname>
                 <S.displayName onClick={() => navigate(`/mypage/${id}`)}>
-                  <FaHome />
+                  <CgProfile />
                   {displayName}
                 </S.displayName>
               </S.Nickname>

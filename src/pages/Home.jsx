@@ -1,32 +1,39 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
 import axios from "axios";
 
 function Home() {
-  const [balances, setBalances] = React.useState([]);
-
-  React.useEffect(() => {
-    async function fetchBalances() {
-      try {
-        const response = await axios.get("http://localhost:4000/balances");
-        setBalances(response.data);
-      } catch (error) {
-        console.error("Error fetching balances:", error);
-      }
-    }
-    fetchBalances();
-  }, []);
-
   const navigate = useNavigate();
+
+  const handleWriteClick = () => {
+    navigate("/create");
+  };
+
+  const {
+    data: balances,
+    error,
+    isLoading,
+  } = useQuery("balances", async () => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/balances`
+    );
+    console.log(response);
+    return response.data;
+  });
 
   const goQuestion = (id) => {
     navigate(`/detail/${id}`);
   };
 
-  const handleWriteClick = () => {
-    navigate("/create");
-  };
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error fetching balances: {error.message}</div>;
+  }
 
   return (
     <>
@@ -42,10 +49,7 @@ function Home() {
       <div>
         <BalanceContainer>
           {balances.map((balance) => (
-            <BalanceBox
-              key={balance.id}
-              onClick={() => goQuestion(balance.id)} // 수정된 부분
-            >
+            <BalanceBox key={balance.id} onClick={() => goQuestion(balance.id)}>
               <BalanceTextBox textColor="ffd700">
                 {balance.choice1}
               </BalanceTextBox>
@@ -62,7 +66,6 @@ function Home() {
 }
 
 export default Home;
-
 const BalanceBox = styled.div`
   width: 370px;
   height: 370px;

@@ -10,7 +10,9 @@ function Detail() {
   const { data, isLoading, isError, error } = useQuery(
     ["balances", id],
     async () => {
-      const response = await axios.get(`http://localhost:4000/balances/${id}`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}/balances/${id}`
+      );
       return response.data;
       console.log("balance");
     }
@@ -18,7 +20,9 @@ function Detail() {
 
   const deleteBalance = useMutation(
     async (balance) => {
-      await axios.delete(`http://localhost:4000/balances/${balance.id}`);
+      await axios.delete(
+        `${process.env.REACT_APP_SERVER_URL}/balances/${balance.id}`
+      );
     },
     {
       onSuccess: () => {

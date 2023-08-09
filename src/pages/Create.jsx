@@ -16,7 +16,7 @@ function Create() {
   const addData = useMutation(
     async (newData) => {
       // axios를 사용하여 POST 요청을 보냄
-      await axios.post("http://localhost:4000/balances", newData);
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/balances`, newData);
     },
     {
       onSuccess: () => {
