@@ -2,11 +2,15 @@ import React from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Detail() {
   const navigate = useNavigate();
   const { id } = useParams();
   const queryClient = useQueryClient();
+
+  const displayName = useSelector((state) => state.signup.displayName);
+
   const { data, isLoading, isError, error } = useQuery(
     ["balances", id],
     async () => {
@@ -14,9 +18,9 @@ function Detail() {
         `${process.env.REACT_APP_SERVER_URL}/balances/${id}`
       );
       return response.data;
-      console.log("balance");
     }
   );
+  console.log("data", data);
 
   const deleteBalance = useMutation(
     async (balance) => {
@@ -45,10 +49,6 @@ function Detail() {
   }
 
   const handleEditClick = () => {
-    // if (post.author !== userEmail) {
-    //   alert("게시글 작성자만 수정 가능합니다.");
-    //   return;
-    // }
     navigate(`/edit/${data.id}`);
   };
 
@@ -61,20 +61,14 @@ function Detail() {
   return (
     <>
       <detailHeader style={{ display: "flex" }}>
-        <p>{data?.id}님의 논쟁입니다.</p>
-        <button onClick={handleEditClick}>수정</button>
-        <button
-          onClick={handleDeleteClick}
-          // onClick={() => {
-          //   // if (post.author !== userEmail) {
-          //   //   alert("게시글 작성자만 수정 가능합니다.");
-          //   //   return;
-          //   // }
-          //   handleDeleteClick;
-          // }}
-        >
-          삭제
-        </button>
+        {displayName === data.author ? (
+          <div>
+            <button onClick={handleEditClick}>수정</button>
+            <button onClick={handleDeleteClick}>삭제</button>
+          </div>
+        ) : (
+          <p>{data?.author}님의 논쟁입니다.</p>
+        )}
       </detailHeader>
       <div
         style={{

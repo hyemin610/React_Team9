@@ -12,6 +12,7 @@ function Create() {
   const navigate = useNavigate();
   // const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   // const user = useSelector((state) => state.user.user);
+  const displayName = useSelector((state) => state.signup.displayName);
 
   const addData = useMutation(
     async (newData) => {
@@ -52,6 +53,7 @@ function Create() {
       choice1: choice1,
       choice2: choice2,
       content: content,
+      author: displayName,
     };
 
     // addData.mutate를 사용하여 새로운 데이터 추가 요청 보내기
