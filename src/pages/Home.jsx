@@ -9,7 +9,6 @@ function Home() {
   const navigate = useNavigate();
   const [isTopVisible, setIsTopVisible] = useState(false); // "Top" 버튼 표시 여부 상태
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리하는 상태
-
   const handleWriteClick = () => {
     navigate("/create");
   };
@@ -18,7 +17,6 @@ function Home() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
   useEffect(() => {
     // 사용자 인증 상태 변화를 감지하여 로그인 상태 업데이트
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -179,4 +177,3 @@ const TopButton = styled.button`
   cursor: pointer;
   z-index: 1000;
 `;
-//
