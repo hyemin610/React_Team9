@@ -130,6 +130,7 @@ function Detail() {
         <button>{data.choice1}</button>
         <div>VS</div>
         <button>{data.choice2}</button>
+        <div>{data.content}</div>
       </div>
       <button>다음 논쟁</button>
       <div>
@@ -137,9 +138,13 @@ function Detail() {
         <form onSubmit={handleSubmit}>
           <S.TitleInput name="comment" placeholder="댓글을 작성해주세요." />
           <button type="submit">작성</button>
-          {findId.map((comment) => (
-            <div key={comment.commentId}>{comment.comment}</div>
-          ))}
+          {findId && findId.length > 0 ? (
+            findId.map((comment) => (
+              <div key={comment.commentId}>{comment.comment}</div>
+            ))
+          ) : (
+            <div>아직 댓글이 없어요.작성해볼까요?</div>
+          )}
         </form>
       </div>
     </>

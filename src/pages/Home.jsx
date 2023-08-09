@@ -43,10 +43,45 @@ function Home() {
     error,
     isLoading,
   } = useQuery("balances", async () => {
-    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/balances`);
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/balances`
+    );
     console.log(response);
     return response.data;
   });
+  const {
+    data: comments,
+    error: commentsError,
+    isLoading: commentsLoading,
+  } = useQuery("comments", async () => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/comments`
+    );
+    return response.data;
+  });
+
+  // 핫게시글 선정 로직
+  const getHotBalances = () => {
+    if (!balances || !comments) {
+      return []; // 데이터가 아직 로드되지 않았을 경우 빈 배열 반환
+    }
+
+    const balanceWithCommentCount = balances.map((balance) => {
+      const commentCount = comments.filter(
+        (comment) => comment.postId === balance.id
+      ).length;
+      return { ...balance, commentCount };
+    });
+
+    const hotBalances = balanceWithCommentCount
+      .sort((a, b) => b.commentCount - a.commentCount)
+      .slice(0, 3);
+
+    return hotBalances;
+  };
+
+  const hotBalances = getHotBalances();
+  console.log(hotBalances);
 
   const goQuestion = (id) => {
     navigate(`/detail/${id}`);
@@ -75,11 +110,29 @@ function Home() {
       </WriteButtonBox>
       <div>
         <BalanceContainer>
+          {hotBalances.map((hotpost) => (
+            <BalanceBox key={hotpost.id} onClick={() => goQuestion(hotpost.id)}>
+              <BalanceTextBox textColor="ffd700">
+                {hotpost.choice1}
+              </BalanceTextBox>
+              <BalanceTextBox>VS</BalanceTextBox>
+              <BalanceTextBox textColor="008080">
+                {hotpost.choice2}
+              </BalanceTextBox>
+            </BalanceBox>
+          ))}
+        </BalanceContainer>
+        <BalanceContainer>
+          모든 게시글 보기
           {balances.map((balance) => (
             <BalanceBox key={balance.id} onClick={() => goQuestion(balance.id)}>
-              <BalanceTextBox textColor="ffd700">{balance.choice1}</BalanceTextBox>
+              <BalanceTextBox textColor="ffd700">
+                {balance.choice1}
+              </BalanceTextBox>
               <BalanceTextBox>VS</BalanceTextBox>
-              <BalanceTextBox textColor="008080">{balance.choice2}</BalanceTextBox>
+              <BalanceTextBox textColor="008080">
+                {balance.choice2}
+              </BalanceTextBox>
             </BalanceBox>
           ))}
         </BalanceContainer>
