@@ -28,11 +28,11 @@ export const Nickname = styled.div`
   margin: 10px auto 100px 2px;
 `;
 
-export const Content = styled.div`
-  border: 1px solid black;
-  border-radius: 20px;
-  width: 300px;
-  height: 200px;
-  margin-left: 30px;
-  margin-top: 10px;
-`;
+// export const Content = styled.div`
+//   border: 1px solid black;
+//   border-radius: 20px;
+//   width: 300px;
+//   height: 200px;
+//   margin-left: 30px;
+//   margin-top: 10px;
+// `;
