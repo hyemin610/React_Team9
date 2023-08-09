@@ -1,4 +1,10 @@
-export function validateInputAndAlert(title, content, choice1, choice2) {
+export function validateInputAndAlert(
+  title,
+  content,
+  choice1,
+  choice2,
+  comment
+) {
   const errors = {};
 
   if (!title.trim()) {
