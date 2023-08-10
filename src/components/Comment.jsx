@@ -11,6 +11,7 @@ function Comment({ postId, commentsData }) {
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editedComment, setEditedComment] = useState("");
   const { id } = useParams();
+
   const addData = useMutation(
     async (newData) => {
       await axios.post(`${process.env.REACT_APP_SERVER_URL}/comments`, newData);
@@ -21,17 +22,14 @@ function Comment({ postId, commentsData }) {
       },
     }
   );
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const commentInput = e.target.comment;
     const comment = commentInput.value;
-
     if (comment === "") {
       alert("댓글을 입력해주세요");
       return;
     }
-
     const newData = {
       id: nanoid(),
       postId: postId,
@@ -39,7 +37,6 @@ function Comment({ postId, commentsData }) {
       author: displayName,
       date: new Date().toISOString(),
     };
-
     try {
       await addData.mutateAsync(newData);
       commentInput.value = ""; //입력시 댓글 폼 초기화
@@ -48,6 +45,7 @@ function Comment({ postId, commentsData }) {
     }
   };
 
+  // 게시글의 댓글 가져오기
   const findId = commentsData?.filter((newData) => newData?.postId === postId);
   // 댓글 수정
   const handleEditComment = (id, currentComment) => {
@@ -137,14 +135,17 @@ function Comment({ postId, commentsData }) {
                   value={editedComment}
                   onChange={(e) => setEditedComment(e.target.value)}
                 />
+
                 <button onClick={() => handleSaveEdit(comment.id)}>저장</button>
+
+             
               </div>
             ) : (
               <div>
                 {comment.comment}
                 {/* 수정 버튼 */}
                 {displayName === comment.author && (
-                  <>
+                  <>          
                     <button
                       onClick={() =>
                         handleEditComment(comment.id, comment.comment)
@@ -173,5 +174,4 @@ function Comment({ postId, commentsData }) {
     </div>
   );
 }
-
 export default Comment;
