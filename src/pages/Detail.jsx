@@ -23,6 +23,17 @@ function Detail() {
     return response.data;
   });
 
+  const voteQuery = useQuery(["vote", id], async () => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/vote`
+    );
+
+    const findPostId = response.data?.filter((data) => data?.postId === id);
+
+    console.log(findPostId);
+    return response.data;
+  });
+
   const { data, isLoading, isError } = useQuery(["balances", id], async () => {
     const response = await axios.get(
       `${process.env.REACT_APP_SERVER_URL}/balances/${id}`
@@ -47,6 +58,13 @@ function Detail() {
   const [voteChoice, setVoteChoice] = useState(null);
 
   const handleVoteClick = async (choice) => {
+    if (!displayName) {
+      // 접속한 계정이 없으면 여기서 처리
+      alert("로그인이 필요합니다."); // 로그인 필요 알림 띄우기
+      navigate("/login");
+      return;
+    }
+
     if (voteChoice !== choice) {
       setVoteChoice(choice);
 
@@ -68,9 +86,6 @@ function Detail() {
           userId: displayName,
           choice: choice,
         });
-
-        queryClient.invalidateQueries(["balances", id]);
-        localStorage.setItem(id, choice);
       } catch (error) {
         console.error("Error updating vote:", error);
       }
@@ -83,7 +98,14 @@ function Detail() {
 
   const handleDeleteClick = () => {
     if (window.confirm("삭제하시겠습니까?")) {
-      deleteBalance.mutate(data.id);
+      deleteBalance.mutate(data.id, {
+        // 뮤테이션 성공 시 실행할 콜백 함수
+        onSuccess: () => {
+          // "balances" 쿼리를 다시 가져와서 데이터 업데이트
+          queryClient.getQueryByKey("balances").refetch();
+          navigate("/");
+        },
+      });
     }
   };
 
@@ -110,12 +132,16 @@ function Detail() {
   const choice2Percentage =
     totalVotes === 0 ? 0 : (data.vote2 / totalVotes) * 100;
 
+  const findPostId = voteQuery.data?.filter(
+    (data) => data?.postId === id && data?.userId === displayName
+  );
+
   return (
     <>
       <div style={{ display: "flex" }}>
-        {displayName === data.author ? (
+        {displayName === data?.author ? (
           <div>
-            <p>{data?.author}님의 논쟁입니다.</p>
+            <p>{data.author}님의 논쟁입니다.</p>
             <button onClick={handleEditClick}>수정</button>
             <button onClick={handleDeleteClick}>삭제</button>
           </div>
@@ -129,13 +155,21 @@ function Detail() {
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <button
             onClick={() => handleVoteClick("choice1")}
-            disabled={voteChoice === "choice1" || voteChoice === "choice2"}
+            disabled={
+              voteChoice === "choice1" ||
+              voteChoice === "choice2" ||
+              findPostId?.some((data) => data.userId === displayName)
+            }
           >
             {data.choice1}
           </button>
           <button
             onClick={() => handleVoteClick("choice2")}
-            disabled={voteChoice === "choice1" || voteChoice === "choice2"}
+            disabled={
+              voteChoice === "choice1" ||
+              voteChoice === "choice2" ||
+              findPostId?.some((data) => data.userId === displayName)
+            }
           >
             {data.choice2}
           </button>
