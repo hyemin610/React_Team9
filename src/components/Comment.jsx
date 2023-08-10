@@ -20,9 +20,12 @@ function Comment({ postId, commentsData }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const comment = e.target.comment.value;
+    const commentInput = e.target.comment;
+    const comment = commentInput.value;
+
     if (comment === "") {
       alert("댓글을 입력해주세요");
+      return;
     }
 
     const newData = {
@@ -32,7 +35,8 @@ function Comment({ postId, commentsData }) {
     };
 
     try {
-      addData.mutate(newData);
+      await addData.mutateAsync(newData);
+      commentInput.value = ""; //입력시 댓글 폼 초기화
     } catch (error) {
       console.error("Error adding comment:", error);
     }
