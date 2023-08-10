@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery, useQueryClient, useMutation } from "react-query";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -44,31 +44,6 @@ function Detail() {
     }
   );
 
-  const [voteChoice, setVoteChoice] = useState(null);
-
-  const handleVoteClick = async (choice) => {
-    if (voteChoice !== choice) {
-      setVoteChoice(choice);
-
-      const updatedData = {
-        ...data,
-        vote1: choice === "choice1" ? data.vote1 + 1 : data.vote1,
-        vote2: choice === "choice2" ? data.vote2 + 1 : data.vote2,
-      };
-
-      try {
-        await axios.put(
-          `${process.env.REACT_APP_SERVER_URL}/balances/${id}`,
-          updatedData
-        );
-        queryClient.invalidateQueries(["balances", id]); // balances 쿼리 다시 불러오기
-        localStorage.setItem(id, choice); // 투표한 선택 저장
-      } catch (error) {
-        console.error("Error updating vote:", error);
-      }
-    }
-  };
-
   const handleEditClick = () => {
     navigate(`/edit/${data.id}`);
   };
@@ -76,6 +51,27 @@ function Detail() {
   const handleDeleteClick = () => {
     if (window.confirm("삭제하시겠습니까?")) {
       deleteBalance.mutate(data.id);
+    }
+  };
+
+  const handleCommentSubmit = async (comment) => {
+    // 댓글 작성 처리
+    const newComment = {
+      commentId: Math.random().toString(36).substring(7),
+      postId: data.id,
+      comment: comment,
+      author: displayName,
+      date: new Date().toISOString(),
+    };
+
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/comments`,
+        newComment
+      );
+      queryClient.invalidateQueries(["comments", id]);
+    } catch (error) {
+      console.error("Error adding comment:", error);
     }
   };
 
@@ -96,12 +92,6 @@ function Detail() {
     return <div>게시물을 찾을 수 없습니다.</div>;
   }
 
-  const totalVotes = data.vote1 + data.vote2;
-  const choice1Percentage =
-    totalVotes === 0 ? 0 : (data.vote1 / totalVotes) * 100;
-  const choice2Percentage =
-    totalVotes === 0 ? 0 : (data.vote2 / totalVotes) * 100;
-
   return (
     <>
       <div style={{ display: "flex" }}>
@@ -115,50 +105,24 @@ function Detail() {
           <p>{data?.author}님의 논쟁입니다.</p>
         )}
       </div>
-      <div style={{ textAlign: "center" }}>
+      <div
+        style={{
+          textAlign: "center",
+        }}
+      >
         <div>{data.title}</div>
         <div>상황: {data.comment}</div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <button
-            onClick={() => handleVoteClick("choice1")}
-            disabled={voteChoice === "choice1" || voteChoice === "choice2"}
-          >
-            {data.choice1}
-          </button>
-          <button
-            onClick={() => handleVoteClick("choice2")}
-            disabled={voteChoice === "choice1" || voteChoice === "choice2"}
-          >
-            {data.choice2}
-          </button>
-        </div>
+        <button>{data.choice1}</button>
         <div>VS</div>
+        <button>{data.choice2}</button>
         <div>{data.content}</div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div style={{ flex: 1 }}>
-            {data.choice1}: {choice1Percentage.toFixed(2)}%
-            <div
-              style={{
-                width: `${choice1Percentage}%`,
-                background: "blue",
-                height: "20px",
-              }}
-            />
-          </div>
-          <div style={{ flex: 1 }}>
-            {data.choice2}: {choice2Percentage.toFixed(2)}%
-            <div
-              style={{
-                width: `${choice2Percentage}%`,
-                background: "red",
-                height: "20px",
-              }}
-            />
-          </div>
-        </div>
       </div>
       <button>다음 논쟁</button>
-      <Comment postId={data?.id} commentsData={commentsData} />
+      <Comment
+        postId={data?.id}
+        commentsData={commentsData}
+        onCommentSubmit={handleCommentSubmit}
+      />
     </>
   );
 }

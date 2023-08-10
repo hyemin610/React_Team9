@@ -4,12 +4,9 @@ import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import * as S from "../styles/style.create";
 import { useSelector } from "react-redux";
-
 function Comment({ postId, commentsData }) {
   const queryClient = useQueryClient();
-
   const displayName = useSelector((state) => state.signup.displayName);
-
   const addData = useMutation(
     async (newData) => {
       await axios.post(`${process.env.REACT_APP_SERVER_URL}/comments`, newData);
@@ -49,22 +46,18 @@ function Comment({ postId, commentsData }) {
 
   const findId = commentsData?.filter((newData) => newData?.postId === postId);
 
+  // 실시간 댓글
   const elapsedTime = (date) => {
     const start = new Date(date);
     const end = new Date();
-
     const seconds = Math.floor((end.getTime() - start.getTime()) / 1000);
     if (seconds < 60) return "방금 전";
-
     const minutes = seconds / 60;
     if (minutes < 60) return `${Math.floor(minutes)}분 전`;
-
     const hours = minutes / 60;
     if (hours < 24) return `${Math.floor(hours)}시간 전`;
-
     const days = hours / 24;
     if (days < 7) return `${Math.floor(days)}일 전`;
-
     return `${start.toLocaleDateString()}`;
   };
 
@@ -79,7 +72,7 @@ function Comment({ postId, commentsData }) {
             <div key={comment.commentId}>
               <span>{comment.author}님</span>&nbsp;
               <span>{elapsedTime(comment.date)}</span>
-              <div>{comment.comment}</div>
+              {comment.comment}
             </div>
           ))
         ) : (
