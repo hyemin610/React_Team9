@@ -43,6 +43,8 @@ function Create() {
       choice2: choice2,
       content: content,
       author: displayName,
+      vote1: 0,
+      vote2: 0,
     };
 
     // addData.mutate를 사용하여 새로운 데이터 추가 요청 보내기
