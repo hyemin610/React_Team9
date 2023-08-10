@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import * as S from "../styles/style.layout";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,6 +35,9 @@ const Layout = () => {
 
     await signOut(auth);
     dispatch(logout());
+
+    // 로그아웃 후에 새로고침
+    window.location.reload();
   };
 
   // 로그인, 회원가입 선택 페이지로 이동하는 함수
@@ -62,7 +65,9 @@ const Layout = () => {
                 <S.DisplayName>
                   환영합니다, {displayName} 님{/* <CgProfile /> */}
                 </S.DisplayName>
-                <S.LogoutButton onClick={() => navigate(`/mypage/${id}`)}>마이페이지</S.LogoutButton>
+                <S.LogoutButton onClick={() => navigate(`/mypage/${id}`)}>
+                  마이페이지
+                </S.LogoutButton>
                 <S.LogoutButton onClick={handleLogout}>로그아웃</S.LogoutButton>
               </>
             )}

@@ -13,9 +13,10 @@ React와 Firebase API를 이용한 사소하지만 재미있는 주제들에 대
 ### 🧑‍🤝‍🧑 멤버 구성 - 팀명 : 9쪽이들
 
 - 팀원1 : 김혜민 - 상세 페이지 구현(Detail.jsx, Edit.jsx)
-- 팀원2 : 안치훈 - 메인 페이지 구현 (Home.jsx)
+- 팀원2 : 안치훈 - 메인 페이지 구현 (Home.jsx) ,
 - 팀원3 : 이수진 - 로그인/ 회원가입 페이지 구현 (Login.jsx, Signup.jsx)
 - 팀원4 : 이예지 - 게시물 작성 페이지 구현 (Create.jsx)
+- 팀원5 : 한희 - 마이페이지 게시물 불러오기, 프로필 이미지 등록,삭제,변경 (Mypage.jsx)
 
 🎬 페이지 스크린샷
 
@@ -23,13 +24,11 @@ React와 Firebase API를 이용한 사소하지만 재미있는 주제들에 대
 
   ![20230807_191034](https://github.com/hyemin610/React_Team9/assets/133640361/c57a0b05-48a9-40f2-917f-e4245bfc8f22)
 
-
 <img src="https://www.notion.so/d2025c70cc0841aaa2e63873db680db1?pvs=4#a9df26b4ecd94cb6aaafb169a5698eb1" alt="" />
 
 - 회원가입 - Signup.jsx
 
   ![20230807_191050](https://github.com/hyemin610/React_Team9/assets/133640361/41526494-76d5-4544-bc42-2970367f79d0)
-
 
 <img src="https://www.notion.so/d2025c70cc0841aaa2e63873db680db1?pvs=4#4a89d5d6cbe94129af8791711920606b" alt="" />
 
@@ -37,20 +36,17 @@ React와 Firebase API를 이용한 사소하지만 재미있는 주제들에 대
 
   ![20230807_191115](https://github.com/hyemin610/React_Team9/assets/133640361/eac7a718-6d28-4c2a-a074-23c493aa0f51)
 
-
 <img src="https://www.notion.so/d2025c70cc0841aaa2e63873db680db1?pvs=4#1bb190ab9c6c4a6b942549a685c86168" alt=""/>
 
 - 상세 페이지 - Detail.jsx
 
   ![20230807_191105](https://github.com/hyemin610/React_Team9/assets/133640361/e34588f2-9502-4843-8032-d66fa8f94c2e)
 
-
 <img src="https://www.notion.so/d2025c70cc0841aaa2e63873db680db1?pvs=4#e58501d5069c4532940426760798c285" alt=""/>
 
 - 작성 페이지 - Create.jsx
 
   ![20230807_191126](https://github.com/hyemin610/React_Team9/assets/133640361/0ee6a273-ce07-41c3-b720-4a4e145ec8ac)
-
 
 <img src="https://www.notion.so/d2025c70cc0841aaa2e63873db680db1?pvs=4#1e84296421214dfa88cfbe641917bb06" alt=""/>
 

@@ -4,13 +4,15 @@ import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import * as S from "../styles/style.create";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 function Comment({ postId, commentsData }) {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const displayName = useSelector((state) => state.signup.displayName);
+
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editedComment, setEditedComment] = useState("");
-  const { id } = useParams();
 
   const addData = useMutation(
     async (newData) => {
@@ -22,10 +24,17 @@ function Comment({ postId, commentsData }) {
       },
     }
   );
+
+  // 작성 버튼 핸들러
   const handleSubmit = async (e) => {
     e.preventDefault();
     const commentInput = e.target.comment;
     const comment = commentInput.value;
+    if (!displayName) {
+      alert("로그인 후 이용해주세요!");
+      navigate("/login");
+      return;
+    }
     if (comment === "") {
       alert("댓글을 입력해주세요");
       return;
@@ -137,15 +146,13 @@ function Comment({ postId, commentsData }) {
                 />
 
                 <button onClick={() => handleSaveEdit(comment.id)}>저장</button>
-
-             
               </div>
             ) : (
               <div>
                 {comment.comment}
                 {/* 수정 버튼 */}
                 {displayName === comment.author && (
-                  <>          
+                  <>
                     <button
                       onClick={() =>
                         handleEditComment(comment.id, comment.comment)
