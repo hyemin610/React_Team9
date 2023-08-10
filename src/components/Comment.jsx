@@ -4,9 +4,13 @@ import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import * as S from "../styles/style.create";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 function Comment({ postId, commentsData }) {
   const queryClient = useQueryClient();
   const displayName = useSelector((state) => state.signup.displayName);
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editedComment, setEditedComment] = useState("");
+  const { id } = useParams();
 
   const addData = useMutation(
     async (newData) => {
@@ -43,7 +47,60 @@ function Comment({ postId, commentsData }) {
 
   // 게시글의 댓글 가져오기
   const findId = commentsData?.filter((newData) => newData?.postId === postId);
+  // 댓글 수정
+  const handleEditComment = (id, currentComment) => {
+    setEditingCommentId(id);
+    setEditedComment(currentComment);
+  };
+  // 수정된 댓글을 저장하는 함수
+  const handleSaveEdit = async (commentId) => {
+    if (editedComment.trim() === "") {
+      alert("댓글을 입력해주세요.");
+      return;
+    }
 
+    // 서버에 수정된 댓글 정보 보내기
+    try {
+      const updatedComment = {
+        postId: postId,
+        id: commentId,
+        comment: editedComment,
+        author: displayName,
+        date: new Date().toISOString(), // 수정된 내용
+      };
+
+      // 서버에 수정된 댓글 정보 보내기
+      await axios.put(
+        `${process.env.REACT_APP_SERVER_URL}/comments/${commentId}`,
+        updatedComment
+      );
+
+      // 서버에 수정된 댓글 정보를 보낸 후 서버로부터 새로운 데이터 받아오기
+      const updatedCommentsData = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}/comments`
+      );
+
+      // Query 갱신
+      queryClient.invalidateQueries("comments", updatedCommentsData.data);
+      setEditingCommentId(null);
+      setEditedComment("");
+    } catch (error) {
+      console.error("Error updating comment:", error);
+    }
+  };
+
+  const handleDeleteComment = async (commentId) => {
+    // 서버에서 해당 댓글 삭제 요청 보내기
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_SERVER_URL}/comments/${commentId}`
+      );
+      // Query 갱신
+      queryClient.invalidateQueries("comments");
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+    }
+  };
   // 실시간 댓글
   const elapsedTime = (date) => {
     const start = new Date(date);
@@ -78,16 +135,17 @@ function Comment({ postId, commentsData }) {
                   value={editedComment}
                   onChange={(e) => setEditedComment(e.target.value)}
                 />
-                <button onClick={() => handleSaveEdit(comment.commentId)}>
-                  저장
-                </button>
+
+                <button onClick={() => handleSaveEdit(comment.id)}>저장</button>
+
+             
               </div>
             ) : (
               <div>
                 {comment.comment}
                 {/* 수정 버튼 */}
                 {displayName === comment.author && (
-                  <div>
+                  <>          
                     <button
                       onClick={() =>
                         handleEditComment(comment.id, comment.comment)
@@ -104,7 +162,7 @@ function Comment({ postId, commentsData }) {
                     >
                       삭제
                     </button>
-                  </div>
+                  </>
                 )}
               </div>
             )}
