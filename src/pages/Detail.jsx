@@ -61,8 +61,16 @@ function Detail() {
           `${process.env.REACT_APP_SERVER_URL}/balances/${id}`,
           updatedData
         );
-        queryClient.invalidateQueries(["balances", id]); // balances 쿼리 다시 불러오기
-        localStorage.setItem(id, choice); // 투표한 선택 저장
+
+        // 저장된 투표 데이터를 서버로 전송
+        await axios.post(`${process.env.REACT_APP_SERVER_URL}/vote`, {
+          postId: id,
+          userId: displayName,
+          choice: choice,
+        });
+
+        queryClient.invalidateQueries(["balances", id]);
+        localStorage.setItem(id, choice);
       } catch (error) {
         console.error("Error updating vote:", error);
       }
