@@ -7,8 +7,7 @@ import { useSelector } from "react-redux";
 function Comment({ postId, commentsData }) {
   const queryClient = useQueryClient();
   const displayName = useSelector((state) => state.signup.displayName);
-  const [editingCommentId, setEditingCommentId] = useState(null);
-  const [editedComment, setEditedComment] = useState("");
+
   const addData = useMutation(
     async (newData) => {
       await axios.post(`${process.env.REACT_APP_SERVER_URL}/comments`, newData);
@@ -45,51 +44,6 @@ function Comment({ postId, commentsData }) {
   // 게시글의 댓글 가져오기
   const findId = commentsData?.filter((newData) => newData?.postId === postId);
 
-  // 댓글 수정
-  const handleEditComment = (commentId, currentComment) => {
-    setEditingCommentId(commentId);
-    setEditedComment(currentComment);
-  };
-  // 수정된 댓글을 저장하는 함수
-  const handleSaveEdit = async (commentId) => {
-    if (editedComment.trim() === "") {
-      alert("댓글을 입력해주세요.");
-      return;
-    }
-    // 서버에 수정된 댓글 정보 보내기
-    try {
-      const updatedComment = {
-        id: commentId, // 수정할 댓글의 고유 식별자
-        comment: editedComment, // 수정된 내용
-      };
-      // 서버에 수정된 댓글 정보 보내기
-      await axios.put(
-        `${process.env.REACT_APP_SERVER_URL}/comments/${commentId}`,
-        updatedComment
-      );
-      // Query 갱신
-      queryClient.invalidateQueries("comments");
-      setEditingCommentId(null);
-      setEditedComment("");
-    } catch (error) {
-      console.error("Error updating comment:", error);
-    }
-  };
-
-  // 삭제 버튼
-  const handleDeleteComment = async (commentId) => {
-    // 서버에서 해당 댓글 삭제 요청 보내기
-    try {
-      await axios.delete(
-        `${process.env.REACT_APP_SERVER_URL}/comments/${commentId}`
-      );
-      // Query 갱신
-      queryClient.invalidateQueries("comments");
-    } catch (error) {
-      console.error("Error deleting comment:", error);
-    }
-  };
-
   // 실시간 댓글
   const elapsedTime = (date) => {
     const start = new Date(date);
@@ -104,6 +58,7 @@ function Comment({ postId, commentsData }) {
     if (days < 7) return `${Math.floor(days)}일 전`;
     return `${start.toLocaleDateString()}`;
   };
+
   return (
     <div>
       <span>댓글</span>
