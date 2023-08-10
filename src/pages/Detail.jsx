@@ -1,10 +1,9 @@
 import React from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useQuery, useQueryClient, useMutation } from "react-query";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import * as S from "../styles/style.create";
-import { nanoid } from "@reduxjs/toolkit";
+import Comment from "../components/Comment"; // Import the Comment component
 
 function Detail() {
   const navigate = useNavigate();
@@ -24,19 +23,6 @@ function Detail() {
     return response.data;
   });
 
-  const addData = useMutation(
-    async (newData) => {
-      // axios를 사용하여 POST 요청을 보냄
-      await axios.post(`${process.env.REACT_APP_SERVER_URL}/comments`, newData);
-    },
-    {
-      onSuccess: () => {
-        // 데이터 추가 성공 시, "balances" 쿼리를 다시 불러오기 위해 invalidateQueries 호출
-        queryClient.invalidateQueries("comments");
-      },
-    }
-  );
-
   const { data, isLoading, isError } = useQuery(["balances", id], async () => {
     const response = await axios.get(
       `${process.env.REACT_APP_SERVER_URL}/balances/${id}`
@@ -44,28 +30,6 @@ function Detail() {
     return response.data;
   });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const comment = e.target.comment.value;
-    if (comment === "") {
-      alert("댓글을 입력해주세요");
-    }
-
-    const newData = {
-      commentId: nanoid(),
-      postId: data?.id,
-      comment: comment,
-    };
-
-    try {
-      addData.mutate(newData);
-    } catch (error) {
-      console.error("Error adding data:", error);
-    }
-  };
-  const findId = commentsData?.filter(
-    (newData) => newData?.postId === data?.id
-  );
   const deleteBalance = useMutation(
     async (balanceId) => {
       await axios.delete(
@@ -79,6 +43,16 @@ function Detail() {
       },
     }
   );
+
+  const handleEditClick = () => {
+    navigate(`/edit/${data.id}`);
+  };
+
+  const handleDeleteClick = () => {
+    if (window.confirm("삭제하시겠습니까?")) {
+      deleteBalance.mutate(data.id);
+    }
+  };
 
   if (isLoading || isCommentsLoading) {
     return <div>Loading...</div>;
@@ -96,16 +70,6 @@ function Detail() {
   if (!data) {
     return <div>게시물을 찾을 수 없습니다.</div>;
   }
-
-  const handleEditClick = () => {
-    navigate(`/edit/${data.id}`);
-  };
-
-  const handleDeleteClick = () => {
-    if (window.confirm("삭제하시겠습니까?")) {
-      deleteBalance.mutate(data.id);
-    }
-  };
 
   return (
     <>
@@ -126,22 +90,14 @@ function Detail() {
         }}
       >
         <div>{data.title}</div>
-        <div>상황:{data.comment}</div>
+        <div>상황: {data.comment}</div>
         <button>{data.choice1}</button>
         <div>VS</div>
         <button>{data.choice2}</button>
+        <div>{data.content}</div>
       </div>
       <button>다음 논쟁</button>
-      <div>
-        <span>댓글</span>
-        <form onSubmit={handleSubmit}>
-          <S.TitleInput name="comment" placeholder="댓글을 작성해주세요." />
-          <button type="submit">작성</button>
-          {findId.map((comment) => (
-            <div key={comment.commentId}>{comment.comment}</div>
-          ))}
-        </form>
-      </div>
+      <Comment postId={data?.id} commentsData={commentsData} />
     </>
   );
 }
