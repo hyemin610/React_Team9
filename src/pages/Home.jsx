@@ -5,7 +5,6 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { auth } from "../firebase";
 import * as S from "../styles/style.home";
-
 function Home() {
   const navigate = useNavigate();
   const [isTopVisible, setIsTopVisible] = useState(false); // "Top" 버튼 표시 여부 상태
@@ -13,7 +12,6 @@ function Home() {
   const handleWriteClick = () => {
     navigate("/create");
   };
-
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -23,10 +21,8 @@ function Home() {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setIsLoggedIn(!!user); // 사용자가 로그인 상태인 경우 true, 아닌 경우 false
     });
-
     return () => unsubscribe(); // 컴포넌트가 언마운트될 때 observer 해제
   }, []);
-
   const handleScroll = () => {
     if (window.scrollY > 300) {
       setIsTopVisible(true);
@@ -34,11 +30,9 @@ function Home() {
       setIsTopVisible(false);
     }
   };
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
   const {
     data: balances,
     error,
@@ -60,42 +54,33 @@ function Home() {
     );
     return response.data;
   });
-
   // 핫게시글 선정 로직
   const getHotBalances = () => {
     if (!balances || !comments) {
       return []; // 데이터가 아직 로드되지 않았을 경우 빈 배열 반환
     }
-
     const balanceWithCommentCount = balances.map((balance) => {
       const commentCount = comments.filter(
         (comment) => comment.postId === balance.id
       ).length;
       return { ...balance, commentCount };
     });
-
     const hotBalances = balanceWithCommentCount
       .sort((a, b) => b.commentCount - a.commentCount)
       .slice(0, 3);
-
     return hotBalances;
   };
-
   const hotBalances = getHotBalances();
   console.log(hotBalances);
-
   const goQuestion = (id) => {
     navigate(`/detail/${id}`);
   };
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
   if (error) {
     return <div>Error fetching balances: {error.message}</div>;
   }
-
   return (
     <>
       <S.BestBalanceTitle>
@@ -148,5 +133,4 @@ function Home() {
     </>
   );
 }
-
 export default Home;

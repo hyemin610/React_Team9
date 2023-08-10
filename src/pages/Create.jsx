@@ -10,10 +10,7 @@ import * as S from "../styles/style.create";
 function Create() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  // const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-  // const user = useSelector((state) => state.user.user);
   const displayName = useSelector((state) => state.signup.displayName);
-
   const addData = useMutation(
     async (newData) => {
       // axios를 사용하여 POST 요청을 보냄
@@ -38,14 +35,6 @@ function Create() {
     if (validateInputAndAlert(title, content, choice1, choice2)) {
       return; // 유효성 검사 실패 시 중단
     }
-
-    // let author;
-
-    // if (isLoggedIn && user) {
-    //   author = user.email || user.uid;
-    // } else {
-    //   author = "익명";
-    // }
 
     const newData = {
       id: nanoid(),
