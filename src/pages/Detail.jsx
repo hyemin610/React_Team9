@@ -3,7 +3,7 @@ import { useQuery, useQueryClient, useMutation } from "react-query";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Comment from "../components/Comment"; // Import the Comment component
+import Comment from "../components/Comment";
 
 function Detail() {
   const navigate = useNavigate();
@@ -54,6 +54,27 @@ function Detail() {
     }
   };
 
+  const handleCommentSubmit = async (comment) => {
+    // 댓글 작성 처리
+    const newComment = {
+      commentId: Math.random().toString(36).substring(7),
+      postId: data.id,
+      comment: comment,
+      author: displayName,
+      date: new Date().toISOString(),
+    };
+
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/comments`,
+        newComment
+      );
+      queryClient.invalidateQueries(["comments", id]);
+    } catch (error) {
+      console.error("Error adding comment:", error);
+    }
+  };
+
   if (isLoading || isCommentsLoading) {
     return <div>Loading...</div>;
   }
@@ -73,7 +94,7 @@ function Detail() {
 
   return (
     <>
-      <detailHeader style={{ display: "flex" }}>
+      <div style={{ display: "flex" }}>
         {displayName === data.author ? (
           <div>
             <p>{data?.author}님의 논쟁입니다.</p>
@@ -83,7 +104,7 @@ function Detail() {
         ) : (
           <p>{data?.author}님의 논쟁입니다.</p>
         )}
-      </detailHeader>
+      </div>
       <div
         style={{
           textAlign: "center",
@@ -97,7 +118,11 @@ function Detail() {
         <div>{data.content}</div>
       </div>
       <button>다음 논쟁</button>
-      <Comment postId={data?.id} commentsData={commentsData} />
+      <Comment
+        postId={data?.id}
+        commentsData={commentsData}
+        onCommentSubmit={handleCommentSubmit}
+      />
     </>
   );
 }

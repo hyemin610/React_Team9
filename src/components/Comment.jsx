@@ -3,10 +3,10 @@ import { nanoid } from "@reduxjs/toolkit";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import * as S from "../styles/style.create";
-
+import { useSelector } from "react-redux";
 function Comment({ postId, commentsData }) {
   const queryClient = useQueryClient();
-
+  const displayName = useSelector((state) => state.signup.displayName);
   const addData = useMutation(
     async (newData) => {
       await axios.post(`${process.env.REACT_APP_SERVER_URL}/comments`, newData);
@@ -32,6 +32,8 @@ function Comment({ postId, commentsData }) {
       commentId: nanoid(),
       postId: postId,
       comment: comment,
+      author: displayName,
+      date: new Date().toISOString(),
     };
 
     try {
@@ -44,6 +46,21 @@ function Comment({ postId, commentsData }) {
 
   const findId = commentsData?.filter((newData) => newData?.postId === postId);
 
+  // 실시간 댓글
+  const elapsedTime = (date) => {
+    const start = new Date(date);
+    const end = new Date();
+    const seconds = Math.floor((end.getTime() - start.getTime()) / 1000);
+    if (seconds < 60) return "방금 전";
+    const minutes = seconds / 60;
+    if (minutes < 60) return `${Math.floor(minutes)}분 전`;
+    const hours = minutes / 60;
+    if (hours < 24) return `${Math.floor(hours)}시간 전`;
+    const days = hours / 24;
+    if (days < 7) return `${Math.floor(days)}일 전`;
+    return `${start.toLocaleDateString()}`;
+  };
+
   return (
     <div>
       <span>댓글</span>
@@ -52,7 +69,11 @@ function Comment({ postId, commentsData }) {
         <button type="submit">작성</button>
         {findId && findId.length > 0 ? (
           findId.map((comment) => (
-            <div key={comment.commentId}>{comment.comment}</div>
+            <div key={comment.commentId}>
+              <span>{comment.author}님</span>&nbsp;
+              <span>{elapsedTime(comment.date)}</span>
+              {comment.comment}
+            </div>
           ))
         ) : (
           <div>아직 댓글이 없어요. 작성해볼까요?</div>
