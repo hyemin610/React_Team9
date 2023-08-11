@@ -19,6 +19,7 @@ export const LoginBoxLocation = styled.div`
   align-items: center;
 `;
 
+// form 테두리
 export const LoginBorder = styled.form`
   border: 3px solid white;
   border-radius: 10px;
@@ -26,6 +27,7 @@ export const LoginBorder = styled.form`
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
 `;
 
+// input 사이 공간
 export const Space = styled.div`
   width: 360px;
   margin-bottom: 20px;
@@ -58,6 +60,7 @@ export const Password = styled.input`
   box-sizing: border-box;
 `;
 
+// ok 버튼
 export const LoginButton = styled.button`
   width: 40%;
   border: none;
@@ -81,6 +84,7 @@ export const LoginButton = styled.button`
   }
 `;
 
+// 회원가입으로 이동
 export const SignupLink = styled(Link)`
   font-size: larger;
   margin-left: 145px;
@@ -92,4 +96,15 @@ export const SignupLink = styled(Link)`
   &:hover {
     color: black; /* 변경할 글자 색 */
   }
+`;
+
+// 취소 버튼
+export const CancelButton = styled.button`
+  border: none;
+  color: #352f3b;
+  margin-left: 95%;
+  background-color: #e87369;
+  cursor: pointer;
+  font-size: 16px;
+  /* min-width: 20px; */
 `;

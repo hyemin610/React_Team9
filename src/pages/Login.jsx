@@ -74,11 +74,18 @@ function Login() {
     }
   };
 
+  // 취소 버튼 핸들러
+  const handleCancel = () => {
+    window.alert("Canceled");
+    navigate(`/`);
+  };
+
   return (
     <S.BackgroundColor>
       <S.Container>
         <S.LoginBoxLocation>
           <S.LoginBorder>
+            <S.CancelButton onClick={handleCancel}>X</S.CancelButton>
             <S.Login>LOGIN</S.Login>
             <S.Space>
               <S.Email
