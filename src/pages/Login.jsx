@@ -25,6 +25,11 @@ function Login() {
     });
   };
 
+  const handleSubmit = (e) => {
+    e?.preventDefault(); // 폼 제출 기본 동작 막기
+    handleLogin(e); // 로그인 핸들러 호출
+  };
+
   // 로그인 버튼 핸들러
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -78,16 +83,18 @@ function Login() {
             <Link to="/home">
               <S.CancelButton>X</S.CancelButton>
             </Link>
-            <S.Login>LOGIN</S.Login>
-            <S.Space>
-              <S.Email placeholder="email" name="email" onChange={handleChange} />
-            </S.Space>
-            <S.Space>
-              <S.Password placeholder="password" name="password" type="password" onChange={handleChange} />
-            </S.Space>
-            <S.Space>
-              <S.LoginButton onClick={handleLogin}>ok</S.LoginButton>
-            </S.Space>
+            <form onSubmit={handleSubmit}>
+              <S.Login>LOGIN</S.Login>
+              <S.Space>
+                <S.Email placeholder="email" name="email" onChange={handleChange} />
+              </S.Space>
+              <S.Space>
+                <S.Password placeholder="password" name="password" type="password" onChange={handleChange} />
+              </S.Space>
+              <S.Space>
+                <S.LoginButton onClick={handleLogin}>ok</S.LoginButton>
+              </S.Space>
+            </form>
             <S.SignupLink to={"/signup"}>signup</S.SignupLink>
           </S.LoginBorder>
         </S.LoginBoxLocation>

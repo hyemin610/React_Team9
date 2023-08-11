@@ -139,40 +139,39 @@ function Detail() {
           <S.AuthorDebate>{data?.author}님의 논쟁입니다.</S.AuthorDebate>
         )}
       </div>
+      <S.PostTitle>{data.title}</S.PostTitle>
       <div>
-        <S.PostTitle>{data.title}</S.PostTitle>
         <S.PostContent>
           상황:
           <div>{data.content}</div>
         </S.PostContent>
         <S.VoteResult>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <S.Vote style={{ display: "flex", flexDirection: "column" }}>
             <S.VoteButton onClick={() => handleVoteClick("choice1")} disabled={voteChoice === "choice1" || voteChoice === "choice2" || findPostId?.some((data) => data.userId === displayName)}>
               {data.choice1}
             </S.VoteButton>
-            <S.VoteButton onClick={() => handleVoteClick("choice2")} disabled={voteChoice === "choice1" || voteChoice === "choice2" || findPostId?.some((data) => data.userId === displayName)}>
+            <S.VoteButton2 onClick={() => handleVoteClick("choice2")} disabled={voteChoice === "choice1" || voteChoice === "choice2" || findPostId?.some((data) => data.userId === displayName)}>
               {data.choice2}
-            </S.VoteButton>
-          </div>
+            </S.VoteButton2>
+          </S.Vote>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ flex: 1 }}>
-              {/* {data.choice1}  */}
-              {choice1Percentage.toFixed(2)}%
+              <S.VotePercent>{choice1Percentage.toFixed(2)}%</S.VotePercent>
               <div
                 style={{
                   width: `${choice1Percentage}%`,
-                  background: "blue",
+                  background: "white",
                   height: "20px",
                 }}
               />
             </div>
             <div style={{ flex: 1 }}>
-              {/* {data.choice2}  */}
-              {choice2Percentage.toFixed(2)}%
+              <S.VotePercent>{choice2Percentage.toFixed(2)}%</S.VotePercent>
+
               <div
                 style={{
                   width: `${choice2Percentage}%`,
-                  background: "red",
+                  background: "black",
                   height: "20px",
                 }}
               />
