@@ -19,7 +19,7 @@ export const SignupBoxLocation = styled.div`
   align-items: center;
 `;
 
-export const LoginBorder = styled.form`
+export const SignupBorder = styled.form`
   border: 3px solid white;
   border-radius: 10px;
   padding: 40px 40px 40px 40px;

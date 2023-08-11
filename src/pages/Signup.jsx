@@ -97,7 +97,7 @@ function Signup() {
     <S.BackgroundColor>
       <S.Container>
         <S.SignupBoxLocation>
-          <S.LoginBorder>
+          <S.SignupBorder>
             <S.Signup>SIGNUP</S.Signup>
             <S.Space>
               <S.Email
@@ -133,7 +133,7 @@ function Signup() {
               <S.SignupButton onClick={handleSignup}>ok</S.SignupButton>
             </S.Space>
             <S.LoginLink to={"/signup"}>login</S.LoginLink>
-          </S.LoginBorder>
+          </S.SignupBorder>
         </S.SignupBoxLocation>
       </S.Container>
     </S.BackgroundColor>
