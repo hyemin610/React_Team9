@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { setAlertMessage } from "../redux/modules/commonSlice"; // 추가
 import { setValidity, clearValidity } from "../redux/modules/validationSlice"; // 추가
 import { validateInputAndAlert } from "../redux/modules/validationUtils"; // 추가
@@ -14,6 +14,7 @@ function Create() {
   const navigate = useNavigate();
   const displayName = useSelector((state) => state.signup.displayName);
   const dispatch = useDispatch(); // 추가
+  const { id } = useParams();
 
   const addData = useMutation(
     async (newData) => {
@@ -26,6 +27,11 @@ function Create() {
       },
     }
   );
+
+  const handleCancel = () => {
+    window.alert("Cancelled");
+    navigate(`/`);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,19 +69,20 @@ function Create() {
 
   return (
     <S.FormContainer onSubmit={handleSubmit}>
-      <h1 style={{ fontSize: "24px", marginBottom: "20px" }}>토론 만들기</h1>
+      <S.CancelButton onClick={handleCancel}>X</S.CancelButton>
+      <h1 style={{ fontSize: "24px", marginBottom: "20px" }}>Create Debate</h1>
 
-      <S.TitleInput name="title" placeholder="제목을 입력하세요" />
+      <S.TitleInput name="title" placeholder="Please enter the title" />
 
       <S.ChoiceContainer>
-        <S.ChoiceInput name="choice1" placeholder="겨울" />
+        <S.ChoiceInput name="choice1" placeholder="choice1" />
         <S.BoldSpan>vs</S.BoldSpan>
-        <S.ChoiceInput name="choice2" placeholder="여름" />
+        <S.ChoiceInput name="choice2" placeholder="choice2" />
       </S.ChoiceContainer>
 
-      <S.ContentTextarea name="content" placeholder="내용을 입력하세요" />
+      <S.ContentTextarea name="content" placeholder="Please enter the content" />
 
-      <S.CreateButton type="submit">만들기</S.CreateButton>
+      <S.CreateButton type="submit">Create</S.CreateButton>
     </S.FormContainer>
   );
 }

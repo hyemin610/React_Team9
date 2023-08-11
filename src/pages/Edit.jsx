@@ -15,18 +15,13 @@ function Edit() {
   const dispatch = useDispatch(); // 추가
 
   const { data: balance } = useQuery(["post", id], async () => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/balances/${id}`
-    );
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/balances/${id}`);
     return response.data;
   });
 
   const updateMutation = useMutation(
     async (updatedBalance) => {
-      await axios.put(
-        `${process.env.REACT_APP_SERVER_URL}/balances/${id}`,
-        updatedBalance
-      );
+      await axios.put(`${process.env.REACT_APP_SERVER_URL}/balances/${id}`, updatedBalance);
     },
     {
       onSuccess: () => {
@@ -62,7 +57,7 @@ function Edit() {
   };
 
   const handleCancel = () => {
-    window.alert("취소되었습니다.");
+    window.alert("Cancelled");
     navigate(`/detail/${id}`);
   };
 
@@ -76,38 +71,20 @@ function Edit() {
 
   return (
     <S.FormContainer onSubmit={handleEditSubmit}>
-      <h1 style={{ fontSize: "24px", marginBottom: "20px" }}>토론 만들기</h1>
+      <S.CancelButton onClick={handleCancel}>X</S.CancelButton>
+      <h1 style={{ fontSize: "24px", marginBottom: "20px" }}>Edit Debate</h1>
 
-      <S.TitleInput
-        name="title"
-        defaultValue={balance.title}
-        placeholder="제목을 입력하세요"
-      />
+      <S.TitleInput name="title" defaultValue={balance.title} placeholder="Please enter the title" />
 
       <S.ChoiceContainer>
-        <S.ChoiceInput
-          name="choice1"
-          defaultValue={balance.choice1}
-          placeholder="겨울"
-        />
+        <S.ChoiceInput name="choice1" defaultValue={balance.choice1} placeholder="choice1" />
         <S.BoldSpan>vs</S.BoldSpan>
-        <S.ChoiceInput
-          name="choice2"
-          defaultValue={balance.choice2}
-          placeholder="여름"
-        />
+        <S.ChoiceInput name="choice2" defaultValue={balance.choice2} placeholder="choice2" />
       </S.ChoiceContainer>
 
-      <S.ContentTextarea
-        name="content"
-        defaultValue={balance.content}
-        placeholder="내용을 입력하세요"
-      />
+      <S.ContentTextarea name="content" defaultValue={balance.content} placeholder="Please enter the content" />
 
-      <S.ButtonContainer>
-        <S.EditButton type="submit">수정하기</S.EditButton>
-        <S.CancelButton onClick={handleCancel}>취소하기</S.CancelButton>
-      </S.ButtonContainer>
+      <S.EditButton type="submit">Edit</S.EditButton>
     </S.FormContainer>
   );
 }

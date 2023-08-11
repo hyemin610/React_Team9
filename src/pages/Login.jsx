@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as S from "../styles/style.signup";
+import * as S from "../styles/style.login";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
@@ -74,36 +74,42 @@ function Login() {
     }
   };
 
+  // 취소 버튼 핸들러
+  const handleCancel = () => {
+    window.alert("Canceled");
+    navigate(`/`);
+  };
+
   return (
-    <div>
+    <S.BackgroundColor>
       <S.Container>
-        <S.SignupBoxLocation>
-          <form>
+        <S.LoginBoxLocation>
+          <S.LoginBorder>
+            <S.CancelButton onClick={handleCancel}>X</S.CancelButton>
+            <S.Login>LOGIN</S.Login>
             <S.Space>
               <S.Email
-                placeholder="이메일"
+                placeholder="email"
                 name="email"
                 onChange={handleChange}
               />
             </S.Space>
             <S.Space>
               <S.Password
-                placeholder="비밀번호"
+                placeholder="password"
                 name="password"
                 type="password"
                 onChange={handleChange}
               />
             </S.Space>
             <S.Space>
-              <S.LoginButton onClick={handleLogin}>로그인</S.LoginButton>
+              <S.LoginButton onClick={handleLogin}>ok</S.LoginButton>
             </S.Space>
-            <S.SignupButton onClick={() => navigate("/signup")}>
-              회원가입하러 가기
-            </S.SignupButton>
-          </form>
-        </S.SignupBoxLocation>
+            <S.SignupLink to={"/signup"}>signup</S.SignupLink>
+          </S.LoginBorder>
+        </S.LoginBoxLocation>
       </S.Container>
-    </div>
+    </S.BackgroundColor>
   );
 }
 
