@@ -15,10 +15,14 @@ export const TitleInput = styled.input`
   width: 80%;
   height: 50px;
   font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid lightgrey;
+  border: 1px solid #e87369;
   padding: 4px;
   box-sizing: border-box;
+  background-color: #352f3b;
+  color: white;
+  &::placeholder {
+    color: #e87369;
+  }
 `;
 
 export const ChoiceContainer = styled.div`
@@ -30,16 +34,21 @@ export const ChoiceInput = styled.input`
   width: 100%;
   height: 40px;
   font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid lightgrey;
+  border: 1px solid #e87369;
   padding: 4px;
   box-sizing: border-box;
+  background-color: #352f3b;
+  color: white; /* 텍스트 색상 추가 */
+  &::placeholder {
+    color: #e87369; /* 플레이스홀더 색상 추가 */
+  }
 `;
 
 export const BoldSpan = styled.span`
   margin: 0 10px;
   font-size: 18px;
   font-weight: bold;
+  color: white; /* 텍스트 색상 추가 */
 `;
 
 export const ContentTextarea = styled.textarea`
@@ -47,19 +56,34 @@ export const ContentTextarea = styled.textarea`
   width: 80%;
   height: 40%;
   font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid lightgrey;
+  border: 1px solid #e87369;
   padding: 8px;
   box-sizing: border-box;
+  background-color: #352f3b;
+  color: white;
+  &::placeholder {
+    color: #e87369;
+  }
 `;
 
 export const CreateButton = styled.button`
   width: 10%;
   height: 40px;
   border: none;
-  color: white;
-  border-radius: 8px;
-  background-color: skyblue;
+  color: #352f3b;
   cursor: pointer;
   font-size: 16px;
+  background-color: #e87369;
+`;
+
+export const CancelButton = styled.button`
+  height: 20px;
+  border: none;
+  color: #352f3b;
+  margin-left: 80%;
+  margin-top: 40px;
+  background-color: #e87369;
+  cursor: pointer;
+  font-size: 16px;
+  min-width: 20px;
 `;
