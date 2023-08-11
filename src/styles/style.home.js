@@ -94,11 +94,15 @@ export const TopButton = styled.button`
   position: fixed;
   bottom: 20px;
   right: 20px;
-  padding: 10px 20px;
-  background-color: #7095f4;
-  color: white;
+  width: 80px;
+  height: 80px;
+  background: url("/image/top-earth.png") no-repeat center center;
+  background-size: cover;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   z-index: 1000;
+  color: #fff;
+  font-size: large;
+  font-weight: bold;
 `;

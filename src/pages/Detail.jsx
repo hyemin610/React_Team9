@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Comment from "../components/Comment";
 import * as S from "../styles/style.detail";
+import { VoteButton } from "../styles/style.detail";
 
 function Detail() {
   const navigate = useNavigate();
@@ -18,16 +19,12 @@ function Detail() {
     isLoading: isCommentsLoading,
     isError: isCommentsError,
   } = useQuery(["comments", id], async () => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/comments`
-    );
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/comments`);
     return response.data;
   });
 
   const voteQuery = useQuery(["vote", id], async () => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/vote`
-    );
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/vote`);
 
     const findPostId = response.data?.filter((data) => data?.postId === id);
 
@@ -36,17 +33,13 @@ function Detail() {
   });
 
   const { data, isLoading, isError } = useQuery(["balances", id], async () => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/balances/${id}`
-    );
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/balances/${id}`);
     return response.data;
   });
 
   const deleteBalance = useMutation(
     async (balanceId) => {
-      await axios.delete(
-        `${process.env.REACT_APP_SERVER_URL}/balances/${balanceId}`
-      );
+      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/balances/${balanceId}`);
     },
     {
       onSuccess: () => {
@@ -76,10 +69,7 @@ function Detail() {
       };
 
       try {
-        await axios.put(
-          `${process.env.REACT_APP_SERVER_URL}/balances/${id}`,
-          updatedData
-        );
+        await axios.put(`${process.env.REACT_APP_SERVER_URL}/balances/${id}`, updatedData);
 
         // 저장된 투표 데이터를 서버로 전송
         await axios.post(`${process.env.REACT_APP_SERVER_URL}/vote`, {
@@ -131,68 +121,69 @@ function Detail() {
   }
 
   const totalVotes = data.vote1 + data.vote2;
-  const choice1Percentage =
-    totalVotes === 0 ? 0 : (data.vote1 / totalVotes) * 100;
-  const choice2Percentage =
-    totalVotes === 0 ? 0 : (data.vote2 / totalVotes) * 100;
+  const choice1Percentage = totalVotes === 0 ? 0 : (data.vote1 / totalVotes) * 100;
+  const choice2Percentage = totalVotes === 0 ? 0 : (data.vote2 / totalVotes) * 100;
 
-  const findPostId = voteQuery.data?.filter(
-    (data) => data?.postId === id && data?.userId === displayName
-  );
+  const findPostId = voteQuery.data?.filter((data) => data?.postId === id && data?.userId === displayName);
 
   return (
     <S.DetailContainer>
       <div>
         {displayName === data?.author ? (
-          <div>
-            <p>{data.author}님의 논쟁입니다.</p>
-            <button onClick={handleEditClick}>수정</button>
-            <button onClick={handleDeleteClick}>삭제</button>
+          <div style={{ borderRadius: " 5px", borderColor: "white" }}>
+            <S.AuthorDebate>{data.author}님의 논쟁입니다.</S.AuthorDebate>
+            <S.Button onClick={handleEditClick}>수정</S.Button>
+            <S.Button onClick={handleDeleteClick}>삭제</S.Button>
           </div>
         ) : (
-          <p>{data?.author}님의 논쟁입니다.</p>
+          <S.AuthorDebate>{data?.author}님의 논쟁입니다.</S.AuthorDebate>
         )}
       </div>
       <div>
-        <div>{data.title}</div>
-        <div>상황: {data.comment}</div>
-        <S.VoteButtonsContainer>
-          <S.VoteButton
-            isActive={voteChoice === "choice1"}
-            onClick={() => handleVoteClick("choice1")}
-            disabled={
-              voteChoice === "choice1" ||
-              voteChoice === "choice2" ||
-              findPostId?.some((data) => data.userId === displayName)
-            }
-          >
-            {data.choice1}
-          </S.VoteButton>
-          <S.VoteButton
-            isActive={voteChoice === "choice2"}
-            onClick={() => handleVoteClick("choice2")}
-            disabled={
-              voteChoice === "choice1" ||
-              voteChoice === "choice2" ||
-              findPostId?.some((data) => data.userId === displayName)
-            }
-          >
-            {data.choice2}
-          </S.VoteButton>
-        </S.VoteButtonsContainer>
-        <div>VS</div>
-        <div>{data.content}</div>
-        <S.ProgressBarContainer>
-          <S.ProgressBar color="blue">
-            <S.ProgressBarFill percentage={choice1Percentage} />
-          </S.ProgressBar>
-          <S.ProgressBar color="red">
-            <S.ProgressBarFill percentage={choice2Percentage} />
-          </S.ProgressBar>
-        </S.ProgressBarContainer>
+        <S.PostTitle>{data.title}</S.PostTitle>
+        <S.PostContent>
+          상황:
+          <div>{data.content}</div>
+        </S.PostContent>
+        <S.VoteResult>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <S.VoteButton onClick={() => handleVoteClick("choice1")} disabled={voteChoice === "choice1" || voteChoice === "choice2" || findPostId?.some((data) => data.userId === displayName)}>
+              {data.choice1}
+            </S.VoteButton>
+            <S.VoteButton onClick={() => handleVoteClick("choice2")} disabled={voteChoice === "choice1" || voteChoice === "choice2" || findPostId?.some((data) => data.userId === displayName)}>
+              {data.choice2}
+            </S.VoteButton>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div style={{ flex: 1 }}>
+              {/* {data.choice1}  */}
+              {choice1Percentage.toFixed(2)}%
+              <div
+                style={{
+                  width: `${choice1Percentage}%`,
+                  background: "blue",
+                  height: "20px",
+                }}
+              />
+            </div>
+            <div style={{ flex: 1 }}>
+              {/* {data.choice2}  */}
+              {choice2Percentage.toFixed(2)}%
+              <div
+                style={{
+                  width: `${choice2Percentage}%`,
+                  background: "red",
+                  height: "20px",
+                }}
+              />
+            </div>
+          </div>
+        </S.VoteResult>
       </div>
-      <button>다음 논쟁</button>
-      <Comment postId={data?.id} commentsData={commentsData} />
+      <S.CommentDiv>
+        <hr />
+        <Comment postId={data?.id} commentsData={commentsData} />
+      </S.CommentDiv>
     </S.DetailContainer>
   );
 }

@@ -26,7 +26,6 @@ function Edit() {
     {
       onSuccess: () => {
         queryClient.invalidateQueries("posts");
-        window.alert("수정되었습니다.");
         navigate(`/detail/${id}`);
       },
     }
@@ -57,7 +56,6 @@ function Edit() {
   };
 
   const handleCancel = () => {
-    window.alert("Cancelled");
     navigate(`/detail/${id}`);
   };
 
@@ -72,19 +70,19 @@ function Edit() {
   return (
     <S.FormContainer onSubmit={handleEditSubmit}>
       <S.CancelButton onClick={handleCancel}>X</S.CancelButton>
-      <h1 style={{ fontSize: "24px", marginBottom: "20px" }}>Edit Debate</h1>
+      <h1 style={{ fontSize: "24px", marginBottom: "20px" }}>수정 하기</h1>
 
-      <S.TitleInput name="title" defaultValue={balance.title} placeholder="Please enter the title" />
+      <S.TitleInput name="title" defaultValue={balance.title} placeholder="제목을 입력해주세요" />
 
       <S.ChoiceContainer>
-        <S.ChoiceInput name="choice1" defaultValue={balance.choice1} placeholder="choice1" />
+        <S.ChoiceInput name="choice1" defaultValue={balance.choice1} placeholder="딸기" />
         <S.BoldSpan>vs</S.BoldSpan>
-        <S.ChoiceInput name="choice2" defaultValue={balance.choice2} placeholder="choice2" />
+        <S.ChoiceInput name="choice2" defaultValue={balance.choice2} placeholder="수박" />
       </S.ChoiceContainer>
 
-      <S.ContentTextarea name="content" defaultValue={balance.content} placeholder="Please enter the content" />
+      <S.ContentTextarea name="content" defaultValue={balance.content} placeholder="내용을 입력해주세요" />
 
-      <S.EditButton type="submit">Edit</S.EditButton>
+      <S.EditButton type="submit">수정</S.EditButton>
     </S.FormContainer>
   );
 }
