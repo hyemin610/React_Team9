@@ -106,5 +106,4 @@ export const CancelButton = styled.button`
   background-color: #e87369;
   cursor: pointer;
   font-size: 16px;
-  /* min-width: 20px; */
 `;
