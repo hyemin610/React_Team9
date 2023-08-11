@@ -138,8 +138,8 @@ export const LinkWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 5px;
   color: #343434;
+  margin-top: -30px;
 `;
 
 export const Name = styled.p`
@@ -169,11 +169,38 @@ export const FooterText = styled.span`
   margin-bottom: 30px;
 `;
 
-export const CatImg = styled.img`
+export const ComImg = styled.img`
   width: 100px;
 `;
 
+export const CatImg1 = styled.img`
+  width: 50px;
+`;
+
+export const CatImg2 = styled.img`
+  width: 40px;
+  padding-top: 10px;
+  margin-left: 20px;
+`;
+
+export const CatImg3 = styled.img`
+  width: 30px;
+  padding-top: 20px;
+  margin-left: 20px;
+`;
+
 export const HeaderDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const PlantImg = styled.img`
+  width: 50px;
+  padding-bottom: 10px;
+`;
+
+export const FooterDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

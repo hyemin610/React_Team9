@@ -57,8 +57,11 @@ const Layout = () => {
       <S.HeaderBox>
         {/* 로고 및 토론 홈 링크 */}
         <S.HeaderDiv>
-          <S.CatImg src="/image/header-computer.gif" alt="컴퓨터 이미지" />
-          <S.HeaderLink onClick={goHome}>방구석 토론</S.HeaderLink>
+          <S.ComImg src="/image/header-computer.gif" alt="컴퓨터 이미지" />
+          <S.HeaderLink onClick={goHome}>방구석 토론&nbsp;</S.HeaderLink>
+          <S.CatImg1 src="/image/cat-walking.gif" alt="고양이 이미지" />
+          <S.CatImg2 src="/image/cat-walking.gif" alt="고양이 이미지" />
+          <S.CatImg3 src="/image/cat-walking.gif" alt="고양이 이미지" />
         </S.HeaderDiv>
         {/* 프로필 아이콘, 닉네임, 로그아웃 버튼 옆으로 나란히 배치 */}
         <S.CenteredContainer>
@@ -96,7 +99,10 @@ const Layout = () => {
         {/* <div>SNS 채널들</div> */}
         <S.FooterContent>
           <br />
-          <S.FooterTitle>구쪽이들</S.FooterTitle>
+          <S.HeaderDiv>
+            <S.FooterTitle>구쪽이들</S.FooterTitle>
+            <S.PlantImg src="/image/footer2.png" alt="화분 이미지" />
+          </S.HeaderDiv>
           <S.LinkContainer>
             <S.LinkWrapper>
               <S.Name>김혜민</S.Name>

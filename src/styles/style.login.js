@@ -106,7 +106,8 @@ export const SignupLink = styled(Link)`
 export const CancelButton = styled.button`
   border: none;
   color: #352f3b;
-  margin-left: 95%;
+  margin-left: 90%;
+  // margin-top: 1000px;
   background-color: #e87369;
   cursor: pointer;
   font-size: 16px;

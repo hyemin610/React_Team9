@@ -168,7 +168,8 @@ function Comment({ postId, commentsData }) {
                 {editingCommentId === comment.id ? (
                   <div>
                     {/* <textarea value={editedComment} onChange={(e) => setEditedComment(e.target.value)} /> */}
-                    <input value={editedComment} onChange={(e) => setEditedComment(e.target.value)} />
+
+                    <S.CommentEdit value={editedComment} onChange={(e) => setEditedComment(e.target.value)} />
                     <S.Button onClick={() => handleSaveEdit(comment.id)}>저장</S.Button>
                   </div>
                 ) : (

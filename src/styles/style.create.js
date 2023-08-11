@@ -149,3 +149,22 @@ export const Box = styled.div`
   max-height: 500px;
   overflow: auto;
 `;
+
+// 댓글 수정 input창
+export const CommentEdit = styled.textarea`
+  resize: none;
+  font-size: 16px;
+  border: 1px solid #e87369;
+  padding: 8px;
+  box-sizing: border-box;
+  background-color: #352f3b;
+  color: #fff;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
+
+  &::placeholder {
+    color: #e87369;
+  }
+  width: 400px;
+  height: 200px;
+  resize: vertical;
+`;

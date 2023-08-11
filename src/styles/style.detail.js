@@ -24,7 +24,30 @@ export const VoteButtonsContainer = styled.div`
   margin-top: 10px; /* 위쪽 간격 추가 */
 `;
 
+// 투표 choice1 버튼
 export const VoteButton = styled.button`
+  cursor: pointer;
+  padding: 15px 30px; /* 크기 조정 */
+  font-size: 1.2rem; /* 크기 조정 */
+
+  background-color: ${({ isActive }) => (isActive ? "gray" : "transparent")};
+  border: 1px solid gray;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+  margin-right: 50px;
+  margin-left: 50px;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
+  color: white;
+  &:hover {
+    background-color: white;
+    color: black;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+`;
+export const VoteButton2 = styled.button`
   cursor: pointer;
   padding: 15px 30px; /* 크기 조정 */
   font-size: 1.2rem; /* 크기 조정 */
@@ -34,12 +57,11 @@ export const VoteButton = styled.button`
   transition: background-color 0.3s, color 0.3s;
   margin-right: 50px;
   margin-left: 50px;
-
+  color: white;
   &:hover {
-    background-color: gray;
+    background-color: black;
     color: white;
   }
-
   &:disabled {
     cursor: not-allowed;
   }
@@ -94,4 +116,16 @@ export const PostContent = styled.div`
   border: 1px solid white;
   padding: 10px 10px 10px 10px;
   width: 500px;
+`;
+
+// 투표 버튼
+export const Vote = styled.div`
+  margin-bottom: 30px;
+`;
+
+// 투표 퍼센트
+export const VotePercent = styled.div`
+  font-weight: bolder;
+  font-size: large;
+  margin-bottom: 10px;
 `;
