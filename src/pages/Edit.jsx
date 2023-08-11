@@ -2,18 +2,18 @@ import React, { Fragment } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import axios from "axios";
+import { setAlertMessage } from "../redux/modules/commonSlice"; // 추가
+import { setValidity, clearValidity } from "../redux/modules/validationSlice"; // 추가
 import { validateInputAndAlert } from "../redux/modules/validationUtils";
 import * as S from "../styles/style.edit";
+import { useDispatch } from "react-redux";
 
 function Edit() {
   const navigate = useNavigate();
-
-  // 동적 변수로 지정한(URL) id를 가져올 수 있다.
   const { id } = useParams();
-
   const queryClient = useQueryClient();
+  const dispatch = useDispatch(); // 추가
 
-  // 해당 id의 게시물을 가져오는 React Query 쿼리
   const { data: balance } = useQuery(["post", id], async () => {
     const response = await axios.get(
       `${process.env.REACT_APP_SERVER_URL}/balances/${id}`
@@ -21,7 +21,6 @@ function Edit() {
     return response.data;
   });
 
-  // 게시물 수정을 위한 Mutation
   const updateMutation = useMutation(
     async (updatedBalance) => {
       await axios.put(
@@ -41,18 +40,25 @@ function Edit() {
   const handleEditSubmit = (e) => {
     e.preventDefault();
 
+    dispatch(clearValidity()); // 유효성 검사 상태 초기화
+
     const title = e.target.title.value;
     const content = e.target.content.value;
     const choice1 = e.target.choice1.value;
     const choice2 = e.target.choice2.value;
 
     if (validateInputAndAlert(title, content, choice1, choice2)) {
-      return; // 유효성 검사 실패 시 중단
+      return;
     }
 
     const updatedBalance = { ...balance, title, content, choice1, choice2 };
 
-    updateMutation.mutate(updatedBalance);
+    try {
+      updateMutation.mutate(updatedBalance);
+    } catch (error) {
+      console.error("Error updating data:", error);
+      dispatch(setAlertMessage("데이터 수정 중 오류가 발생했습니다."));
+    }
   };
 
   const handleCancel = () => {
@@ -107,5 +113,3 @@ function Edit() {
 }
 
 export default Edit;
-
-//

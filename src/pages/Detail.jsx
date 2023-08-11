@@ -86,6 +86,9 @@ function Detail() {
           userId: displayName,
           choice: choice,
         });
+
+        // 페이지 새로고침
+        window.location.reload();
       } catch (error) {
         console.error("Error updating vote:", error);
       }

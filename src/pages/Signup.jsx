@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase";
-import { signupSuccess } from "../redux/modules/signup";
+import { signupSuccess } from "../redux/modules/signupSlice";
 
 function Signup() {
   const navigate = useNavigate();
