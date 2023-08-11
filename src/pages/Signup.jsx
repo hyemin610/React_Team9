@@ -93,11 +93,18 @@ function Signup() {
     }
   };
 
+  // 취소 버튼 핸들러
+  const handleCancel = () => {
+    window.alert("Canceled");
+    navigate(`/`);
+  };
+
   return (
     <S.BackgroundColor>
       <S.Container>
         <S.SignupBoxLocation>
           <S.SignupBorder>
+            <S.CancelButton onClick={handleCancel}>X</S.CancelButton>
             <S.Signup>SIGNUP</S.Signup>
             <S.Space>
               <S.Email
