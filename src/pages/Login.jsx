@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as S from "../styles/style.signup";
+import * as S from "../styles/style.login";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
@@ -75,35 +75,34 @@ function Login() {
   };
 
   return (
-    <div>
+    <S.BackgroundColor>
       <S.Container>
-        <S.SignupBoxLocation>
+        <S.LoginBoxLocation>
           <form>
+            <S.Login>LOGIN</S.Login>
             <S.Space>
               <S.Email
-                placeholder="이메일"
+                placeholder="email"
                 name="email"
                 onChange={handleChange}
               />
             </S.Space>
             <S.Space>
               <S.Password
-                placeholder="비밀번호"
+                placeholder="password"
                 name="password"
                 type="password"
                 onChange={handleChange}
               />
             </S.Space>
             <S.Space>
-              <S.LoginButton onClick={handleLogin}>로그인</S.LoginButton>
+              <S.LoginButton onClick={handleLogin}>ok</S.LoginButton>
             </S.Space>
-            <S.SignupButton onClick={() => navigate("/signup")}>
-              회원가입하러 가기
-            </S.SignupButton>
+            <S.SignupLink to={"/signup"}>signup</S.SignupLink>
           </form>
-        </S.SignupBoxLocation>
+        </S.LoginBoxLocation>
       </S.Container>
-    </div>
+    </S.BackgroundColor>
   );
 }
 
