@@ -72,7 +72,7 @@ export const ButtonStyles = styled.button`
   transition: 0.3s ease-in-out;
   @media (hover: hover) {
     &:hover {
-      box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+      transform: rotate(360deg); /* 버튼 크기 확대 */
     }
   }
 `;

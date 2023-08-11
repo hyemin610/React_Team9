@@ -48,7 +48,7 @@ const Layout = () => {
     navigate("/signup");
   };
   const goHome = () => {
-    navigate("/");
+    navigate("/home");
   };
 
   return (
