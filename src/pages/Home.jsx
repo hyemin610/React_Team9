@@ -87,14 +87,15 @@ function Home() {
     <>
       {/* 핫 게시글 타이틀 */}
       <S.BestBalanceTitle>
-        <S.BestBalanceTitleSpan color="F47070">HOT</S.BestBalanceTitleSpan>
-        <S.BestBalanceTitleSpan>게시글</S.BestBalanceTitleSpan>
+        <S.BestBalanceTitleSpan color="#FFFFFF">
+          Popularity
+        </S.BestBalanceTitleSpan>
       </S.BestBalanceTitle>
       {/* 글 작성 버튼 */}
       <S.WriteButtonBox>
         {isLoggedIn && (
-          <S.ButtonStyles onClick={handleWriteClick} textcolor="7095F4">
-            작성
+          <S.ButtonStyles onClick={handleWriteClick}>
+            <S.WriteButtonImage src="/image/pencil.png" alt="Pencil Image" />
           </S.ButtonStyles>
         )}
       </S.WriteButtonBox>
@@ -106,31 +107,29 @@ function Home() {
               key={hotpost.id}
               onClick={() => goQuestion(hotpost.id)}
             >
-              <S.BalanceTextBox textColor="ffd700">
-                {hotpost.choice1}
-              </S.BalanceTextBox>
-              <S.BalanceTextBox>VS</S.BalanceTextBox>
-              <S.BalanceTextBox textColor="008080">
-                {hotpost.choice2}
-              </S.BalanceTextBox>
+              <S.BalanceImage src="/image/box.png" alt="Box Image" />
+              <S.BalanceTextContainer>
+                <S.BalanceTextBox textColor="000000">
+                  {hotpost.title}
+                </S.BalanceTextBox>
+              </S.BalanceTextContainer>
             </S.BalanceBox>
           ))}
         </S.BalanceContainer>
         {/* 모든 게시글 목록 */}
+        <S.BalanceTextBox>모든 게시글 보기</S.BalanceTextBox>
         <S.BalanceContainer>
-          모든 게시글 보기
           {balances.map((balance) => (
             <S.BalanceBox
               key={balance.id}
               onClick={() => goQuestion(balance.id)}
             >
-              <S.BalanceTextBox textColor="ffd700">
-                {balance.choice1}
-              </S.BalanceTextBox>
-              <S.BalanceTextBox>VS</S.BalanceTextBox>
-              <S.BalanceTextBox textColor="008080">
-                {balance.choice2}
-              </S.BalanceTextBox>
+              <S.BalanceImage src="/image/box.png" alt="Box Image" />
+              <S.BalanceTextContainer>
+                <S.BalanceTextBox textColor="000000">
+                  {balance.title}
+                </S.BalanceTextBox>
+              </S.BalanceTextContainer>
             </S.BalanceBox>
           ))}
         </S.BalanceContainer>

@@ -11,6 +11,16 @@ import Mypage from "./pages/Mypage";
 function App() {
   return (
     <Routes>
+      <Route
+        index
+        element={
+          <div>
+            <Link to="/">
+              <img src="/image/startimage.gif" alt="Start Image" />
+            </Link>
+          </div>
+        }
+      />
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/detail/:id" element={<Detail />} />

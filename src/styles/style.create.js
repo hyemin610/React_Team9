@@ -18,11 +18,15 @@ export const TitleInput = styled.input`
   border: 1px solid #e87369;
   padding: 4px;
   box-sizing: border-box;
+
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
+
   background-color: #352f3b;
   color: white;
   &::placeholder {
     color: #e87369;
   }
+
 `;
 
 export const ChoiceContainer = styled.div`
@@ -37,11 +41,15 @@ export const ChoiceInput = styled.input`
   border: 1px solid #e87369;
   padding: 4px;
   box-sizing: border-box;
+
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
+
   background-color: #352f3b;
   color: white; /* 텍스트 색상 추가 */
   &::placeholder {
     color: #e87369; /* 플레이스홀더 색상 추가 */
   }
+
 `;
 
 export const BoldSpan = styled.span`
@@ -59,11 +67,15 @@ export const ContentTextarea = styled.textarea`
   border: 1px solid #e87369;
   padding: 8px;
   box-sizing: border-box;
+
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
+
   background-color: #352f3b;
   color: white;
   &::placeholder {
     color: #e87369;
   }
+
 `;
 
 export const CreateButton = styled.button`
@@ -85,5 +97,9 @@ export const CancelButton = styled.button`
   background-color: #e87369;
   cursor: pointer;
   font-size: 16px;
+
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
+
   min-width: 20px;
+
 `;

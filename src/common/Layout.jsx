@@ -63,22 +63,22 @@ const Layout = () => {
             {isSignupSuccess && (
               <>
                 <S.DisplayName>
-                  환영합니다, {displayName} 님{/* <CgProfile /> */}
+                  Hello, _{displayName}_{/* <CgProfile /> */}
                 </S.DisplayName>
                 <S.LogoutButton onClick={() => navigate(`/mypage/${id}`)}>
-                  마이페이지
+                  Mypage
                 </S.LogoutButton>
-                <S.LogoutButton onClick={handleLogout}>로그아웃</S.LogoutButton>
+                <S.LogoutButton onClick={handleLogout}>Logout</S.LogoutButton>
               </>
             )}
           </S.Nickname>
           {!isSignupSuccess && (
             <div>
               <S.ButtonStyles onClick={goLogin} textColor="7095F4">
-                로그인
+                Login
               </S.ButtonStyles>
               <S.ButtonStyles onClick={goSingup} textColor="7095F4">
-                회원가입
+                Signup
               </S.ButtonStyles>
             </div>
           )}
