@@ -19,6 +19,7 @@ export const TitleInput = styled.input`
   border: 1px solid lightgrey;
   padding: 4px;
   box-sizing: border-box;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 `;
 
 export const ChoiceContainer = styled.div`
@@ -34,6 +35,7 @@ export const ChoiceInput = styled.input`
   border: 1px solid lightgrey;
   padding: 4px;
   box-sizing: border-box;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 `;
 
 export const BoldSpan = styled.span`
@@ -51,6 +53,7 @@ export const ContentTextarea = styled.textarea`
   border: 1px solid lightgrey;
   padding: 8px;
   box-sizing: border-box;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 `;
 
 export const CreateButton = styled.button`
@@ -62,4 +65,5 @@ export const CreateButton = styled.button`
   background-color: skyblue;
   cursor: pointer;
   font-size: 16px;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 `;

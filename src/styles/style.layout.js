@@ -13,8 +13,9 @@ export const HeaderBox = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: #e87369;
   box-sizing: border-box;
-  background-color: white;
+  background-color: #352f3b;
   border-bottom: 1px solid #cccccc;
 `;
 
@@ -23,7 +24,7 @@ export const HeaderLink = styled.div`
   width: 33.333%;
   text-align: left;
   text-decoration: none;
-  color: #000;
+  color: #e87369;
   cursor: pointer;
   font-size: 3rem;
   font-weight: bold;
@@ -38,7 +39,6 @@ export const HeaderButtonBox = styled.div`
   gap: 10px;
 `;
 
-// 버튼 스타일 컴포넌트를 정의하여 스타일링
 export const ButtonStyles = styled.button`
   cursor: pointer;
   background-color: transparent;
@@ -48,6 +48,8 @@ export const ButtonStyles = styled.button`
   border: 1px solid #000;
   transition: 0.3s ease-in-out;
   font-size: 1rem;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
+
   @media (hover: hover) {
     &:hover {
       color: #${(props) => props.textColor};
@@ -82,6 +84,8 @@ export const DisplayName = styled.button`
   margin-right: 40px;
   border: none;
   background-color: transparent;
+  color: #e87369;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 `;
 
 // 로그인 되었을 때 나오는 로그아웃 버튼
@@ -94,6 +98,7 @@ export const LogoutButton = styled.button`
   color: black;
   height: 40px;
   cursor: pointer;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
   // #fccae7
   // #cafcf7
 `;
