@@ -56,7 +56,10 @@ const Layout = () => {
       {/* 헤더 영역 */}
       <S.HeaderBox>
         {/* 로고 및 토론 홈 링크 */}
-        <S.HeaderLink onClick={goHome}>방구석 토론</S.HeaderLink>
+        <S.HeaderDiv>
+          <S.CatImg src="/image/header-computer.gif" alt="컴퓨터 이미지" />
+          <S.HeaderLink onClick={goHome}>방구석 토론</S.HeaderLink>
+        </S.HeaderDiv>
         {/* 프로필 아이콘, 닉네임, 로그아웃 버튼 옆으로 나란히 배치 */}
         <S.CenteredContainer>
           <S.Nickname>
@@ -65,19 +68,17 @@ const Layout = () => {
                 <S.DisplayName>
                   Hello, _{displayName}_{/* <CgProfile /> */}
                 </S.DisplayName>
-                <S.LogoutButton onClick={() => navigate(`/mypage/${id}`)}>
-                  Mypage
-                </S.LogoutButton>
+                <S.LogoutButton onClick={() => navigate(`/mypage/${id}`)}>Mypage</S.LogoutButton>
                 <S.LogoutButton onClick={handleLogout}>Logout</S.LogoutButton>
               </>
             )}
           </S.Nickname>
           {!isSignupSuccess && (
             <div>
-              <S.ButtonStyles onClick={goLogin} textColor="7095F4">
+              <S.ButtonStyles onClick={goLogin} textColor="ffffff">
                 Login
               </S.ButtonStyles>
-              <S.ButtonStyles onClick={goSingup} textColor="7095F4">
+              <S.ButtonStyles onClick={goSingup} textColor="ffffff">
                 Signup
               </S.ButtonStyles>
             </div>
@@ -92,8 +93,43 @@ const Layout = () => {
 
       {/* 푸터 영역 */}
       <S.Footer>
-        <div>구쪽이들</div>
-        <div>SNS 채널들</div>
+        {/* <div>SNS 채널들</div> */}
+        <S.FooterContent>
+          <br />
+          <S.FooterTitle>구쪽이들</S.FooterTitle>
+          <S.LinkContainer>
+            <S.LinkWrapper>
+              <S.Name>김혜민</S.Name>
+              <S.LinkIcon href="https://github.com/hyemin610" target="_blank" rel="noopener nore">
+                <S.GitBtn src="/image/git.png" alt="깃 이미지" />
+              </S.LinkIcon>
+            </S.LinkWrapper>
+            <S.LinkWrapper>
+              <S.Name>안치훈</S.Name>
+              <S.LinkIcon href="https://github.com/chihoonahn0319" target="_blank" rel="noopener nore">
+                <S.GitBtn src="/image/git.png" alt="깃 이미지" />
+              </S.LinkIcon>
+            </S.LinkWrapper>
+            <S.LinkWrapper>
+              <S.Name>이수진</S.Name>
+              <S.LinkIcon href="https://github.com/leesoojinn" target="_blank" rel="noopener nore">
+                <S.GitBtn src="/image/git.png" alt="깃 이미지" />
+              </S.LinkIcon>
+            </S.LinkWrapper>
+            <S.LinkWrapper>
+              <S.Name>한희</S.Name>
+              <S.LinkIcon href="https://github.com/han0111" target="_blank" rel="noopener nore">
+                <S.GitBtn src="/image/git.png" alt="깃 이미지" />
+              </S.LinkIcon>
+            </S.LinkWrapper>
+            <S.LinkWrapper>
+              <S.Name>이예지</S.Name>
+              <S.LinkIcon href="https://github.com/nna-na" target="_blank" rel="noopener nore">
+                <S.GitBtn src="/image/git.png" alt="깃 이미지" />
+              </S.LinkIcon>
+            </S.LinkWrapper>
+          </S.LinkContainer>
+        </S.FooterContent>
       </S.Footer>
     </S.LayoutContainer>
   );

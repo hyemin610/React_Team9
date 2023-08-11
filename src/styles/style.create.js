@@ -12,12 +12,15 @@ export const FormContainer = styled.form`
 `;
 
 export const TitleInput = styled.input`
-  width: 80%;
-  height: 50px;
+  width: 60%;
+  height: 40px;
+  margin-bottom: 30px;
+  margin-right: 10px;
   font-size: 16px;
   border: 1px solid #e87369;
-  padding: 4px;
+  padding: 0px 0px 0px 10px;
   box-sizing: border-box;
+  justify-content: center;
 
   font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 
@@ -26,7 +29,6 @@ export const TitleInput = styled.input`
   &::placeholder {
     color: #e87369;
   }
-
 `;
 
 export const ChoiceContainer = styled.div`
@@ -49,7 +51,6 @@ export const ChoiceInput = styled.input`
   &::placeholder {
     color: #e87369; /* 플레이스홀더 색상 추가 */
   }
-
 `;
 
 export const BoldSpan = styled.span`
@@ -67,18 +68,17 @@ export const ContentTextarea = styled.textarea`
   border: 1px solid #e87369;
   padding: 8px;
   box-sizing: border-box;
-
+  background-color: #352f3b;
+  color: #fff;
   font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 
-  background-color: #352f3b;
-  color: white;
   &::placeholder {
     color: #e87369;
   }
-
 `;
 
 export const CreateButton = styled.button`
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
   width: 10%;
   height: 40px;
   border: none;
@@ -101,5 +101,51 @@ export const CancelButton = styled.button`
   font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 
   min-width: 20px;
+`;
 
+// 댓글 --------------------------------------------------------------
+export const CommentBox = styled.div`
+  border: 1px solid white;
+  padding: 10px;
+  margin-bottom: 10px;
+`;
+
+// 댓글 글자
+export const CommentTitle = styled.div`
+  font-weight: bolder;
+  margin-bottom: 10px;
+`;
+
+// 작성자 닉네임
+export const AuthorNickname = styled.span`
+  font-weight: bold;
+  color: white;
+`;
+
+// 수정, 삭제 버튼
+export const Button = styled.button`
+  background-color: #e87369;
+  border: none;
+  font-weight: bolder;
+  margin-left: 3px;
+  margin-top: 5px;
+
+  &:hover {
+    color: white; /* 변경할 글자 색 */
+  }
+`;
+
+// 댓글 글자
+export const CommentText = styled.div`
+  font-weight: bold;
+`;
+export const ScrollBox = styled.div``;
+
+export const Box = styled.div`
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  max-height: 500px;
+  overflow: auto;
 `;
