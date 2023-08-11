@@ -94,27 +94,28 @@ function Signup() {
   };
 
   return (
-    <div>
+    <S.BackgroundColor>
       <S.Container>
         <S.SignupBoxLocation>
-          <form>
+          <S.LoginBorder>
+            <S.Signup>SIGNUP</S.Signup>
             <S.Space>
               <S.Email
-                placeholder="이메일"
+                placeholder="email"
                 name="email"
                 onChange={handleChange}
               />
             </S.Space>
             <S.Space>
               <S.Nickname
-                placeholder="닉네임"
+                placeholder="nickname"
                 name="nickname"
                 onChange={handleChange}
               />
             </S.Space>
             <S.Space>
               <S.Password
-                placeholder="비밀번호"
+                placeholder="password"
                 name="password"
                 type="password"
                 onChange={handleChange}
@@ -122,20 +123,20 @@ function Signup() {
             </S.Space>
             <S.Space>
               <S.PassWordConfirm
-                placeholder="비밀번호 확인"
+                placeholder="confirm password"
                 name="passwordConfirm"
                 type="password"
                 onChange={handleChange}
               />
             </S.Space>
             <S.Space>
-              <S.LoginButton onClick={handleSignup}>회원가입하기</S.LoginButton>
+              <S.SignupButton onClick={handleSignup}>ok</S.SignupButton>
             </S.Space>
-            {/* <S.SignupButton>로그인하러 가기</S.SignupButton> */}
-          </form>
+            <S.LoginLink to={"/signup"}>login</S.LoginLink>
+          </S.LoginBorder>
         </S.SignupBoxLocation>
       </S.Container>
-    </div>
+    </S.BackgroundColor>
   );
 }
 
