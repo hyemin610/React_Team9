@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Comment from "../components/Comment";
+import * as S from "../styles/style.detail";
 
 function Detail() {
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ function Detail() {
     {
       onSuccess: () => {
         queryClient.invalidateQueries("balances");
-        navigate("/");
+        navigate("/home");
       },
     }
   );
@@ -106,7 +107,7 @@ function Detail() {
         onSuccess: () => {
           // "balances" 쿼리를 다시 가져와서 데이터 업데이트
           queryClient.getQueryByKey("balances").refetch();
-          navigate("/");
+          navigate("/home");
         },
       });
     }
@@ -140,8 +141,8 @@ function Detail() {
   );
 
   return (
-    <>
-      <div style={{ display: "flex" }}>
+    <S.DetailContainer>
+      <div>
         {displayName === data?.author ? (
           <div>
             <p>{data.author}님의 논쟁입니다.</p>
@@ -152,11 +153,12 @@ function Detail() {
           <p>{data?.author}님의 논쟁입니다.</p>
         )}
       </div>
-      <div style={{ textAlign: "center" }}>
+      <div>
         <div>{data.title}</div>
         <div>상황: {data.comment}</div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <button
+        <S.VoteButtonsContainer>
+          <S.VoteButton
+            isActive={voteChoice === "choice1"}
             onClick={() => handleVoteClick("choice1")}
             disabled={
               voteChoice === "choice1" ||
@@ -165,8 +167,9 @@ function Detail() {
             }
           >
             {data.choice1}
-          </button>
-          <button
+          </S.VoteButton>
+          <S.VoteButton
+            isActive={voteChoice === "choice2"}
             onClick={() => handleVoteClick("choice2")}
             disabled={
               voteChoice === "choice1" ||
@@ -175,36 +178,22 @@ function Detail() {
             }
           >
             {data.choice2}
-          </button>
-        </div>
+          </S.VoteButton>
+        </S.VoteButtonsContainer>
         <div>VS</div>
         <div>{data.content}</div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div style={{ flex: 1 }}>
-            {data.choice1}: {choice1Percentage.toFixed(2)}%
-            <div
-              style={{
-                width: `${choice1Percentage}%`,
-                background: "blue",
-                height: "20px",
-              }}
-            />
-          </div>
-          <div style={{ flex: 1 }}>
-            {data.choice2}: {choice2Percentage.toFixed(2)}%
-            <div
-              style={{
-                width: `${choice2Percentage}%`,
-                background: "red",
-                height: "20px",
-              }}
-            />
-          </div>
-        </div>
+        <S.ProgressBarContainer>
+          <S.ProgressBar color="blue">
+            <S.ProgressBarFill percentage={choice1Percentage} />
+          </S.ProgressBar>
+          <S.ProgressBar color="red">
+            <S.ProgressBarFill percentage={choice2Percentage} />
+          </S.ProgressBar>
+        </S.ProgressBarContainer>
       </div>
       <button>다음 논쟁</button>
       <Comment postId={data?.id} commentsData={commentsData} />
-    </>
+    </S.DetailContainer>
   );
 }
 

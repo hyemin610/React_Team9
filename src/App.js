@@ -7,22 +7,14 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Layout from "./common/Layout";
 import Mypage from "./pages/Mypage";
+import Start from "./pages/Start";
 
 function App() {
   return (
     <Routes>
-      <Route
-        index
-        element={
-          <div>
-            <Link to="/">
-              <img src="/image/startimage.gif" alt="Start Image" />
-            </Link>
-          </div>
-        }
-      />
+      <Route path="/" element={<Start />} />
       <Route element={<Layout />}>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/create" element={<Create />} />
         <Route path="/edit/:id" element={<Edit />} />

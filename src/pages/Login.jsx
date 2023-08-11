@@ -50,7 +50,7 @@ function Login() {
       console.log("user with login", userCredential.user);
 
       alert("로그인에 성공했습니다.");
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;

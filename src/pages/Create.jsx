@@ -60,7 +60,7 @@ function Create() {
 
     try {
       addData.mutate(newData);
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       console.error("Error adding data:", error);
       dispatch(setAlertMessage("데이터 추가 중 오류가 발생했습니다."));
@@ -80,7 +80,10 @@ function Create() {
         <S.ChoiceInput name="choice2" placeholder="choice2" />
       </S.ChoiceContainer>
 
-      <S.ContentTextarea name="content" placeholder="Please enter the content" />
+      <S.ContentTextarea
+        name="content"
+        placeholder="Please enter the content"
+      />
 
       <S.CreateButton type="submit">Create</S.CreateButton>
     </S.FormContainer>
