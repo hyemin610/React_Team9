@@ -6,7 +6,7 @@ const initialState = {
   displayName: "",
 };
 
-const signup = createSlice({
+const signupSlice = createSlice({
   name: "signup",
   initialState,
   reducers: {
@@ -22,5 +22,5 @@ const signup = createSlice({
   },
 });
 
-export const { signupSuccess, logout } = signup.actions;
-export default signup.reducer;
+export const { signupSuccess, logout } = signupSlice.actions;
+export default signupSlice.reducer;

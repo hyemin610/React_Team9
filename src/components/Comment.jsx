@@ -1,22 +1,45 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import * as S from "../styles/style.create";
-import { useSelector } from "react-redux";
+import {
+  addComment,
+  updateComment,
+  deleteComment,
+} from "../redux/modules/commentsSlice";
 import { useNavigate } from "react-router-dom";
 
 function Comment({ postId, commentsData }) {
   const queryClient = useQueryClient();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const displayName = useSelector((state) => state.signup.displayName);
 
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editedComment, setEditedComment] = useState("");
 
-  const addData = useMutation(
-    async (newData) => {
-      await axios.post(`${process.env.REACT_APP_SERVER_URL}/comments`, newData);
+  const addCommentMutation = useMutation(
+    async (newComment) => {
+      await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/comments`,
+        newComment
+      );
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("comments");
+      },
+    }
+  );
+
+  const updateCommentMutation = useMutation(
+    async (updatedComment) => {
+      await axios.put(
+        `${process.env.REACT_APP_SERVER_URL}/comments/${updatedComment.id}`,
+        updatedComment
+      );
     },
     {
       onSuccess: () => {
@@ -39,7 +62,7 @@ function Comment({ postId, commentsData }) {
       alert("댓글을 입력해주세요");
       return;
     }
-    const newData = {
+    const newComment = {
       id: nanoid(),
       postId: postId,
       comment: comment,
@@ -47,20 +70,19 @@ function Comment({ postId, commentsData }) {
       date: new Date().toISOString(),
     };
     try {
-      await addData.mutateAsync(newData);
+      await addCommentMutation.mutateAsync(newComment);
       commentInput.value = ""; //입력시 댓글 폼 초기화
     } catch (error) {
       console.error("Error adding comment:", error);
     }
   };
 
-  // 게시글의 댓글 가져오기
-  const findId = commentsData?.filter((newData) => newData?.postId === postId);
   // 댓글 수정
   const handleEditComment = (id, currentComment) => {
     setEditingCommentId(id);
     setEditedComment(currentComment);
   };
+
   // 수정된 댓글을 저장하는 함수
   const handleSaveEdit = async (commentId) => {
     if (editedComment.trim() === "") {
@@ -68,29 +90,17 @@ function Comment({ postId, commentsData }) {
       return;
     }
 
-    // 서버에 수정된 댓글 정보 보내기
     try {
       const updatedComment = {
-        postId: postId,
         id: commentId,
+        postId: postId,
         comment: editedComment,
         author: displayName,
-        date: new Date().toISOString(), // 수정된 내용
+        date: new Date().toISOString(),
       };
 
-      // 서버에 수정된 댓글 정보 보내기
-      await axios.put(
-        `${process.env.REACT_APP_SERVER_URL}/comments/${commentId}`,
-        updatedComment
-      );
+      await updateCommentMutation.mutateAsync(updatedComment);
 
-      // 서버에 수정된 댓글 정보를 보낸 후 서버로부터 새로운 데이터 받아오기
-      const updatedCommentsData = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/comments`
-      );
-
-      // Query 갱신
-      queryClient.invalidateQueries("comments", updatedCommentsData.data);
       setEditingCommentId(null);
       setEditedComment("");
     } catch (error) {
@@ -98,13 +108,16 @@ function Comment({ postId, commentsData }) {
     }
   };
 
+  // 댓글 삭제
   const handleDeleteComment = async (commentId) => {
-    // 서버에서 해당 댓글 삭제 요청 보내기
     try {
       await axios.delete(
         `${process.env.REACT_APP_SERVER_URL}/comments/${commentId}`
       );
-      // Query 갱신
+
+      // 리덕스를 활용하여 댓글 삭제
+      dispatch(deleteComment({ id: commentId }));
+
       queryClient.invalidateQueries("comments");
     } catch (error) {
       console.error("Error deleting comment:", error);
@@ -125,6 +138,11 @@ function Comment({ postId, commentsData }) {
     return `${start.toLocaleDateString()}`;
   };
 
+  // 해당 게시글의 댓글 가져오기
+  const filteredComments = commentsData.filter(
+    (comment) => comment?.postId === postId
+  );
+
   return (
     <div>
       <span>댓글</span>
@@ -132,8 +150,8 @@ function Comment({ postId, commentsData }) {
         <S.TitleInput name="comment" placeholder="댓글을 작성해주세요." />
         <button type="submit">작성</button>
       </form>
-      {findId && findId.length > 0 ? (
-        findId.map((comment) => (
+      {filteredComments && filteredComments.length > 0 ? (
+        filteredComments?.map((comment) => (
           <div key={comment.id}>
             <span>{comment.author}님</span>&nbsp;
             <span>{elapsedTime(comment.date)}</span>

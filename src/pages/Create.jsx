@@ -1,16 +1,20 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux"; // useSelector 추가
+import { useSelector, useDispatch } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { validateInputAndAlert } from "../redux/modules/validationUtils";
+import { setAlertMessage } from "../redux/modules/commonSlice"; // 추가
+import { setValidity, clearValidity } from "../redux/modules/validationSlice"; // 추가
+import { validateInputAndAlert } from "../redux/modules/validationUtils"; // 추가
 import * as S from "../styles/style.create";
 
 function Create() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const displayName = useSelector((state) => state.signup.displayName);
+  const dispatch = useDispatch(); // 추가
+
   const addData = useMutation(
     async (newData) => {
       // axios를 사용하여 POST 요청을 보냄
@@ -18,7 +22,6 @@ function Create() {
     },
     {
       onSuccess: () => {
-        // 데이터 추가 성공 시, "balances" 쿼리를 다시 불러오기 위해 invalidateQueries 호출
         queryClient.invalidateQueries("balances");
       },
     }
@@ -27,13 +30,15 @@ function Create() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    dispatch(clearValidity()); // 유효성 검사 상태 초기화
+
     const title = e.target.title.value;
     const content = e.target.content.value;
     const choice1 = e.target.choice1.value;
     const choice2 = e.target.choice2.value;
 
     if (validateInputAndAlert(title, content, choice1, choice2)) {
-      return; // 유효성 검사 실패 시 중단
+      return;
     }
 
     const newData = {
@@ -47,13 +52,12 @@ function Create() {
       vote2: 0,
     };
 
-    // addData.mutate를 사용하여 새로운 데이터 추가 요청 보내기
     try {
       addData.mutate(newData);
-      // 추가 후 메인 페이지로 이동
       navigate("/");
     } catch (error) {
       console.error("Error adding data:", error);
+      dispatch(setAlertMessage("데이터 추가 중 오류가 발생했습니다."));
     }
   };
 
