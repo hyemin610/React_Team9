@@ -39,26 +39,6 @@ export const VoteButton = styled.button`
   }
 `;
 
-export const ProgressBarContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-export const ProgressBar = styled.div`
-  flex: 1;
-  position: relative;
-  height: 20px;
-  margin: 0 5px;
-  border-radius: 5px;
-  background-color: ${({ color }) => color};
-`;
-
-export const ProgressBarFill = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: ${({ percentage }) => percentage}%;
-  background-color: white;
-  border-radius: 5px;
+export const VoteResult = styled.div`
+  margin: 0 auto;
 `;

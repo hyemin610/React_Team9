@@ -181,20 +181,32 @@ function Detail() {
           </S.VoteButton>
         </S.VoteButtonsContainer>
         <div>VS</div>
-        <div>{data.content}</div>
-        <S.ProgressBarContainer>
-          <S.ProgressBar color="blue">
-            <S.ProgressBarFill percentage={choice1Percentage} />
-          </S.ProgressBar>
-          <S.ProgressBar color="red">
-            <S.ProgressBarFill percentage={choice2Percentage} />
-          </S.ProgressBar>
-        </S.ProgressBarContainer>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div style={{ flex: 1 }}>
+            {data.choice1}: {choice1Percentage.toFixed(2)}%
+            <div
+              style={{
+                width: `${choice1Percentage}%`,
+                background: "blue",
+                height: "20px",
+              }}
+            />
+          </div>
+          <div style={{ flex: 1 }}>
+            {data.choice2}: {choice2Percentage.toFixed(2)}%
+            <div
+              style={{
+                width: `${choice2Percentage}%`,
+                background: "red",
+                height: "20px",
+              }}
+            />
+          </div>
+        </div>
       </div>
       <button>다음 논쟁</button>
       <Comment postId={data?.id} commentsData={commentsData} />
     </S.DetailContainer>
   );
 }
-
 export default Detail;
