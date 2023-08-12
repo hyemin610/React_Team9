@@ -5,7 +5,7 @@ export const Allpage = styled.div``;
 export const Nickname = styled.div`
   font-weight: bold;
   font-size: 30px;
-  width: 350px;
+  /* width: 350px; */
   display: flex;
   align-items: left;
   margin: 50px auto 100px 2px;
