@@ -57,7 +57,11 @@ function Signup() {
     }
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, signupDatas.email, signupDatas.password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        signupDatas.email,
+        signupDatas.password
+      );
       console.log("user", userCredential.user);
 
       await updateProfile(userCredential.user, {
@@ -99,21 +103,39 @@ function Signup() {
             </Link>
             <S.Signup>SIGNUP</S.Signup>
             <S.Space>
-              <S.Email placeholder="email" name="email" onChange={handleChange} />
+              <S.Email
+                placeholder="email"
+                name="email"
+                onChange={handleChange}
+              />
             </S.Space>
             <S.Space>
-              <S.Nickname placeholder="nickname" name="nickname" onChange={handleChange} />
+              <S.Nickname
+                placeholder="nickname"
+                name="nickname"
+                onChange={handleChange}
+              />
             </S.Space>
             <S.Space>
-              <S.Password placeholder="password" name="password" type="password" onChange={handleChange} />
+              <S.Password
+                placeholder="password"
+                name="password"
+                type="password"
+                onChange={handleChange}
+              />
             </S.Space>
             <S.Space>
-              <S.PassWordConfirm placeholder="confirm password" name="passwordConfirm" type="password" onChange={handleChange} />
+              <S.PassWordConfirm
+                placeholder="confirm password"
+                name="passwordConfirm"
+                type="password"
+                onChange={handleChange}
+              />
             </S.Space>
             <S.Space>
               <S.SignupButton onClick={handleSignup}>ok</S.SignupButton>
             </S.Space>
-            <S.LoginLink to={"/signup"}>login</S.LoginLink>
+            <S.LoginLink to={"/login"}>login</S.LoginLink>
           </S.SignupBorder>
         </S.SignupBoxLocation>
       </S.Container>
