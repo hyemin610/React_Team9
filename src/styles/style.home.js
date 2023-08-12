@@ -5,6 +5,7 @@ export const BalanceBox = styled.div`
   width: 370px;
   height: 370px;
   margin: 10px;
+  margin-bottom: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -105,4 +106,9 @@ export const TopButton = styled.button`
   color: #fff;
   font-size: large;
   font-weight: bold;
+`;
+
+// 모든 게시글 보기
+export const ViewAllPost = styled.p`
+  margin-bottom: 50px;
 `;
