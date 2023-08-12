@@ -5,7 +5,11 @@ import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import * as S from "../styles/style.create";
 // import * as S from "../styles/style.comments";
-import { addComment, updateComment, deleteComment } from "../redux/modules/commentsSlice";
+import {
+  addComment,
+  updateComment,
+  deleteComment,
+} from "../redux/modules/commentsSlice";
 import { useNavigate } from "react-router-dom";
 
 function Comment({ postId, commentsData }) {
@@ -19,7 +23,10 @@ function Comment({ postId, commentsData }) {
 
   const addCommentMutation = useMutation(
     async (newComment) => {
-      await axios.post(`${process.env.REACT_APP_SERVER_URL}/comments`, newComment);
+      await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/comments`,
+        newComment
+      );
     },
     {
       onSuccess: () => {
@@ -30,7 +37,10 @@ function Comment({ postId, commentsData }) {
 
   const updateCommentMutation = useMutation(
     async (updatedComment) => {
-      await axios.put(`${process.env.REACT_APP_SERVER_URL}/comments/${updatedComment.id}`, updatedComment);
+      await axios.put(
+        `${process.env.REACT_APP_SERVER_URL}/comments/${updatedComment.id}`,
+        updatedComment
+      );
     },
     {
       onSuccess: () => {
@@ -102,7 +112,9 @@ function Comment({ postId, commentsData }) {
   // 댓글 삭제
   const handleDeleteComment = async (commentId) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/comments/${commentId}`);
+      await axios.delete(
+        `${process.env.REACT_APP_SERVER_URL}/comments/${commentId}`
+      );
 
       // 리덕스를 활용하여 댓글 삭제
       dispatch(deleteComment({ id: commentId }));
@@ -128,7 +140,9 @@ function Comment({ postId, commentsData }) {
   };
 
   // 해당 게시글의 댓글 가져오기
-  const filteredComments = commentsData.filter((comment) => comment?.postId === postId);
+  const filteredComments = commentsData.filter(
+    (comment) => comment?.postId === postId
+  );
 
   return (
     <div>
@@ -150,7 +164,13 @@ function Comment({ postId, commentsData }) {
                   {/* 수정 버튼 */}
                   {displayName === comment.author && (
                     <div>
-                      <S.Button onClick={() => handleEditComment(comment.id, comment.comment)}>수정</S.Button>
+                      <S.Button
+                        onClick={() =>
+                          handleEditComment(comment.id, comment.comment)
+                        }
+                      >
+                        수정
+                      </S.Button>
                       <S.Button
                         onClick={() => {
                           if (window.confirm("삭제하시겠습니까?")) {
@@ -169,8 +189,13 @@ function Comment({ postId, commentsData }) {
                   <div>
                     {/* <textarea value={editedComment} onChange={(e) => setEditedComment(e.target.value)} /> */}
 
-                    <S.CommentEdit value={editedComment} onChange={(e) => setEditedComment(e.target.value)} />
-                    <S.Button onClick={() => handleSaveEdit(comment.id)}>저장</S.Button>
+                    <S.CommentEdit
+                      value={editedComment}
+                      onChange={(e) => setEditedComment(e.target.value)}
+                    />
+                    <S.Button onClick={() => handleSaveEdit(comment.id)}>
+                      저장
+                    </S.Button>
                   </div>
                 ) : (
                   <S.CommentText>{comment.comment}</S.CommentText>
