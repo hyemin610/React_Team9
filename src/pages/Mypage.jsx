@@ -1,4 +1,5 @@
 import * as S from "../styles/style.mypage";
+import * as A from "../styles/style.home";
 import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -50,13 +51,19 @@ export default function Mypage() {
                 key={balance.id}
                 onClick={() => goQuestion(balance.id)}
               >
-                <S.BalanceTextBox textColor="ffd700">
+                <S.BalanceImage src="/image/box.png" alt="Box Image" />
+                <S.BalanceTextContainer>
+                  <S.BalanceText textColor="000000">
+                    {balance.title}
+                  </S.BalanceText>
+                </S.BalanceTextContainer>
+                {/* <S.BalanceTextBox textColor="ffd700">
                   {balance.choice1}
                 </S.BalanceTextBox>
                 <S.BalanceTextBox>VS</S.BalanceTextBox>
                 <S.BalanceTextBox textColor="008080">
                   {balance.choice2}
-                </S.BalanceTextBox>
+                </S.BalanceTextBox> */}
               </S.BalanceBox>
             ))
           ) : (
