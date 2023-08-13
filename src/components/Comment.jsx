@@ -154,7 +154,7 @@ function Comment({ postId, commentsData }) {
         </form>
       </>
       <S.Box>
-        <S.ScrollBox>
+        <div>
           {filteredComments && filteredComments.length > 0 ? (
             filteredComments?.map((comment) => (
               <S.CommentBox key={comment.id}>
@@ -205,7 +205,7 @@ function Comment({ postId, commentsData }) {
           ) : (
             <div>아직 댓글이 없어요. 작성해볼까요?</div>
           )}
-        </S.ScrollBox>
+        </div>
       </S.Box>
     </div>
   );

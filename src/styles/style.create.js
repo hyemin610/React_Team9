@@ -105,9 +105,9 @@ export const CancelButton = styled.button`
 
 // 댓글 --------------------------------------------------------------
 export const CommentBox = styled.div`
-  border: 1px solid white;
+  border: 3px solid white;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 
 // 댓글 글자
@@ -139,7 +139,6 @@ export const Button = styled.button`
 export const CommentText = styled.div`
   font-weight: bold;
 `;
-export const ScrollBox = styled.div``;
 
 export const Box = styled.div`
   overflow: scroll;
@@ -165,6 +164,6 @@ export const CommentEdit = styled.textarea`
     color: #e87369;
   }
   width: 400px;
-  height: 200px;
+  height: 80px;
   resize: vertical;
 `;
