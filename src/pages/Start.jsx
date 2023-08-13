@@ -11,7 +11,7 @@ const StartWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #000; /* 선택적으로 배경색 지정 */
+  background-color: #000; /*  배경색  */
 `;
 
 const Startimg = styled.div`

@@ -1,11 +1,8 @@
 import { styled } from "styled-components";
 
-export const Allpage = styled.div``;
-
 export const Nickname = styled.div`
   font-weight: bold;
   font-size: 30px;
-  /* width: 350px; */
   display: flex;
   align-items: left;
   margin: 50px auto 100px 2px;
@@ -23,7 +20,6 @@ export const BalanceTextBox = styled.div`
 export const BalanceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: space-between; */
   margin-left: auto;
 `;
 
@@ -76,5 +72,4 @@ export const Comment = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* margin-top: 40%; */
 `;

@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 export const FormContainer = styled.div`
   display: flex;
 `;
+
 export const selected = styled.div`
   background-color: #4caf50; //Green color
   color: white;
@@ -21,15 +22,14 @@ export const DetailContainer = styled.div`
 export const VoteButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 10px; /* 위쪽 간격 추가 */
+  margin-top: 10px;
 `;
 
 // 투표 choice1 버튼
 export const VoteButton = styled.button`
   cursor: pointer;
-  padding: 15px 30px; /* 크기 조정 */
-  font-size: 1.2rem; /* 크기 조정 */
-
+  padding: 15px 30px;
+  font-size: 1.2rem;
   background-color: ${({ isActive }) => (isActive ? "gray" : "transparent")};
   border: 1px solid gray;
   border-radius: 5px;
@@ -47,10 +47,11 @@ export const VoteButton = styled.button`
     cursor: not-allowed;
   }
 `;
+
 export const VoteButton2 = styled.button`
   cursor: pointer;
-  padding: 15px 30px; /* 크기 조정 */
-  font-size: 1.2rem; /* 크기 조정 */
+  padding: 15px 30px;
+  font-size: 1.2rem;
   background-color: ${({ isActive }) => (isActive ? "gray" : "transparent")};
   border: 1px solid gray;
   border-radius: 5px;
@@ -70,12 +71,6 @@ export const VoteButton2 = styled.button`
 export const CommentDiv = styled.div`
   margin-top: 30px;
   width: 600px;
-  /* height: 100px; */
-  // overflow: scroll;
-  // &::-webkit-scrollbar {
-  //   display: none;
-  // }
-  // flex-basis: 500px;
 `;
 // 수정, 삭제 버튼
 export const Button = styled.button`
@@ -84,11 +79,11 @@ export const Button = styled.button`
   font-weight: bolder;
   margin-left: 3px;
   margin-bottom: 15px;
-  width: 100px; /* 원하는 너비 설정 */
-  height: 40px; /* 원하는 높이 설정 */
+  width: 100px;
+  height: 40px;
 
   &:hover {
-    color: white; /* 변경할 글자 색 */
+    color: white;
   }
 `;
 
@@ -102,14 +97,12 @@ export const AuthorDebate = styled.p`
   font-weight: bolder;
 `;
 
-// 게시글 제목
 export const PostTitle = styled.div`
   font-size: larger;
   font-weight: bold;
   margin-bottom: 20px;
 `;
 
-// 게시글 설명
 export const PostContent = styled.div`
   font-weight: bold;
   margin-bottom: 20px;

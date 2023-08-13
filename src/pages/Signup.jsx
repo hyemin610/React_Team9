@@ -50,7 +50,6 @@ function Signup() {
       alert("비밀번호 또는 비밀번호 확인을 확인해주세요.");
       return;
     }
-
     if (signupDatas.password !== signupDatas.passwordConfirm) {
       alert("비밀번호가 일치하지 않습니다.");
       return;

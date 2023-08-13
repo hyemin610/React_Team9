@@ -4,20 +4,19 @@ import { nanoid } from "@reduxjs/toolkit";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { setAlertMessage } from "../redux/modules/commonSlice"; // 추가
-import { clearValidity } from "../redux/modules/validationSlice"; // 추가
-import { validateInputAndAlert } from "../redux/modules/validationUtils"; // 추가
+import { setAlertMessage } from "../redux/modules/commonSlice";
+import { clearValidity } from "../redux/modules/validationSlice";
+import { validateInputAndAlert } from "../redux/modules/validationUtils";
 import * as S from "../styles/style.create";
 
 function Create() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const displayName = useSelector((state) => state.signup.displayName);
-  const dispatch = useDispatch(); // 추가
+  const dispatch = useDispatch();
 
   const addData = useMutation(
     async (newData) => {
-      // axios를 사용하여 POST 요청을 보냄
       await axios.post(`${process.env.REACT_APP_SERVER_URL}/balances`, newData);
     },
     {
@@ -45,6 +44,7 @@ function Create() {
       return;
     }
 
+    // 새로운 게시글
     const newData = {
       id: nanoid(),
       title: title,
@@ -69,17 +69,13 @@ function Create() {
     <S.FormContainer onSubmit={handleSubmit}>
       <S.CancelButton onClick={handleCancel}>X</S.CancelButton>
       <h1 style={{ fontSize: "24px", marginBottom: "20px" }}>토론 만들기</h1>
-
       <S.TitleInput name="title" placeholder="제목을 입력하세요" />
-
       <S.ChoiceContainer>
         <S.ChoiceInput name="choice1" placeholder="딸기" />
         <S.BoldSpan>vs</S.BoldSpan>
         <S.ChoiceInput name="choice2" placeholder="수박" />
       </S.ChoiceContainer>
-
       <S.ContentTextarea name="content" placeholder="내용을 입력하세요" />
-
       <S.CreateButton type="submit">만들기</S.CreateButton>
     </S.FormContainer>
   );
