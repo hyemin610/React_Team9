@@ -16,7 +16,6 @@ export default function Mypage() {
     const response = await axios.get(
       `${process.env.REACT_APP_SERVER_URL}/balances`
     );
-    console.log(response);
     return response.data;
   });
 
@@ -26,7 +25,6 @@ export default function Mypage() {
   };
 
   const findId = balances?.filter((newData) => newData?.author === displayName);
-  console.log(findId);
 
   if (isLoading) {
     return <div>Loading...</div>;

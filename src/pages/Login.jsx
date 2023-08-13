@@ -51,14 +51,12 @@ function Login() {
         signInDatas.email,
         signInDatas.password
       );
-      console.log("user with login", userCredential.user);
 
       alert("로그인에 성공했습니다.");
       navigate("/home");
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log("error with signup", errorCode, errorMessage);
 
       // firebase 로그인 에러 발생 시 에러 처리
       switch (errorCode) {
