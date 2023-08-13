@@ -2,8 +2,8 @@ import React, { Fragment } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import axios from "axios";
-import { setAlertMessage } from "../redux/modules/commonSlice"; // 추가
-import { setValidity, clearValidity } from "../redux/modules/validationSlice"; // 추가
+import { setAlertMessage } from "../redux/modules/commonSlice";
+import { clearValidity } from "../redux/modules/validationSlice";
 import { validateInputAndAlert } from "../redux/modules/validationUtils";
 import * as S from "../styles/style.edit";
 import { useDispatch } from "react-redux";
@@ -12,16 +12,21 @@ function Edit() {
   const navigate = useNavigate();
   const { id } = useParams();
   const queryClient = useQueryClient();
-  const dispatch = useDispatch(); // 추가
+  const dispatch = useDispatch();
 
   const { data: balance } = useQuery(["post", id], async () => {
-    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/balances/${id}`);
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/balances/${id}`
+    );
     return response.data;
   });
 
   const updateMutation = useMutation(
     async (updatedBalance) => {
-      await axios.put(`${process.env.REACT_APP_SERVER_URL}/balances/${id}`, updatedBalance);
+      await axios.put(
+        `${process.env.REACT_APP_SERVER_URL}/balances/${id}`,
+        updatedBalance
+      );
     },
     {
       onSuccess: () => {
@@ -71,17 +76,29 @@ function Edit() {
     <S.FormContainer onSubmit={handleEditSubmit}>
       <S.CancelButton onClick={handleCancel}>X</S.CancelButton>
       <h1 style={{ fontSize: "24px", marginBottom: "20px" }}>수정 하기</h1>
-
-      <S.TitleInput name="title" defaultValue={balance.title} placeholder="제목을 입력해주세요" />
-
+      <S.TitleInput
+        name="title"
+        defaultValue={balance.title}
+        placeholder="제목을 입력해주세요"
+      />
       <S.ChoiceContainer>
-        <S.ChoiceInput name="choice1" defaultValue={balance.choice1} placeholder="딸기" />
+        <S.ChoiceInput
+          name="choice1"
+          defaultValue={balance.choice1}
+          placeholder="딸기"
+        />
         <S.BoldSpan>vs</S.BoldSpan>
-        <S.ChoiceInput name="choice2" defaultValue={balance.choice2} placeholder="수박" />
+        <S.ChoiceInput
+          name="choice2"
+          defaultValue={balance.choice2}
+          placeholder="수박"
+        />
       </S.ChoiceContainer>
-
-      <S.ContentTextarea name="content" defaultValue={balance.content} placeholder="내용을 입력해주세요" />
-
+      <S.ContentTextarea
+        name="content"
+        defaultValue={balance.content}
+        placeholder="내용을 입력해주세요"
+      />
       <S.EditButton type="submit">수정</S.EditButton>
     </S.FormContainer>
   );

@@ -26,7 +26,7 @@ function Login() {
   };
 
   const handleSubmit = (e) => {
-    e?.preventDefault(); // 폼 제출 기본 동작 막기
+    e?.preventDefault();
     handleLogin(e); // 로그인 핸들러 호출
   };
 
@@ -35,7 +35,6 @@ function Login() {
     e.preventDefault();
 
     // 로그인 유효성 검사
-    // 이메일 필드가 비어있는지 확인
     if (!signInDatas.email) {
       alert("이메일을 입력해주세요.");
       return;
@@ -47,7 +46,11 @@ function Login() {
     }
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, signInDatas.email, signInDatas.password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        signInDatas.email,
+        signInDatas.password
+      );
       console.log("user with login", userCredential.user);
 
       alert("로그인에 성공했습니다.");
@@ -86,10 +89,19 @@ function Login() {
             <form onSubmit={handleSubmit}>
               <S.Login>LOGIN</S.Login>
               <S.Space>
-                <S.Email placeholder="email" name="email" onChange={handleChange} />
+                <S.Email
+                  placeholder="email"
+                  name="email"
+                  onChange={handleChange}
+                />
               </S.Space>
               <S.Space>
-                <S.Password placeholder="password" name="password" type="password" onChange={handleChange} />
+                <S.Password
+                  placeholder="password"
+                  name="password"
+                  type="password"
+                  onChange={handleChange}
+                />
               </S.Space>
               <S.Space>
                 <S.LoginButton onClick={handleLogin}>ok</S.LoginButton>

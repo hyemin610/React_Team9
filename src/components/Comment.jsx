@@ -4,12 +4,7 @@ import { nanoid } from "@reduxjs/toolkit";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import * as S from "../styles/style.create";
-// import * as S from "../styles/style.comments";
-import {
-  addComment,
-  updateComment,
-  deleteComment,
-} from "../redux/modules/commentsSlice";
+import { deleteComment } from "../redux/modules/commentsSlice";
 import { useNavigate } from "react-router-dom";
 
 function Comment({ postId, commentsData }) {
@@ -124,7 +119,7 @@ function Comment({ postId, commentsData }) {
       console.error("Error deleting comment:", error);
     }
   };
-  // 실시간 댓글
+  // 댓글 시간
   const elapsedTime = (date) => {
     const start = new Date(date);
     const end = new Date();
@@ -154,7 +149,7 @@ function Comment({ postId, commentsData }) {
         </form>
       </>
       <S.Box>
-        <S.ScrollBox>
+        <div>
           {filteredComments && filteredComments.length > 0 ? (
             filteredComments?.map((comment) => (
               <S.CommentBox key={comment.id}>
@@ -187,8 +182,6 @@ function Comment({ postId, commentsData }) {
                 {/* 댓글 수정 폼 또는 댓글 내용 표시 */}
                 {editingCommentId === comment.id ? (
                   <div>
-                    {/* <textarea value={editedComment} onChange={(e) => setEditedComment(e.target.value)} /> */}
-
                     <S.CommentEdit
                       value={editedComment}
                       onChange={(e) => setEditedComment(e.target.value)}
@@ -205,7 +198,7 @@ function Comment({ postId, commentsData }) {
           ) : (
             <div>아직 댓글이 없어요. 작성해볼까요?</div>
           )}
-        </S.ScrollBox>
+        </div>
       </S.Box>
     </div>
   );

@@ -77,9 +77,7 @@ export const LoginButton = styled.button`
   font-size: large;
   cursor: pointer;
   transition: all 0.3s ease; /* 애니메이션 효과 추가 */
-
-  /* 마우스를 올렸을 때 스타일 변경 */
-  &:hover {
+  / &:hover {
     background-color: #978bab; /* 변경할 배경색 */
     color: white; /* 변경할 글자 색 */
     transform: scale(1.05); /* 살짝 크게 만드는 애니메이션 효과 */
@@ -96,9 +94,8 @@ export const SignupLink = styled(Link)`
   text-decoration: none;
   font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 
-  /* 마우스를 올렸을 때 스타일 변경 */
   &:hover {
-    color: black; /* 변경할 글자 색 */
+    color: black;
   }
 `;
 

@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Comment from "../components/Comment";
 import * as S from "../styles/style.detail";
-import { VoteButton } from "../styles/style.detail";
 
 function Detail() {
   const navigate = useNavigate();
@@ -19,12 +18,16 @@ function Detail() {
     isLoading: isCommentsLoading,
     isError: isCommentsError,
   } = useQuery(["comments", id], async () => {
-    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/comments`);
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/comments`
+    );
     return response.data;
   });
 
   const voteQuery = useQuery(["vote", id], async () => {
-    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/vote`);
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/vote`
+    );
 
     const findPostId = response.data?.filter((data) => data?.postId === id);
 
@@ -33,13 +36,17 @@ function Detail() {
   });
 
   const { data, isLoading, isError } = useQuery(["balances", id], async () => {
-    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/balances/${id}`);
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/balances/${id}`
+    );
     return response.data;
   });
 
   const deleteBalance = useMutation(
     async (balanceId) => {
-      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/balances/${balanceId}`);
+      await axios.delete(
+        `${process.env.REACT_APP_SERVER_URL}/balances/${balanceId}`
+      );
     },
     {
       onSuccess: () => {
@@ -54,7 +61,7 @@ function Detail() {
   const handleVoteClick = async (choice) => {
     if (!displayName) {
       // 접속한 계정이 없으면 여기서 처리
-      alert("로그인이 필요합니다."); // 로그인 필요 알림 띄우기
+      alert("로그인이 필요합니다.");
       navigate("/login");
       return;
     }
@@ -69,7 +76,10 @@ function Detail() {
       };
 
       try {
-        await axios.put(`${process.env.REACT_APP_SERVER_URL}/balances/${id}`, updatedData);
+        await axios.put(
+          `${process.env.REACT_APP_SERVER_URL}/balances/${id}`,
+          updatedData
+        );
 
         // 저장된 투표 데이터를 서버로 전송
         await axios.post(`${process.env.REACT_APP_SERVER_URL}/vote`, {
@@ -93,7 +103,6 @@ function Detail() {
   const handleDeleteClick = () => {
     if (window.confirm("삭제하시겠습니까?")) {
       deleteBalance.mutate(data.id, {
-        // 뮤테이션 성공 시 실행할 콜백 함수
         onSuccess: () => {
           // "balances" 쿼리를 다시 가져와서 데이터 업데이트
           queryClient.getQueryByKey("balances").refetch();
@@ -121,10 +130,14 @@ function Detail() {
   }
 
   const totalVotes = data.vote1 + data.vote2;
-  const choice1Percentage = totalVotes === 0 ? 0 : (data.vote1 / totalVotes) * 100;
-  const choice2Percentage = totalVotes === 0 ? 0 : (data.vote2 / totalVotes) * 100;
+  const choice1Percentage =
+    totalVotes === 0 ? 0 : (data.vote1 / totalVotes) * 100;
+  const choice2Percentage =
+    totalVotes === 0 ? 0 : (data.vote2 / totalVotes) * 100;
 
-  const findPostId = voteQuery.data?.filter((data) => data?.postId === id && data?.userId === displayName);
+  const findPostId = voteQuery.data?.filter(
+    (data) => data?.postId === id && data?.userId === displayName
+  );
 
   return (
     <S.DetailContainer>
@@ -147,10 +160,24 @@ function Detail() {
         </S.PostContent>
         <S.VoteResult>
           <S.Vote style={{ display: "flex", flexDirection: "column" }}>
-            <S.VoteButton onClick={() => handleVoteClick("choice1")} disabled={voteChoice === "choice1" || voteChoice === "choice2" || findPostId?.some((data) => data.userId === displayName)}>
+            <S.VoteButton
+              onClick={() => handleVoteClick("choice1")}
+              disabled={
+                voteChoice === "choice1" ||
+                voteChoice === "choice2" ||
+                findPostId?.some((data) => data.userId === displayName)
+              }
+            >
               {data.choice1}
             </S.VoteButton>
-            <S.VoteButton2 onClick={() => handleVoteClick("choice2")} disabled={voteChoice === "choice1" || voteChoice === "choice2" || findPostId?.some((data) => data.userId === displayName)}>
+            <S.VoteButton2
+              onClick={() => handleVoteClick("choice2")}
+              disabled={
+                voteChoice === "choice1" ||
+                voteChoice === "choice2" ||
+                findPostId?.some((data) => data.userId === displayName)
+              }
+            >
               {data.choice2}
             </S.VoteButton2>
           </S.Vote>
@@ -167,7 +194,6 @@ function Detail() {
             </div>
             <div style={{ flex: 1 }}>
               <S.VotePercent>{choice2Percentage.toFixed(2)}%</S.VotePercent>
-
               <div
                 style={{
                   width: `${choice2Percentage}%`,

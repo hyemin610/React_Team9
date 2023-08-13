@@ -6,7 +6,6 @@ export const LayoutContainer = styled.div`
   min-height: 100vh; /* 최소 뷰포트 높이만큼 컨테이너를 확장 */
 `;
 
-// 스타일 컴포넌트를 이용하여 헤더 영역을 스타일링
 export const HeaderBox = styled.header`
   width: 100%;
   padding: 20px;
@@ -30,7 +29,6 @@ export const HeaderLink = styled.div`
   transition: 0.3s ease-in-out;
 `;
 
-// 로그인 및 회원가입 버튼을 담을 컨테이너를 스타일링
 export const HeaderButtonBox = styled.div`
   width: 33.333%;
   display: flex;
@@ -101,7 +99,6 @@ export const Nickname = styled.div`
   margin-left: 50px;
 `;
 
-// 스타일 컴포넌트를 이용하여 푸터 영역을 스타일링
 export const Footer = styled.footer`
   position: relative;
   bottom: 0;

@@ -47,9 +47,9 @@ export const ChoiceInput = styled.input`
   font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 
   background-color: #352f3b;
-  color: white; /* 텍스트 색상 추가 */
+  color: white;
   &::placeholder {
-    color: #e87369; /* 플레이스홀더 색상 추가 */
+    color: #e87369;
   }
 `;
 
@@ -57,7 +57,7 @@ export const BoldSpan = styled.span`
   margin: 0 10px;
   font-size: 18px;
   font-weight: bold;
-  color: white; /* 텍스트 색상 추가 */
+  color: white;
 `;
 
 export const ContentTextarea = styled.textarea`
@@ -97,26 +97,26 @@ export const CancelButton = styled.button`
   background-color: #e87369;
   cursor: pointer;
   font-size: 16px;
-
   font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
-
   min-width: 20px;
 `;
 
-// 댓글 --------------------------------------------------------------
+// 댓글
 export const CommentBox = styled.div`
-  border: 1px solid white;
+  border: 3px solid white;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 
-// 댓글 글자
 export const CommentTitle = styled.div`
   font-weight: bolder;
   margin-bottom: 10px;
 `;
 
-// 작성자 닉네임
+export const CommentText = styled.div`
+  font-weight: bold;
+`;
+
 export const AuthorNickname = styled.span`
   font-weight: bold;
   color: white;
@@ -135,12 +135,6 @@ export const Button = styled.button`
   }
 `;
 
-// 댓글 글자
-export const CommentText = styled.div`
-  font-weight: bold;
-`;
-export const ScrollBox = styled.div``;
-
 export const Box = styled.div`
   overflow: scroll;
   &::-webkit-scrollbar {
@@ -150,7 +144,6 @@ export const Box = styled.div`
   overflow: auto;
 `;
 
-// 댓글 수정 input창
 export const CommentEdit = styled.textarea`
   resize: none;
   font-size: 16px;
@@ -165,6 +158,6 @@ export const CommentEdit = styled.textarea`
     color: #e87369;
   }
   width: 400px;
-  height: 200px;
+  height: 80px;
   resize: vertical;
 `;
