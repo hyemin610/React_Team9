@@ -19,6 +19,7 @@ export const TitleInput = styled.input`
   padding: 4px;
   box-sizing: border-box;
   background-color: #352f3b;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
   color: white;
   &::placeholder {
     color: #e87369;
@@ -38,6 +39,7 @@ export const ChoiceInput = styled.input`
   padding: 4px;
   box-sizing: border-box;
   background-color: #352f3b;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
   color: white;
   &::placeholder {
     color: #e87369;
@@ -49,11 +51,12 @@ export const BoldSpan = styled.span`
   font-size: 18px;
   font-weight: bold;
   color: white;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 `;
 
 export const ContentTextarea = styled.textarea`
   resize: none;
-  width: 80%;
+  width: 100%;
   height: 40%;
   font-size: 16px;
   border: 1px solid #e87369;
@@ -61,6 +64,8 @@ export const ContentTextarea = styled.textarea`
   box-sizing: border-box;
   background-color: #352f3b;
   color: white;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
+
   &::placeholder {
     color: #e87369;
   }
@@ -75,6 +80,7 @@ export const EditButton = styled.button`
   cursor: pointer;
   font-size: 16px;
   min-width: 100px;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 `;
 
 export const CancelButton = styled.button`
@@ -87,4 +93,5 @@ export const CancelButton = styled.button`
   cursor: pointer;
   font-size: 16px;
   min-width: 20px;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 `;

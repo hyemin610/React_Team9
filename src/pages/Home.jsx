@@ -48,16 +48,12 @@ function Home() {
     error, // 에러 객체
     isLoading, // 로딩 상태 여부
   } = useQuery("balances", async () => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/balances`
-    );
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/balances`);
     return response.data;
   });
   // 서버에서 댓글 데이터를 가져오는 React Query 훅을 사용합니다.
   const { data: comments } = useQuery("comments", async () => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/comments`
-    );
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/comments`);
     return response.data;
   });
   // 핫 게시글을 계산하고 필터링하여 가져오는 부분입니다.
@@ -66,13 +62,10 @@ function Home() {
 
     const balanceWithCommentCount = balances.map((balance) => ({
       ...balance,
-      commentCount: comments.filter((comment) => comment.postId === balance.id)
-        .length,
+      commentCount: comments.filter((comment) => comment.postId === balance.id).length,
     }));
     // 댓글 수에 따라 게시글을 정렬하고 상위 3개를 선택합니다.
-    return balanceWithCommentCount
-      .sort((a, b) => b.commentCount - a.commentCount)
-      .slice(0, 3);
+    return balanceWithCommentCount.sort((a, b) => b.commentCount - a.commentCount).slice(0, 3);
   }, [balances, comments]);
   // 게시글 상세 페이지로 이동하는 함수입니다.
   const goQuestion = (id) => {
@@ -87,9 +80,7 @@ function Home() {
     <>
       {/* 핫 게시글 타이틀 */}
       <S.BestBalanceTitle>
-        <S.BestBalanceTitleSpan color="#FFFFFF">
-          Popularity
-        </S.BestBalanceTitleSpan>
+        <S.BestBalanceTitleSpan color="#FFFFFF">Popularity</S.BestBalanceTitleSpan>
       </S.BestBalanceTitle>
       {/* 글 작성 버튼 */}
       <S.WriteButtonBox>
@@ -103,15 +94,10 @@ function Home() {
         {/* 핫 게시글 목록 */}
         <S.BalanceContainer>
           {hotBalances.map((hotpost) => (
-            <S.BalanceBox
-              key={hotpost.id}
-              onClick={() => goQuestion(hotpost.id)}
-            >
+            <S.BalanceBox key={hotpost.id} onClick={() => goQuestion(hotpost.id)}>
               <S.BalanceImage src="/image/box.png" alt="Box Image" />
               <S.BalanceTextContainer>
-                <S.BalanceTextBox textColor="000000">
-                  {hotpost.title}
-                </S.BalanceTextBox>
+                <S.BalanceTextBox textColor="000000">{hotpost.title}</S.BalanceTextBox>
               </S.BalanceTextContainer>
             </S.BalanceBox>
           ))}
@@ -120,22 +106,17 @@ function Home() {
         <S.BalanceTextBox>모든 게시글 보기</S.BalanceTextBox>
         <S.BalanceContainer>
           {balances.map((balance) => (
-            <S.BalanceBox
-              key={balance.id}
-              onClick={() => goQuestion(balance.id)}
-            >
+            <S.BalanceBox key={balance.id} onClick={() => goQuestion(balance.id)}>
               <S.BalanceImage src="/image/box.png" alt="Box Image" />
               <S.BalanceTextContainer>
-                <S.BalanceTextBox textColor="000000">
-                  {balance.title}
-                </S.BalanceTextBox>
+                <S.BalanceTextBox textColor="000000">{balance.title}</S.BalanceTextBox>
               </S.BalanceTextContainer>
             </S.BalanceBox>
           ))}
         </S.BalanceContainer>
       </div>
       {/* "Top" 버튼 */}
-      {isTopVisible && <S.TopButton onClick={scrollToTop}>Top</S.TopButton>}
+      {isTopVisible && <S.TopButton onClick={scrollToTop}>TOP</S.TopButton>}
     </>
   );
 }

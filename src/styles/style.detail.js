@@ -13,32 +13,119 @@ export const DetailContainer = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
+  border: 3px solid;
+  margin-top: 5px;
+  padding-bottom: 20px;
 `;
 
 export const VoteButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: 10px; /* 위쪽 간격 추가 */
 `;
 
+// 투표 choice1 버튼
 export const VoteButton = styled.button`
   cursor: pointer;
-  padding: 10px 20px;
-  font-size: 1rem;
+  padding: 15px 30px; /* 크기 조정 */
+  font-size: 1.2rem; /* 크기 조정 */
+
   background-color: ${({ isActive }) => (isActive ? "gray" : "transparent")};
   border: 1px solid gray;
   border-radius: 5px;
   transition: background-color 0.3s, color 0.3s;
-
+  margin-right: 50px;
+  margin-left: 50px;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
+  color: white;
   &:hover {
-    background-color: gray;
-    color: white;
+    background-color: white;
+    color: black;
   }
 
   &:disabled {
     cursor: not-allowed;
   }
 `;
+export const VoteButton2 = styled.button`
+  cursor: pointer;
+  padding: 15px 30px; /* 크기 조정 */
+  font-size: 1.2rem; /* 크기 조정 */
+  background-color: ${({ isActive }) => (isActive ? "gray" : "transparent")};
+  border: 1px solid gray;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+  margin-right: 50px;
+  margin-left: 50px;
+  color: white;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+  &:disabled {
+    cursor: not-allowed;
+  }
+`;
+
+export const CommentDiv = styled.div`
+  margin-top: 30px;
+  width: 600px;
+  /* height: 100px; */
+  // overflow: scroll;
+  // &::-webkit-scrollbar {
+  //   display: none;
+  // }
+  // flex-basis: 500px;
+`;
+// 수정, 삭제 버튼
+export const Button = styled.button`
+  background-color: #e87369;
+  border: none;
+  font-weight: bolder;
+  margin-left: 3px;
+  margin-bottom: 15px;
+  width: 100px; /* 원하는 너비 설정 */
+  height: 40px; /* 원하는 높이 설정 */
+
+  &:hover {
+    color: white; /* 변경할 글자 색 */
+  }
+`;
 
 export const VoteResult = styled.div`
   margin: 0 auto;
+`;
+
+// 작성자 닉네임 (ex: 나는 딸기가 좋아님의 논쟁입니다.)
+export const AuthorDebate = styled.p`
+  font-size: 2em;
+  font-weight: bolder;
+`;
+
+// 게시글 제목
+export const PostTitle = styled.div`
+  font-size: larger;
+  font-weight: bold;
+  margin-bottom: 20px;
+`;
+
+// 게시글 설명
+export const PostContent = styled.div`
+  font-weight: bold;
+  margin-bottom: 20px;
+  border: 1px solid white;
+  padding: 10px 10px 10px 10px;
+  width: 500px;
+`;
+
+// 투표 버튼
+export const Vote = styled.div`
+  margin-bottom: 30px;
+`;
+
+// 투표 퍼센트
+export const VotePercent = styled.div`
+  font-weight: bolder;
+  font-size: large;
+  margin-bottom: 10px;
 `;

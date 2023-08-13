@@ -49,6 +49,7 @@ export const Email = styled.input`
   border: 1px solid lightgray;
   padding: 8px;
   box-sizing: border-box;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 `;
 
 export const Nickname = styled.input`
@@ -59,6 +60,7 @@ export const Nickname = styled.input`
   border: 1px solid lightgray;
   padding: 8px;
   box-sizing: border-box;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 `;
 
 export const Password = styled.input`
@@ -79,6 +81,7 @@ export const PassWordConfirm = styled.input`
   border: 1px solid lightgray;
   padding: 8px;
   box-sizing: border-box;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 `;
 
 // ok 버튼
@@ -96,6 +99,7 @@ export const SignupButton = styled.button`
   font-size: large;
   cursor: pointer;
   transition: all 0.3s ease; /* 애니메이션 효과 추가 */
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 
   /* 마우스를 올렸을 때 스타일 변경 */
   &:hover {
@@ -112,6 +116,7 @@ export const LoginLink = styled(Link)`
   color: white;
   cursor: pointer;
   text-decoration: none;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 
   /* 마우스를 올렸을 때 스타일 변경 */
   &:hover {
@@ -127,4 +132,5 @@ export const CancelButton = styled.button`
   background-color: #e87369;
   cursor: pointer;
   font-size: 16px;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 `;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import * as S from "../styles/style.login";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 
@@ -25,6 +25,11 @@ function Login() {
     });
   };
 
+  const handleSubmit = (e) => {
+    e?.preventDefault(); // 폼 제출 기본 동작 막기
+    handleLogin(e); // 로그인 핸들러 호출
+  };
+
   // 로그인 버튼 핸들러
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -42,11 +47,7 @@ function Login() {
     }
 
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        signInDatas.email,
-        signInDatas.password
-      );
+      const userCredential = await signInWithEmailAndPassword(auth, signInDatas.email, signInDatas.password);
       console.log("user with login", userCredential.user);
 
       alert("로그인에 성공했습니다.");
@@ -74,37 +75,26 @@ function Login() {
     }
   };
 
-  // 취소 버튼 핸들러
-  const handleCancel = () => {
-    window.alert("Canceled");
-    navigate(`/`);
-  };
-
   return (
     <S.BackgroundColor>
       <S.Container>
         <S.LoginBoxLocation>
           <S.LoginBorder>
-            <S.CancelButton onClick={handleCancel}>X</S.CancelButton>
-            <S.Login>LOGIN</S.Login>
-            <S.Space>
-              <S.Email
-                placeholder="email"
-                name="email"
-                onChange={handleChange}
-              />
-            </S.Space>
-            <S.Space>
-              <S.Password
-                placeholder="password"
-                name="password"
-                type="password"
-                onChange={handleChange}
-              />
-            </S.Space>
-            <S.Space>
-              <S.LoginButton onClick={handleLogin}>ok</S.LoginButton>
-            </S.Space>
+            <Link to="/home">
+              <S.CancelButton>X</S.CancelButton>
+            </Link>
+            <form onSubmit={handleSubmit}>
+              <S.Login>LOGIN</S.Login>
+              <S.Space>
+                <S.Email placeholder="email" name="email" onChange={handleChange} />
+              </S.Space>
+              <S.Space>
+                <S.Password placeholder="password" name="password" type="password" onChange={handleChange} />
+              </S.Space>
+              <S.Space>
+                <S.LoginButton onClick={handleLogin}>ok</S.LoginButton>
+              </S.Space>
+            </form>
             <S.SignupLink to={"/signup"}>signup</S.SignupLink>
           </S.LoginBorder>
         </S.LoginBoxLocation>

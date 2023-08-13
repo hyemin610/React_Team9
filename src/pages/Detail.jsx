@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Comment from "../components/Comment";
 import * as S from "../styles/style.detail";
+import { VoteButton } from "../styles/style.detail";
 
 function Detail() {
   const navigate = useNavigate();
@@ -144,69 +145,75 @@ function Detail() {
     <S.DetailContainer>
       <div>
         {displayName === data?.author ? (
-          <div>
-            <p>{data.author}님의 논쟁입니다.</p>
-            <button onClick={handleEditClick}>수정</button>
-            <button onClick={handleDeleteClick}>삭제</button>
+          <div style={{ borderRadius: " 5px", borderColor: "white" }}>
+            <S.AuthorDebate>{data.author}님의 논쟁입니다.</S.AuthorDebate>
+            <S.Button onClick={handleEditClick}>수정</S.Button>
+            <S.Button onClick={handleDeleteClick}>삭제</S.Button>
           </div>
         ) : (
-          <p>{data?.author}님의 논쟁입니다.</p>
+          <S.AuthorDebate>{data?.author}님의 논쟁입니다.</S.AuthorDebate>
         )}
       </div>
+      <S.PostTitle>{data.title}</S.PostTitle>
       <div>
-        <div>{data.title}</div>
-        <div>상황: {data.comment}</div>
-        <S.VoteButtonsContainer>
-          <S.VoteButton
-            isActive={voteChoice === "choice1"}
-            onClick={() => handleVoteClick("choice1")}
-            disabled={
-              voteChoice === "choice1" ||
-              voteChoice === "choice2" ||
-              findPostId?.some((data) => data.userId === displayName)
-            }
-          >
-            {data.choice1}
-          </S.VoteButton>
-          <S.VoteButton
-            isActive={voteChoice === "choice2"}
-            onClick={() => handleVoteClick("choice2")}
-            disabled={
-              voteChoice === "choice1" ||
-              voteChoice === "choice2" ||
-              findPostId?.some((data) => data.userId === displayName)
-            }
-          >
-            {data.choice2}
-          </S.VoteButton>
-        </S.VoteButtonsContainer>
-        <div>VS</div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div style={{ flex: 1 }}>
-            {data.choice1}: {choice1Percentage.toFixed(2)}%
-            <div
-              style={{
-                width: `${choice1Percentage}%`,
-                background: "blue",
-                height: "20px",
-              }}
-            />
+        <S.PostContent>
+          상황:
+          <div>{data.content}</div>
+        </S.PostContent>
+        <S.VoteResult>
+          <S.Vote style={{ display: "flex", flexDirection: "column" }}>
+            <S.VoteButton
+              onClick={() => handleVoteClick("choice1")}
+              disabled={
+                voteChoice === "choice1" ||
+                voteChoice === "choice2" ||
+                findPostId?.some((data) => data.userId === displayName)
+              }
+            >
+              {data.choice1}
+            </S.VoteButton>
+            <S.VoteButton2
+              onClick={() => handleVoteClick("choice2")}
+              disabled={
+                voteChoice === "choice1" ||
+                voteChoice === "choice2" ||
+                findPostId?.some((data) => data.userId === displayName)
+              }
+            >
+              {data.choice2}
+            </S.VoteButton2>
+          </S.Vote>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div style={{ flex: 1 }}>
+              <S.VotePercent>{choice1Percentage.toFixed(2)}%</S.VotePercent>
+              <div
+                style={{
+                  width: `${choice1Percentage}%`,
+                  background: "white",
+                  height: "20px",
+                }}
+              />
+            </div>
+            <div style={{ flex: 1 }}>
+              <S.VotePercent>{choice2Percentage.toFixed(2)}%</S.VotePercent>
+
+              <div
+                style={{
+                  width: `${choice2Percentage}%`,
+                  background: "black",
+                  height: "20px",
+                }}
+              />
+            </div>
           </div>
-          <div style={{ flex: 1 }}>
-            {data.choice2}: {choice2Percentage.toFixed(2)}%
-            <div
-              style={{
-                width: `${choice2Percentage}%`,
-                background: "red",
-                height: "20px",
-              }}
-            />
-          </div>
-        </div>
+        </S.VoteResult>
       </div>
-      <button>다음 논쟁</button>
-      <Comment postId={data?.id} commentsData={commentsData} />
+      <S.CommentDiv>
+        <hr />
+        <Comment postId={data?.id} commentsData={commentsData} />
+      </S.CommentDiv>
     </S.DetailContainer>
   );
 }
+
 export default Detail;

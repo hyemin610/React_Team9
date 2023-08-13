@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import * as S from "../styles/style.signup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase";
@@ -57,11 +57,7 @@ function Signup() {
     }
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        signupDatas.email,
-        signupDatas.password
-      );
+      const userCredential = await createUserWithEmailAndPassword(auth, signupDatas.email, signupDatas.password);
       console.log("user", userCredential.user);
 
       await updateProfile(userCredential.user, {
@@ -93,48 +89,26 @@ function Signup() {
     }
   };
 
-  // 취소 버튼 핸들러
-  const handleCancel = () => {
-    window.alert("Canceled");
-    navigate(`/`);
-  };
-
   return (
     <S.BackgroundColor>
       <S.Container>
         <S.SignupBoxLocation>
           <S.SignupBorder>
-            <S.CancelButton onClick={handleCancel}>X</S.CancelButton>
+            <Link to="/home">
+              <S.CancelButton>X</S.CancelButton>
+            </Link>
             <S.Signup>SIGNUP</S.Signup>
             <S.Space>
-              <S.Email
-                placeholder="email"
-                name="email"
-                onChange={handleChange}
-              />
+              <S.Email placeholder="email" name="email" onChange={handleChange} />
             </S.Space>
             <S.Space>
-              <S.Nickname
-                placeholder="nickname"
-                name="nickname"
-                onChange={handleChange}
-              />
+              <S.Nickname placeholder="nickname" name="nickname" onChange={handleChange} />
             </S.Space>
             <S.Space>
-              <S.Password
-                placeholder="password"
-                name="password"
-                type="password"
-                onChange={handleChange}
-              />
+              <S.Password placeholder="password" name="password" type="password" onChange={handleChange} />
             </S.Space>
             <S.Space>
-              <S.PassWordConfirm
-                placeholder="confirm password"
-                name="passwordConfirm"
-                type="password"
-                onChange={handleChange}
-              />
+              <S.PassWordConfirm placeholder="confirm password" name="passwordConfirm" type="password" onChange={handleChange} />
             </S.Space>
             <S.Space>
               <S.SignupButton onClick={handleSignup}>ok</S.SignupButton>

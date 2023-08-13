@@ -4,11 +4,8 @@ import { nanoid } from "@reduxjs/toolkit";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import * as S from "../styles/style.create";
-import {
-  addComment,
-  updateComment,
-  deleteComment,
-} from "../redux/modules/commentsSlice";
+// import * as S from "../styles/style.comments";
+import { addComment, updateComment, deleteComment } from "../redux/modules/commentsSlice";
 import { useNavigate } from "react-router-dom";
 
 function Comment({ postId, commentsData }) {
@@ -22,10 +19,7 @@ function Comment({ postId, commentsData }) {
 
   const addCommentMutation = useMutation(
     async (newComment) => {
-      await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/comments`,
-        newComment
-      );
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/comments`, newComment);
     },
     {
       onSuccess: () => {
@@ -36,10 +30,7 @@ function Comment({ postId, commentsData }) {
 
   const updateCommentMutation = useMutation(
     async (updatedComment) => {
-      await axios.put(
-        `${process.env.REACT_APP_SERVER_URL}/comments/${updatedComment.id}`,
-        updatedComment
-      );
+      await axios.put(`${process.env.REACT_APP_SERVER_URL}/comments/${updatedComment.id}`, updatedComment);
     },
     {
       onSuccess: () => {
@@ -111,9 +102,7 @@ function Comment({ postId, commentsData }) {
   // 댓글 삭제
   const handleDeleteComment = async (commentId) => {
     try {
-      await axios.delete(
-        `${process.env.REACT_APP_SERVER_URL}/comments/${commentId}`
-      );
+      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/comments/${commentId}`);
 
       // 리덕스를 활용하여 댓글 삭제
       dispatch(deleteComment({ id: commentId }));
@@ -139,63 +128,60 @@ function Comment({ postId, commentsData }) {
   };
 
   // 해당 게시글의 댓글 가져오기
-  const filteredComments = commentsData.filter(
-    (comment) => comment?.postId === postId
-  );
+  const filteredComments = commentsData.filter((comment) => comment?.postId === postId);
 
   return (
     <div>
-      <span>댓글</span>
-      <form onSubmit={handleSubmit}>
-        <S.TitleInput name="comment" placeholder="댓글을 작성해주세요." />
-        <button type="submit">작성</button>
-      </form>
-      {filteredComments && filteredComments.length > 0 ? (
-        filteredComments?.map((comment) => (
-          <div key={comment.id}>
-            <span>{comment.author}님</span>&nbsp;
-            <span>{elapsedTime(comment.date)}</span>
-            {/* 댓글 수정 폼 또는 댓글 내용 표시 */}
-            {editingCommentId === comment.id ? (
-              <div>
-                <textarea
-                  value={editedComment}
-                  onChange={(e) => setEditedComment(e.target.value)}
-                />
+      <>
+        <S.CommentTitle>댓글</S.CommentTitle>
+        <form onSubmit={handleSubmit}>
+          <S.TitleInput name="comment" placeholder="댓글을 작성해주세요." />
+          <S.Button type="submit">작성</S.Button>
+        </form>
+      </>
+      <S.Box>
+        <S.ScrollBox>
+          {filteredComments && filteredComments.length > 0 ? (
+            filteredComments?.map((comment) => (
+              <S.CommentBox key={comment.id}>
+                <div>
+                  <S.AuthorNickname>{comment.author}님</S.AuthorNickname>&nbsp;
+                  <span>{elapsedTime(comment.date)}</span>
+                  {/* 수정 버튼 */}
+                  {displayName === comment.author && (
+                    <div>
+                      <S.Button onClick={() => handleEditComment(comment.id, comment.comment)}>수정</S.Button>
+                      <S.Button
+                        onClick={() => {
+                          if (window.confirm("삭제하시겠습니까?")) {
+                            handleDeleteComment(comment.id);
+                          }
+                        }}
+                      >
+                        삭제
+                      </S.Button>
+                    </div>
+                  )}
+                </div>
+                <hr />
+                {/* 댓글 수정 폼 또는 댓글 내용 표시 */}
+                {editingCommentId === comment.id ? (
+                  <div>
+                    {/* <textarea value={editedComment} onChange={(e) => setEditedComment(e.target.value)} /> */}
 
-                <button onClick={() => handleSaveEdit(comment.id)}>저장</button>
-              </div>
-            ) : (
-              <div>
-                {comment.comment}
-                {/* 수정 버튼 */}
-                {displayName === comment.author && (
-                  <>
-                    <button
-                      onClick={() =>
-                        handleEditComment(comment.id, comment.comment)
-                      }
-                    >
-                      수정
-                    </button>
-                    <button
-                      onClick={() => {
-                        if (window.confirm("삭제하시겠습니까?")) {
-                          handleDeleteComment(comment.id);
-                        }
-                      }}
-                    >
-                      삭제
-                    </button>
-                  </>
+                    <S.CommentEdit value={editedComment} onChange={(e) => setEditedComment(e.target.value)} />
+                    <S.Button onClick={() => handleSaveEdit(comment.id)}>저장</S.Button>
+                  </div>
+                ) : (
+                  <S.CommentText>{comment.comment}</S.CommentText>
                 )}
-              </div>
-            )}
-          </div>
-        ))
-      ) : (
-        <div>아직 댓글이 없어요. 작성해볼까요?</div>
-      )}
+              </S.CommentBox>
+            ))
+          ) : (
+            <div>아직 댓글이 없어요. 작성해볼까요?</div>
+          )}
+        </S.ScrollBox>
+      </S.Box>
     </div>
   );
 }
