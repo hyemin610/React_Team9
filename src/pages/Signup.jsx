@@ -61,7 +61,6 @@ function Signup() {
         signupDatas.email,
         signupDatas.password
       );
-      console.log("user", userCredential.user);
 
       await updateProfile(userCredential.user, {
         displayName: signupDatas.nickname,
@@ -75,7 +74,6 @@ function Signup() {
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log("error with signup", errorCode, errorMessage);
 
       // firebase 회원가입 에러 발생 시 에러 처리
       switch (errorCode) {

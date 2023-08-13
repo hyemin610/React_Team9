@@ -89,9 +89,7 @@ function Home() {
     <>
       {/* 핫 게시글 */}
       <S.BestBalanceTitle>
-        <S.BestBalanceTitleSpan color="#FFFFFF">
-          Popularity
-        </S.BestBalanceTitleSpan>
+        <S.BestBalanceTitleSpan>Popularity</S.BestBalanceTitleSpan>
       </S.BestBalanceTitle>
       <S.WriteButtonBox>
         {isLoggedIn && (
@@ -118,7 +116,7 @@ function Home() {
         </S.BalanceContainer>
         {/* 모든 게시글*/}
         <S.BestBalanceTitle>
-          <S.BestBalanceTitleSpan color="#FFFFFF">
+          <S.BestBalanceTitleSpan>
             <S.ViewAllPost>모든 게시글</S.ViewAllPost>
           </S.BestBalanceTitleSpan>
         </S.BestBalanceTitle>

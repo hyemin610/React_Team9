@@ -1,13 +1,24 @@
 import { styled } from "styled-components";
 
-export const Nickname = styled.div`
-  font-weight: bold;
-  font-size: 30px;
+export const MypageContainer = styled.div`
   display: flex;
-  align-items: left;
-  margin: 50px auto 100px 2px;
-  text-decoration: underline;
-  color: white;
+  align-items: center;
+  justify-content: center;
+  margin: 50px auto 0;
+  font-size: 2rem;
+`;
+
+export const GoBack = styled.img`
+  width: 150px;
+  height: 100px;
+  cursor: pointer;
+`;
+
+export const Nickname = styled.div`
+  color: #ffffff;
+  margin-right: 5px;
+  margin-bottom: 50px;
+  font-weight: bold;
 `;
 export const BalanceTextBox = styled.div`
   margin: 15px 0;
@@ -21,6 +32,8 @@ export const BalanceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-left: auto;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const BalanceBox = styled.div`

@@ -91,15 +91,25 @@ export const VoteResult = styled.div`
   margin: 0 auto;
 `;
 
+export const GoBack = styled.img`
+  width: 150px;
+  height: 100px;
+  margin-right: 1200px;
+  cursor: pointer;
+  position: relative;
+`;
+
 // 작성자 닉네임 (ex: 나는 딸기가 좋아님의 논쟁입니다.)
 export const AuthorDebate = styled.p`
-  font-size: 2em;
+  font-size: 2.5em;
   font-weight: bolder;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  /* padding-bottom: 200px; */
 `;
 
 export const PostTitle = styled.div`
-  font-size: larger;
-  font-weight: bold;
+  font-size: 1.5em;
+  font-weight: bolder;
   margin-bottom: 20px;
 `;
 

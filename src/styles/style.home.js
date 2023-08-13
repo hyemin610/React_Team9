@@ -110,5 +110,5 @@ export const TopButton = styled.button`
 
 // 모든 게시글 보기
 export const ViewAllPost = styled.p`
-  margin-bottom: 50px;
+  margin-bottom: 15px;
 `;

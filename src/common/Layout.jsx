@@ -29,7 +29,6 @@ const Layout = () => {
   // 로그아웃 버튼 핸들러
   const handleLogout = async (e) => {
     e.preventDefault();
-    console.log("logout");
 
     await signOut(auth);
     dispatch(logout());
