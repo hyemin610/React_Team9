@@ -30,7 +30,6 @@ function Detail() {
     );
 
     const findPostId = response.data?.filter((data) => data?.postId === id);
-    console.log(findPostId);
     return response.data;
   });
 

@@ -13,7 +13,6 @@ function Login() {
     password: "",
   });
 
-  // email, nickname, password, passwordConfirm
   const handleChange = (e) => {
     e.preventDefault();
 
