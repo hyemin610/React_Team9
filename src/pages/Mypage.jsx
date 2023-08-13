@@ -36,36 +36,38 @@ export default function Mypage() {
   }
 
   return (
-    <>
-      <div>
-        <div>
-          <S.Nickname>{displayName}님의 게시글</S.Nickname>
-        </div>
-        <S.BalanceContainer>
-          {findId && findId.length > 0 ? (
-            findId.map((balance) => (
-              <S.BalanceBox
-                key={balance.id}
-                onClick={() => goQuestion(balance.id)}
-              >
-                <S.BalanceImage src="/image/box.png" alt="Box Image" />
-                <S.BalanceTextContainer>
-                  <S.BalanceText textColor="000000">
-                    {balance.title}
-                  </S.BalanceText>
-                </S.BalanceTextContainer>
-              </S.BalanceBox>
-            ))
-          ) : (
-            <S.Comment>
-              아직 작성한 게시물이 없어용!!!
-              <br />
-              작성해볼까요??
-            </S.Comment>
-          )}
-          {/* </div> */}
-        </S.BalanceContainer>
-      </div>
-    </>
+    <div>
+      <S.GoBack
+        src="/image/pink-arrow.png"
+        alt="뒤로가기 이미지"
+        onClick={() => navigate("/home")}
+      />
+      <S.MypageContainer>
+        <S.Nickname>{displayName}님의 게시글</S.Nickname>
+      </S.MypageContainer>
+      <S.BalanceContainer>
+        {findId && findId.length > 0 ? (
+          findId.map((balance) => (
+            <S.BalanceBox
+              key={balance.id}
+              onClick={() => goQuestion(balance.id)}
+            >
+              <S.BalanceImage src="/image/box.png" alt="Box Image" />
+              <S.BalanceTextContainer>
+                <S.BalanceText textColor="000000">
+                  {balance.title}
+                </S.BalanceText>
+              </S.BalanceTextContainer>
+            </S.BalanceBox>
+          ))
+        ) : (
+          <S.Comment>
+            아직 작성한 게시물이 없어용!!!
+            <br />
+            작성해볼까요??
+          </S.Comment>
+        )}
+      </S.BalanceContainer>
+    </div>
   );
 }

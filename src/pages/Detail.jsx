@@ -149,10 +149,17 @@ function Detail() {
             <S.Button onClick={handleDeleteClick}>삭제</S.Button>
           </div>
         ) : (
-          <S.AuthorDebate>{data?.author}님의 논쟁입니다.</S.AuthorDebate>
+          <div>
+            <S.GoBack
+              src="/image/pink-arrow.png"
+              alt="뒤로가기 이미지"
+              onClick={() => navigate("/home")}
+            />
+            <S.AuthorDebate>{data?.author}님의 논쟁입니다.</S.AuthorDebate>
+          </div>
         )}
       </div>
-      <S.PostTitle>{data.title}</S.PostTitle>
+      <S.PostTitle>"{data.title}"</S.PostTitle>
       <div>
         <S.PostContent>
           상황:
