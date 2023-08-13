@@ -30,37 +30,32 @@ React와 Firebase API를 이용한 사소하지만 재미있는 주제들에 대
 
 - 로그인 - Login.jsx
 
-  ![20230807_191034](https://github.com/hyemin610/React_Team9/assets/133640361/c57a0b05-48a9-40f2-917f-e4245bfc8f22)
-
-<img src="[https://www.notion.so/d2025c70cc0841aaa2e63873db680db1?pvs=4#7f36b95d94464ac3af384472bb257e15](https://www.notion.so/d2025c70cc0841aaa2e63873db680db1?pvs=4#7f36b95d94464ac3af384472bb257e15)" alt="" />
+![image](https://github.com/hyemin610/React_Team9/assets/133615677/a5f092a7-4a86-4c84-ab2b-6054a39fe546)
 
 - 회원가입 - Signup.jsx
 
-  ![20230807_191050](https://github.com/hyemin610/React_Team9/assets/133640361/41526494-76d5-4544-bc42-2970367f79d0)
+![image](https://github.com/hyemin610/React_Team9/assets/133615677/b84c121b-2b21-48de-a7a4-a073fb7e0a77)
 
-<img src="[https://www.notion.so/d2025c70cc0841aaa2e63873db680db1?pvs=4#9883ebdfc4364c54b490499a28941364](https://www.notion.so/d2025c70cc0841aaa2e63873db680db1?pvs=4#9883ebdfc4364c54b490499a28941364)" alt="" />
 
 - 메인 페이지 - Home.jsx
 
-  ![20230807_191115](https://github.com/hyemin610/React_Team9/assets/133640361/eac7a718-6d28-4c2a-a074-23c493aa0f51)
-
-<img src="https://www.notion.so/d2025c70cc0841aaa2e63873db680db1?pvs=4#1bb190ab9c6c4a6b942549a685c86168" alt=""/>
+![image](https://github.com/hyemin610/React_Team9/assets/133615677/24dcec36-f0bf-4293-8aa9-f361841463e3)
+![image](https://github.com/hyemin610/React_Team9/assets/133615677/f56dcbfe-5e9b-442c-af7e-8e923d545d96)
 
 - 상세 페이지 - Detail.jsx
 
-  ![20230807_191105](https://github.com/hyemin610/React_Team9/assets/133640361/e34588f2-9502-4843-8032-d66fa8f94c2e)
-
-<img src="https://www.notion.so/d2025c70cc0841aaa2e63873db680db1?pvs=4#e58501d5069c4532940426760798c285" alt=""/>
+![image](https://github.com/hyemin610/React_Team9/assets/133615677/90b93c41-df18-422d-a0b5-f1f66769aa06)
 
 - 작성 페이지 - Create.jsx
 
-  ![20230807_191126](https://github.com/hyemin610/React_Team9/assets/133640361/0ee6a273-ce07-41c3-b720-4a4e145ec8ac)
-
-<img src="[https://www.notion.so/d2025c70cc0841aaa2e63873db680db1?pvs=4#c561acfb3db9475fa38d0a8cebf41a88](https://www.notion.so/d2025c70cc0841aaa2e63873db680db1?pvs=4#c561acfb3db9475fa38d0a8cebf41a88)" alt=""/>
+![image](https://github.com/hyemin610/React_Team9/assets/133615677/0a8f9b28-4d13-40d2-8ad8-5870443cf244)
 
 - 수정 페이지 - Edit.jsx
+![image](https://github.com/hyemin610/React_Team9/assets/133615677/31daabb3-40b2-48c1-a17c-73d310cf76f2)
 
 - 마이 페이지 - Mypage.jsx
+![image](https://github.com/hyemin610/React_Team9/assets/133615677/94942f64-d6c0-4cc2-83d7-6ecdfc61da2b)
+
 
 ### ⚙️ 기술스택
 
