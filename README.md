@@ -24,13 +24,13 @@ React와 Firebase API를 이용한 사소하지만 재미있는 주제들에 대
 
   ![20230807_191034](https://github.com/hyemin610/React_Team9/assets/133640361/c57a0b05-48a9-40f2-917f-e4245bfc8f22)
 
-<img src="https://www.notion.so/d2025c70cc0841aaa2e63873db680db1?pvs=4#a9df26b4ecd94cb6aaafb169a5698eb1" alt="" />
+<img src="https://www.notion.so/d2025c70cc0841aaa2e63873db680db1?pvs=4#7f36b95d94464ac3af384472bb257e15" alt="" />
 
 - 회원가입 - Signup.jsx
 
   ![20230807_191050](https://github.com/hyemin610/React_Team9/assets/133640361/41526494-76d5-4544-bc42-2970367f79d0)
 
-<img src="https://www.notion.so/d2025c70cc0841aaa2e63873db680db1?pvs=4#4a89d5d6cbe94129af8791711920606b" alt="" />
+<img src="https://www.notion.so/d2025c70cc0841aaa2e63873db680db1?pvs=4#9883ebdfc4364c54b490499a28941364" alt="" />
 
 - 메인 페이지 - Home.jsx
 
@@ -48,9 +48,11 @@ React와 Firebase API를 이용한 사소하지만 재미있는 주제들에 대
 
   ![20230807_191126](https://github.com/hyemin610/React_Team9/assets/133640361/0ee6a273-ce07-41c3-b720-4a4e145ec8ac)
 
-<img src="https://www.notion.so/d2025c70cc0841aaa2e63873db680db1?pvs=4#1e84296421214dfa88cfbe641917bb06" alt=""/>
+<img src="https://www.notion.so/d2025c70cc0841aaa2e63873db680db1?pvs=4#c561acfb3db9475fa38d0a8cebf41a88" alt=""/>
 
 - 수정 페이지 - Edit.jsx
+
+- 마이 페이지 - Mypage.jsx
 
 ### ⚙️ 기술스택
 
