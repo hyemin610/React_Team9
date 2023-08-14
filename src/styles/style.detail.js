@@ -58,6 +58,7 @@ export const VoteButton2 = styled.button`
   transition: background-color 0.3s, color 0.3s;
   margin-right: 50px;
   margin-left: 50px;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
   color: white;
   &:hover {
     background-color: black;

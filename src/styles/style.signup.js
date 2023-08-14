@@ -71,6 +71,7 @@ export const Password = styled.input`
   border: 1px solid lightgray;
   padding: 8px;
   box-sizing: border-box;
+  font-family: "DOSGothic", sans-serif; /* 글꼴 적용 */
 `;
 
 export const PassWordConfirm = styled.input`

@@ -87,6 +87,7 @@ function Detail() {
         });
 
         // 페이지 새로고침
+        alert("투표 완료되었습니다.");
         window.location.reload();
       } catch (error) {
         console.error("Error updating vote:", error);
@@ -140,6 +141,11 @@ function Detail() {
   return (
     <S.DetailContainer>
       <div>
+        <S.GoBack
+          src="/image/pink-arrow.png"
+          alt="뒤로가기 이미지"
+          onClick={() => navigate("/home")}
+        />
         {displayName === data?.author ? (
           <div style={{ borderRadius: " 5px", borderColor: "white" }}>
             <S.AuthorDebate>{data.author}님의 논쟁입니다.</S.AuthorDebate>
@@ -148,11 +154,6 @@ function Detail() {
           </div>
         ) : (
           <div>
-            <S.GoBack
-              src="/image/pink-arrow.png"
-              alt="뒤로가기 이미지"
-              onClick={() => navigate("/home")}
-            />
             <S.AuthorDebate>{data?.author}님의 논쟁입니다.</S.AuthorDebate>
           </div>
         )}
