@@ -30,6 +30,11 @@ function Signup() {
     });
   };
 
+  const handleSubmit = (e) => {
+    e?.preventDefault();
+    handleSignup(e); // 회원가입 핸들러 호출
+  };
+
   const handleSignup = async (e) => {
     e.preventDefault();
 
@@ -98,40 +103,42 @@ function Signup() {
             <Link to="/home">
               <S.CancelButton>X</S.CancelButton>
             </Link>
-            <S.Signup>SIGNUP</S.Signup>
-            <S.Space>
-              <S.Email
-                placeholder="email"
-                name="email"
-                onChange={handleChange}
-              />
-            </S.Space>
-            <S.Space>
-              <S.Nickname
-                placeholder="nickname"
-                name="nickname"
-                onChange={handleChange}
-              />
-            </S.Space>
-            <S.Space>
-              <S.Password
-                placeholder="password"
-                name="password"
-                type="password"
-                onChange={handleChange}
-              />
-            </S.Space>
-            <S.Space>
-              <S.PassWordConfirm
-                placeholder="confirm password"
-                name="passwordConfirm"
-                type="password"
-                onChange={handleChange}
-              />
-            </S.Space>
-            <S.Space>
-              <S.SignupButton onClick={handleSignup}>ok</S.SignupButton>
-            </S.Space>
+            <form onSubmit={handleSubmit}>
+              <S.Signup>SIGNUP</S.Signup>
+              <S.Space>
+                <S.Email
+                  placeholder="email"
+                  name="email"
+                  onChange={handleChange}
+                />
+              </S.Space>
+              <S.Space>
+                <S.Nickname
+                  placeholder="nickname"
+                  name="nickname"
+                  onChange={handleChange}
+                />
+              </S.Space>
+              <S.Space>
+                <S.Password
+                  placeholder="password"
+                  name="password"
+                  type="password"
+                  onChange={handleChange}
+                />
+              </S.Space>
+              <S.Space>
+                <S.PassWordConfirm
+                  placeholder="confirm password"
+                  name="passwordConfirm"
+                  type="password"
+                  onChange={handleChange}
+                />
+              </S.Space>
+              <S.Space>
+                <S.SignupButton onClick={handleSignup}>ok</S.SignupButton>
+              </S.Space>
+            </form>
             <S.LoginLink to={"/login"}>login</S.LoginLink>
           </S.SignupBorder>
         </S.SignupBoxLocation>
